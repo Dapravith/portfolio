@@ -7,7 +7,7 @@ export function rateLimiter(
   windowMs: number = 60000 // 1 minute
 ) {
   return (request: NextRequest) => {
-    const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown';
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
     const now = Date.now();
     const userLimit = rateLimit.get(ip);
 
