@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // In-memory storage (replace with database in production)
 let totalViews = 0;
-let uniqueVisitors = new Set<string>();
+const uniqueVisitors = new Set<string>();
+
 const dailyViews = new Map<string, number>();
 
 // Helper to get visitor identifier
