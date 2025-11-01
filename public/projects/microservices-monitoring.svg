@@ -1,0 +1,151 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#1a1a2e"/>
+  
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2d2d44" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#grid)" opacity="0.5"/>
+  
+  <!-- Title -->
+  <text x="400" y="60" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#e6522c" text-anchor="middle">
+    Microservices Monitoring
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="400" y="90" font-family="Arial, sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">
+    Prometheus + Grafana + Zipkin
+  </text>
+  
+  <!-- Monitoring Dashboard Illustration -->
+  <!-- Dashboard Container -->
+  <rect x="100" y="120" width="600" height="340" rx="8" fill="#16213e" stroke="#e6522c" stroke-width="2"/>
+  
+  <!-- Dashboard Header -->
+  <rect x="100" y="120" width="600" height="40" rx="8" fill="#e6522c" opacity="0.9"/>
+  <text x="400" y="145" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle" font-weight="bold">
+    📊 System Monitoring Dashboard
+  </text>
+  
+  <!-- Metrics Panels -->
+  <!-- CPU Usage -->
+  <rect x="120" y="180" width="170" height="120" rx="6" fill="#0f3460" stroke="#f46800" stroke-width="2"/>
+  <text x="205" y="205" font-family="Arial, sans-serif" font-size="14" fill="#f46800" text-anchor="middle" font-weight="bold">
+    CPU Usage
+  </text>
+  <!-- Graph lines -->
+  <polyline points="130,230 150,220 170,240 190,215 210,235 230,210 250,225 270,215" 
+            fill="none" stroke="#f46800" stroke-width="2"/>
+  <text x="205" y="280" font-family="Arial, sans-serif" font-size="24" fill="#f46800" text-anchor="middle" font-weight="bold">
+    67%
+  </text>
+  
+  <!-- Memory Usage -->
+  <rect x="310" y="180" width="170" height="120" rx="6" fill="#0f3460" stroke="#3b82f6" stroke-width="2"/>
+  <text x="395" y="205" font-family="Arial, sans-serif" font-size="14" fill="#3b82f6" text-anchor="middle" font-weight="bold">
+    Memory
+  </text>
+  <polyline points="320,240 340,230 360,245 380,220 400,238 420,225 440,242 460,230" 
+            fill="none" stroke="#3b82f6" stroke-width="2"/>
+  <text x="395" y="280" font-family="Arial, sans-serif" font-size="24" fill="#3b82f6" text-anchor="middle" font-weight="bold">
+    82%
+  </text>
+  
+  <!-- Response Time -->
+  <rect x="500" y="180" width="180" height="120" rx="6" fill="#0f3460" stroke="#10b981" stroke-width="2"/>
+  <text x="590" y="205" font-family="Arial, sans-serif" font-size="14" fill="#10b981" text-anchor="middle" font-weight="bold">
+    Response Time
+  </text>
+  <polyline points="510,250 530,245 550,240 570,242 590,238 610,235 630,240 650,237 670,235" 
+            fill="none" stroke="#10b981" stroke-width="2"/>
+  <text x="590" y="280" font-family="Arial, sans-serif" font-size="24" fill="#10b981" text-anchor="middle" font-weight="bold">
+    45ms
+  </text>
+  
+  <!-- Request Count -->
+  <rect x="120" y="320" width="260" height="120" rx="6" fill="#0f3460" stroke="#a855f7" stroke-width="2"/>
+  <text x="250" y="345" font-family="Arial, sans-serif" font-size="14" fill="#a855f7" text-anchor="middle" font-weight="bold">
+    Requests/sec
+  </text>
+  <!-- Bar chart -->
+  <rect x="140" y="390" width="20" height="30" fill="#a855f7" opacity="0.8"/>
+  <rect x="170" y="380" width="20" height="40" fill="#a855f7" opacity="0.8"/>
+  <rect x="200" y="370" width="20" height="50" fill="#a855f7" opacity="0.8"/>
+  <rect x="230" y="365" width="20" height="55" fill="#a855f7" opacity="0.8"/>
+  <rect x="260" y="375" width="20" height="45" fill="#a855f7" opacity="0.8"/>
+  <rect x="290" y="385" width="20" height="35" fill="#a855f7" opacity="0.8"/>
+  <rect x="320" y="380" width="20" height="40" fill="#a855f7" opacity="0.8"/>
+  <text x="250" y="365" font-family="Arial, sans-serif" font-size="20" fill="#a855f7" text-anchor="middle" font-weight="bold">
+    1,247
+  </text>
+  
+  <!-- Distributed Tracing -->
+  <rect x="400" y="320" width="280" height="120" rx="6" fill="#0f3460" stroke="#fbbf24" stroke-width="2"/>
+  <text x="540" y="345" font-family="Arial, sans-serif" font-size="14" fill="#fbbf24" text-anchor="middle" font-weight="bold">
+    Distributed Tracing
+  </text>
+  <!-- Trace visualization -->
+  <line x1="420" y1="370" x2="480" y2="370" stroke="#fbbf24" stroke-width="3"/>
+  <line x1="480" y1="370" x2="540" y2="390" stroke="#fbbf24" stroke-width="3"/>
+  <line x1="480" y1="370" x2="540" y2="350" stroke="#fbbf24" stroke-width="3"/>
+  <line x1="540" y1="390" x2="600" y2="390" stroke="#fbbf24" stroke-width="3"/>
+  <line x1="540" y1="350" x2="600" y2="350" stroke="#fbbf24" stroke-width="3"/>
+  <line x1="600" y1="390" x2="660" y2="370" stroke="#fbbf24" stroke-width="3"/>
+  <line x1="600" y1="350" x2="660" y2="370" stroke="#fbbf24" stroke-width="3"/>
+  <circle cx="420" cy="370" r="4" fill="#fbbf24"/>
+  <circle cx="480" cy="370" r="4" fill="#fbbf24"/>
+  <circle cx="540" cy="390" r="4" fill="#fbbf24"/>
+  <circle cx="540" cy="350" r="4" fill="#fbbf24"/>
+  <circle cx="600" cy="390" r="4" fill="#fbbf24"/>
+  <circle cx="600" cy="350" r="4" fill="#fbbf24"/>
+  <circle cx="660" cy="370" r="4" fill="#fbbf24"/>
+  <text x="540" y="425" font-family="Arial, sans-serif" font-size="12" fill="#fbbf24" text-anchor="middle">
+    Zipkin Trace
+  </text>
+  
+  <!-- Tech Stack -->
+  <text x="400" y="490" font-family="Arial, sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle" font-weight="bold">
+    Monitoring Stack
+  </text>
+  
+  <!-- Tech badges -->
+  <g id="tech-badges">
+    <rect x="80" y="510" width="110" height="30" rx="15" fill="#e6522c" opacity="0.9"/>
+    <text x="135" y="530" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">
+      Prometheus
+    </text>
+    
+    <rect x="210" y="510" width="80" height="30" rx="15" fill="#f46800" opacity="0.9"/>
+    <text x="250" y="530" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">
+      Grafana
+    </text>
+    
+    <rect x="310" y="510" width="70" height="30" rx="15" fill="#ff6b6b" opacity="0.9"/>
+    <text x="345" y="530" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">
+      Zipkin
+    </text>
+    
+    <rect x="400" y="510" width="100" height="30" rx="15" fill="#6db33f" opacity="0.9"/>
+    <text x="450" y="530" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">
+      Spring Boot
+    </text>
+    
+    <rect x="520" y="510" width="80" height="30" rx="15" fill="#2496ed" opacity="0.9"/>
+    <text x="560" y="530" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">
+      Docker
+    </text>
+    
+    <rect x="620" y="510" width="70" height="30" rx="15" fill="#4479a1" opacity="0.9"/>
+    <text x="655" y="530" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">
+      MySQL
+    </text>
+  </g>
+  
+  <!-- Footer text -->
+  <text x="400" y="570" font-family="Arial, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">
+    Real-time monitoring, metrics collection & distributed tracing
+  </text>
+</svg>

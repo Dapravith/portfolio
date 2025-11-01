@@ -30,8 +30,17 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <a href="#home" className="text-2xl font-bold">
-              Rotha Dapravith
+            <a 
+              href="#home" 
+              className="relative group"
+            >
+              <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-110 hover:rotate-3 shadow-lg hover:shadow-xl">
+                <span className="text-white font-bold text-xl">RD</span>
+              </div>
+              {/* Tooltip */}
+              <span className="absolute left-0 top-full mt-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                Rotha Dapravith
+              </span>
             </a>
           </div>
 

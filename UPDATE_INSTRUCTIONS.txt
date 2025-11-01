@@ -1,0 +1,189 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║              📝 PORTFOLIO CONTENT UPDATE INSTRUCTIONS 📝                  ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+🎯 WHAT TO UPDATE:
+
+1. Work Experience (from your resume)
+2. Projects (top 5 from old portfolio)
+
+═══════════════════════════════════════════════════════════════════════════
+
+📚 STEP-BY-STEP GUIDE:
+
+Step 1: Read the Complete Guide
+   Open: HOW_TO_UPDATE_CONTENT.md
+   (Contains detailed instructions with examples)
+
+Step 2: Update Work Experience
+   File: components/about-new.tsx
+   Source: Copy from public/resume.pdf
+
+Step 3: Update Projects
+   File: components/projects-new.tsx
+   Source: https://dapravith-digital-portfolio.vercel.app/
+
+Step 4: Apply Changes
+   Run: ./update-content.sh
+   (Interactive menu with backup)
+
+Step 5: Test
+   Run: npm run dev
+   Check: http://localhost:3000
+
+═══════════════════════════════════════════════════════════════════════════
+
+🔧 QUICK COMMANDS:
+
+# Start the helper script
+./update-content.sh
+
+# Or manual update:
+code components/about-new.tsx        # Edit work experience
+code components/projects-new.tsx     # Edit projects
+cp components/about-new.tsx components/about.tsx
+cp components/projects-new.tsx components/projects.tsx
+npm run dev                          # Test
+
+═══════════════════════════════════════════════════════════════════════════
+
+📁 FILES CREATED FOR YOU:
+
+✓ components/about-new.tsx           - New work experience component
+✓ components/projects-new.tsx        - New projects component
+✓ update-content.sh                  - Helper script
+✓ HOW_TO_UPDATE_CONTENT.md          - Complete guide
+✓ CONTENT_UPDATE_TEMPLATE.md        - Fill-in template
+✓ public/projects/                   - Folder for screenshots
+
+═══════════════════════════════════════════════════════════════════════════
+
+⚡ TEMPLATES TO FILL:
+
+Work Experience Template:
+{
+  title: "Job Title",
+  company: "Company Name", 
+  period: "Start - End",
+  location: "City, Country",
+  description: "What you did...",
+  technologies: ["Tech1", "Tech2"],
+}
+
+Project Template:
+{
+  title: "Project Name",
+  description: "What it does...",
+  image: "/projects/name.jpg",
+  technologies: ["Tech1", "Tech2"],
+  githubUrl: "https://github.com/rothadapravith/repo",
+  demoUrl: "https://demo.com",
+  featured: true,
+}
+
+═══════════════════════════════════════════════════════════════════════════
+
+✅ FEATURES INCLUDED:
+
+Work Experience Section:
+✓ Professional resume-style cards
+✓ Company, dates, location
+✓ Technologies per job
+✓ Professional summary
+✓ Education section
+✓ Quick facts sidebar
+
+Projects Section:
+✓ Top 5 projects display
+✓ Featured project (2x larger)
+✓ GitHub & Demo links
+✓ Technology badges with icons
+✓ Project screenshots
+✓ Auto-placeholder images
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎨 PROJECT IMAGES:
+
+Add screenshots to: public/projects/
+
+Recommended:
+- Size: 1200x800px (16:9)
+- Format: JPG or PNG
+- Names: project1.jpg, project2.jpg, etc.
+
+No images? No problem!
+- Auto-placeholders will be generated
+- Add real screenshots later
+
+═══════════════════════════════════════════════════════════════════════════
+
+🔗 WHERE TO GET CONTENT:
+
+Work Experience:
+→ Open: public/resume.pdf
+→ Copy all job details exactly
+
+Projects:
+→ Visit: https://dapravith-digital-portfolio.vercel.app/
+→ Select your TOP 5 best projects
+→ Get GitHub URLs and demo links
+
+═══════════════════════════════════════════════════════════════════════════
+
+📋 CHECKLIST:
+
+Before You Start:
+[ ] Have resume.pdf ready
+[ ] Know your top 5 projects
+[ ] Have GitHub URLs handy
+[ ] Have demo URLs ready
+[ ] Project screenshots (optional)
+
+Updating Content:
+[ ] Read HOW_TO_UPDATE_CONTENT.md
+[ ] Update work experience
+[ ] Update projects
+[ ] Add project images
+[ ] Run ./update-content.sh
+[ ] Test with npm run dev
+
+Final Checks:
+[ ] All job details correct
+[ ] All project links work
+[ ] GitHub URLs are correct
+[ ] Demo URLs are correct
+[ ] Images load properly
+[ ] Mobile view looks good
+
+═══════════════════════════════════════════════════════════════════════════
+
+🆘 NEED HELP?
+
+Read These First:
+1. HOW_TO_UPDATE_CONTENT.md - Complete guide
+2. CONTENT_UPDATE_TEMPLATE.md - Templates to fill
+
+Run This:
+./update-content.sh - Interactive helper
+
+Common Issues:
+- Images not showing? Check public/projects/ folder
+- Links not working? Verify URLs are correct
+- Need to undo? Restore from .backup.tsx files
+
+═══════════════════════════════════════════════════════════════════════════
+
+🚀 START HERE:
+
+1. Open: HOW_TO_UPDATE_CONTENT.md
+2. Follow the step-by-step guide
+3. Use ./update-content.sh when ready
+4. Test with: npm run dev
+
+═══════════════════════════════════════════════════════════════════════════
+
+Good luck updating your portfolio! 🎉
+

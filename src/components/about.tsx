@@ -12,7 +12,7 @@ import {
   SiSpring,
   SiTypescript
 } from "react-icons/si";
-import { Briefcase, Calendar, CheckCircle2, Trophy } from "lucide-react";
+import { Briefcase, Calendar, CheckCircle2 } from "lucide-react";
 
 export default function About() {
   const experience = [
@@ -21,19 +21,13 @@ export default function About() {
       company: "General Secretariat of the Digital Government Committee (DGC)",
       period: "Oct 2024 - Aug 2025",
       location: "Phnom Penh, Cambodia",
-      description: "Leading development of enterprise applications using Java Spring Boot, React, and implementing DevOps best practices with Docker, Kubernetes, and CI/CD pipelines.",
+      description: "Developing enterprise applications using Java Spring Boot, React, and implementing DevOps practices with Docker, Kubernetes, and CI/CD pipelines.",
       responsibilities: [
-        "Architected and developed scalable microservices using Java Spring Boot and RESTful APIs",
-        "Implemented containerization with Docker and orchestration with Kubernetes",
-        "Designed and maintained CI/CD pipelines using Jenkins and GitLab CI/CD",
-        "Built responsive front-end applications using React.js and TypeScript",
-        "Collaborated with cross-functional teams to deliver high-quality solutions",
-      ],
-      achievements: [
-        "Reduced deployment time by 60% through automated CI/CD pipelines",
-        "Improved application performance by 40% through optimization techniques",
-        "Successfully deployed microservices architecture serving 10,000+ users",
-        "Implemented security best practices including OAuth2 and JWT authentication",
+        "Develop and maintain microservices using Java Spring Boot",
+        "Implement containerization with Docker and Kubernetes",
+        "Build and maintain CI/CD pipelines",
+        "Create responsive front-end applications using React.js",
+        "Collaborate with team members on project development",
       ],
       technologies: ["Java Spring Boot", "React", "Docker", "Kubernetes", "Jenkins", "PostgreSQL", "Redis"],
     },
@@ -42,19 +36,13 @@ export default function About() {
       company: "Secretariat of Legal Council of the Ministry of Economy and Finance (MEF)",
       period: "Feb 2024 - July 2024",
       location: "Phnom Penh, Cambodia",
-      description: "Developed RESTful APIs and microservices architecture using Spring Boot, implemented authentication with Keycloak, and managed database operations.",
+      description: "Developed RESTful APIs and web applications using Spring Boot, implemented authentication systems, and managed database operations.",
       responsibilities: [
-        "Developed and maintained RESTful APIs using Spring Boot framework",
-        "Implemented authentication and authorization using Keycloak",
-        "Designed and optimized PostgreSQL database schemas",
-        "Integrated third-party services and external APIs",
-        "Participated in code reviews and technical documentation",
-      ],
-      achievements: [
-        "Built a secure authentication system handling 5,000+ daily users",
-        "Reduced API response time by 35% through query optimization",
-        "Implemented role-based access control (RBAC) system",
-        "Achieved 95% code coverage through comprehensive testing",
+        "Develop and maintain RESTful APIs using Spring Boot",
+        "Implement authentication and authorization systems",
+        "Design and optimize database schemas",
+        "Integrate third-party services and APIs",
+        "Write unit tests and maintain code quality",
       ],
       technologies: ["Spring Boot", "Keycloak", "PostgreSQL", "MongoDB", "Git", "Docker"],
     },
@@ -63,19 +51,13 @@ export default function About() {
       company: "Institute of Technology of Cambodia (ITC)",
       period: "July 2023 - Oct 2023",
       location: "Phnom Penh, Cambodia",
-      description: "Built full-stack applications with React and Node.js, collaborated with cross-functional teams, and contributed to DevOps infrastructure setup.",
+      description: "Developed full-stack web applications using React and Node.js with focus on creating responsive user interfaces and RESTful APIs.",
       responsibilities: [
-        "Developed full-stack web applications using React and Node.js",
-        "Created RESTful APIs with Express.js and implemented MVC architecture",
-        "Designed responsive UI components using modern CSS frameworks",
-        "Managed database operations with MongoDB and PostgreSQL",
-        "Implemented version control workflows using Git and GitHub",
-      ],
-      achievements: [
-        "Successfully delivered 3 full-stack projects on time and within budget",
-        "Improved user experience leading to 50% increase in user engagement",
-        "Implemented responsive design supporting mobile, tablet, and desktop",
-        "Contributed to open-source projects and team knowledge sharing",
+        "Develop full-stack web applications using React and Node.js",
+        "Create RESTful APIs with Express.js",
+        "Design responsive UI components",
+        "Manage database operations",
+        "Participate in code reviews and team meetings",
       ],
       technologies: ["React", "Node.js", "Express", "MongoDB", "PostgreSQL", "Material-UI"],
     },
@@ -84,19 +66,12 @@ export default function About() {
       company: "Vectorasoft Company",
       period: "July 2022 - Oct 2022",
       location: "Phnom Penh, Cambodia",
-      description: "Developed web applications, optimized front-end performance, and gained hands-on experience with modern web technologies.",
+      description: "Learned and applied web development skills, working on various projects using HTML, CSS, JavaScript, and React.",
       responsibilities: [
-        "Developed responsive web pages using HTML5, CSS3, and JavaScript",
-        "Implemented interactive UI features using React.js",
-        "Collaborated with designers to implement pixel-perfect designs",
-        "Performed cross-browser testing and bug fixes",
-        "Participated in daily stand-ups and sprint planning meetings",
-      ],
-      achievements: [
-        "Completed 5+ web development projects during internship",
-        "Improved page load time by 30% through optimization",
-        "Received recognition for code quality and attention to detail",
-        "Successfully transitioned to junior developer role",
+        "Develop responsive web pages using HTML5, CSS3, and JavaScript",
+        "Create interactive UI components using React.js",
+        "Collaborate with designers and developers",
+        "Learn and apply web development best practices",
       ],
       technologies: ["HTML5", "CSS3", "JavaScript", "React", "Bootstrap", "Git"],
     },
@@ -104,7 +79,7 @@ export default function About() {
 
   const education = [
     {
-      degree: "Bachelor of Computer Science Engineering Degree",
+      degree: "Bachelor of Computer Science Engineering",
       institution: "Institute of Technology of Cambodia",
       period: "2019 - 2024",
     },
@@ -226,29 +201,13 @@ export default function About() {
                       <div className="mb-5">
                         <h5 className="font-semibold mb-3 flex items-center gap-2">
                           <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                          Key Responsibilities
+                          Responsibilities
                         </h5>
                         <ul className="space-y-2">
                           {exp.responsibilities.map((resp, idx) => (
                             <li key={idx} className="text-sm text-muted-foreground flex items-start gap-3 pl-7">
                               <span className="text-primary text-lg leading-none flex-shrink-0">•</span>
                               <span className="leading-relaxed">{resp}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      {/* Achievements */}
-                      <div className="mb-5">
-                        <h5 className="font-semibold mb-3 flex items-center gap-2">
-                          <Trophy className="h-5 w-5 text-yellow-500 flex-shrink-0" />
-                          Key Achievements
-                        </h5>
-                        <ul className="space-y-2">
-                          {exp.achievements.map((achievement, idx) => (
-                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-3 pl-7">
-                              <span className="text-yellow-500 text-base leading-none flex-shrink-0">★</span>
-                              <span className="leading-relaxed">{achievement}</span>
                             </li>
                           ))}
                         </ul>

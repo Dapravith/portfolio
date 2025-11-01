@@ -21,11 +21,14 @@ import {
   SiTailwindcss,
   SiMysql,
   SiAmazonwebservices,
-  SiGit
+  SiGit,
+  SiPrometheus,
+  SiGrafana
 } from "react-icons/si";
+import { Shield, Activity } from "lucide-react";
 
 // Icon mapping for technologies
-const techIcons: { [key: string]: JSX.Element } = {
+const techIcons: { [key: string]: React.ReactElement } = {
   "React": <SiReact className="h-4 w-4 text-[#61DAFB]" />,
   "Spring Boot": <SiSpring className="h-4 w-4 text-[#6DB33F]" />,
   "Docker": <SiDocker className="h-4 w-4 text-[#2496ED]" />,
@@ -42,6 +45,11 @@ const techIcons: { [key: string]: JSX.Element } = {
   "MySQL": <SiMysql className="h-4 w-4 text-[#4479A1]" />,
   "AWS": <SiAmazonwebservices className="h-4 w-4 text-[#FF9900]" />,
   "Git": <SiGit className="h-4 w-4 text-[#F05032]" />,
+  "Prometheus": <SiPrometheus className="h-4 w-4 text-[#E6522C]" />,
+  "Grafana": <SiGrafana className="h-4 w-4 text-[#F46800]" />,
+  "Zipkin": <Activity className="h-4 w-4 text-[#FF6B6B]" />,
+  "Keycloak": <Shield className="h-4 w-4 text-[#4D4D4D]" />,
+  "OAuth2": <Shield className="h-4 w-4 text-[#3C873A]" />,
 };
 
 export default function Projects() {
@@ -51,31 +59,31 @@ export default function Projects() {
   
   const projects = [
     {
-      title: "PROJECT 1 - Your Featured Project",
-      description: "Replace with your actual project description. This should explain what the project does and its key features.",
-      image: "/projects/project1.jpg", // Add your screenshot to public/projects/
-      technologies: ["Spring Boot", "React", "Docker", "PostgreSQL"], // Update with actual tech
-      githubUrl: "https://github.com/rothadapravith/YOUR-REPO-NAME", // ⚠️ UPDATE THIS
-      demoUrl: "https://your-demo-url.vercel.app", // ⚠️ UPDATE THIS
+      title: "Microservices Enterprise System",
+      description: "A comprehensive enterprise-grade microservices architecture featuring service discovery, API gateway, distributed tracing, and centralized configuration. Built with Spring Boot and modern DevOps practices.",
+      image: "/projects/microservices-enterprise.svg",
+      technologies: ["Spring Boot", "Docker", "Kubernetes", "PostgreSQL", "Redis", "MongoDB"],
+      githubUrl: "https://github.com/Dapravith/microservices-enterprise-system",
+      demoUrl: "",
       featured: true,
     },
     {
-      title: "PROJECT 2 - Second Best Project",
-      description: "Replace with your actual project description.",
-      image: "/projects/project2.jpg",
-      technologies: ["Node.js", "MongoDB", "React", "AWS"],
-      githubUrl: "https://github.com/rothadapravith/YOUR-REPO-NAME", // ⚠️ UPDATE THIS
-      demoUrl: "https://your-demo-url.com", // ⚠️ UPDATE THIS
-      featured: false,
+      title: "Spring Boot Microservices Monitoring",
+      description: "Production-ready microservices monitoring solution with Prometheus, Grafana, and distributed tracing using Zipkin. Features health checks, metrics collection, and real-time performance dashboards.",
+      image: "/projects/microservices-monitoring.svg",
+      technologies: ["Spring Boot", "Prometheus", "Grafana", "Docker", "Zipkin", "MySQL"],
+      githubUrl: "https://github.com/Dapravith/Springboot-microservices-monitoring",
+      demoUrl: "",
+      featured: true,
     },
     {
-      title: "PROJECT 3 - Third Project",
-      description: "Replace with your actual project description.",
-      image: "/projects/project3.jpg",
-      technologies: ["Python", "Docker", "Kubernetes", "PostgreSQL"],
-      githubUrl: "https://github.com/rothadapravith/YOUR-REPO-NAME", // ⚠️ UPDATE THIS
-      demoUrl: "https://your-demo-url.com", // ⚠️ UPDATE THIS
-      featured: false,
+      title: "Spring Boot SSO with Keycloak",
+      description: "Secure Single Sign-On (SSO) implementation using Keycloak for enterprise authentication. Features OAuth2, OpenID Connect, role-based access control, and centralized user management.",
+      image: "/projects/sso-keycloak.svg",
+      technologies: ["Spring Boot", "Keycloak", "OAuth2", "Docker", "PostgreSQL", "React"],
+      githubUrl: "https://github.com/Dapravith/springboot-sso-keycloak",
+      demoUrl: "",
+      featured: true,
     },
     {
       title: "PROJECT 4 - Fourth Project",
@@ -169,20 +177,22 @@ export default function Projects() {
                     Code
                   </a>
                 </Button>
-                <Button 
-                  variant="outline" 
-                  className="flex-1 gap-2" 
-                  asChild
-                >
-                  <a 
-                    href={project.demoUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
+                {project.demoUrl && (
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 gap-2" 
+                    asChild
                   >
-                    <ExternalLink className="h-4 w-4" />
-                    Demo
-                  </a>
-                </Button>
+                    <a 
+                      href={project.demoUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      Demo
+                    </a>
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}
