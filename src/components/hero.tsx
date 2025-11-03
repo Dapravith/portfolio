@@ -3,20 +3,20 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
-import TechParticles from "./tech-particles";
-import { 
-  SiReact, 
-  SiSpring, 
-  SiDocker, 
-  SiKubernetes, 
-  SiAmazonwebservices, 
-  SiJenkins 
+import {
+  SiAmazonwebservices,
+  SiDocker,
+  SiJenkins,
+  SiKubernetes,
+  SiReact,
+  SiSpring
 } from "react-icons/si";
+import TechParticles from "./tech-particles";
 
 export default function Hero() {
   const handleDownloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/resume.pdf';
+    link.href = '/public/resume_rotha_dapravith (46).pdf';
     link.download = 'Rotha_Dapravith_Resume.pdf';
     document.body.appendChild(link);
     link.click();
