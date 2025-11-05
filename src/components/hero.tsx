@@ -16,8 +16,8 @@ import TechParticles from "./tech-particles";
 export default function Hero() {
   const handleDownloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/public/resume_rotha_dapravith (46).pdf';
-    link.download = 'Rotha_Dapravith_Resume.pdf';
+    link.href = '/Dapravith_Rotha_flow_cv.pdf';
+    link.download = 'Dapravith_Rotha_flow_cv.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

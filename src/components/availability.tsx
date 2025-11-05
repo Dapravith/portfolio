@@ -1,17 +1,16 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, MapPin, Calendar, Mail } from "lucide-react";
-import { 
-  SiSpring, 
-  SiDocker, 
-  SiKubernetes, 
-  SiAmazonwebservices, 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Briefcase, Calendar, Mail, MapPin } from "lucide-react";
+import {
+  SiAmazonwebservices,
+  SiDocker,
+  SiGitlab,
+  SiKubernetes,
   SiReact,
-  SiTerraform,
-  SiGitlab
+  SiSpring
 } from "react-icons/si";
 
 export default function Availability() {
@@ -73,8 +72,8 @@ export default function Availability() {
                   className="gap-2"
                   onClick={() => {
                     const link = document.createElement('a');
-                    link.href = '/resume.pdf';
-                    link.download = 'Rotha_Dapravith_Resume.pdf';
+                    link.href = '/Dapravith_Rotha_flow_cv.pdf';
+                    link.download = 'Dapravith_Rotha_flow_cv.pdf';
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
