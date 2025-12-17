@@ -64,8 +64,8 @@ export const translations: Record<Language, Translations> = {
     hero: {
       greeting: 'Hello, I am',
       name: 'Rotha Dapravith',
-      title: 'Full-Stack Developer & DevOps Engineer',
-      description: 'Passionate about building scalable applications and implementing modern DevOps practices. Specialized in Java Spring Boot, React, NextJS, Docker, Kubernetes, and cloud technologies.',
+      title: 'Senior Full-Stack Developer & DevOps Engineer',
+      description: 'Senior engineer building scalable enterprise platforms and leading modern DevOps practices. Specialized in Java Spring Boot, React, NextJS, Docker, Kubernetes, and cloud technologies.',
       viewWork: 'View My Work',
       downloadResume: 'Download Resume',
       getInTouch: 'Get In Touch',
@@ -115,8 +115,8 @@ export const translations: Record<Language, Translations> = {
     hero: {
       greeting: 'សួស្តី ខ្ញុំឈ្មោះ',
       name: 'រដ្ឋា ដាប្រាវីត',
-      title: 'អ្នកអភិវឌ្ឍន៍ Full-Stack និង វិស្វករ DevOps',
-      description: 'ចូលចិត្តបង្កើតកម្មវិធីដែលអាចពង្រីកបាន និងអនុវត្តវិធីសាស្ត្រ DevOps ទំនើប។ ជំនាញពិសេសលើ Java Spring Boot, React, NextJS, Docker, Kubernetes និងបច្ចេកវិទ្យាពពក។',
+      title: 'វិស្វករ Full-Stack និង DevOps ជាន់ខ្ពស់',
+      description: 'វិស្វករជាន់ខ្ពស់ដែលបង្កើតវេទិកា​សហគ្រាសអាចពង្រីកបាន និងដឹកនាំការអនុវត្ត DevOps ទំនើប។ ជំនាញពិសេសលើ Java Spring Boot, React, NextJS, Docker, Kubernetes និងបច្ចេកវិទ្យាពពក។',
       viewWork: 'មើលការងាររបស់ខ្ញុំ',
       downloadResume: 'ទាញយកប្រវត្តិរូប',
       getInTouch: 'ទាក់ទងខ្ញុំ',
