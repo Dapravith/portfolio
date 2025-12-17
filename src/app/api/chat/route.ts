@@ -32,18 +32,21 @@ const fallbackSegments = {
     "Contact: dapravithrotha@gmail.com | LinkedIn: https://linkedin.com/in/rotha-dapravith | GitHub: https://github.com/Dapravith. Available for senior full-stack and DevOps engagements.",
 };
 
+function matches(question: string, keywords: string[]) {
+  return keywords.some((keyword) => new RegExp(`\\b${keyword}\\b`, "i").test(question));
+}
+
 function buildLocalAnswer(question: string) {
-  const normalized = question.toLowerCase();
-  if (["skill", "stack", "tech", "technology"].some((k) => normalized.includes(k))) {
+  if (matches(question, ["skill", "skills", "stack", "tech", "technology", "tools"])) {
     return `${fallbackSegments.skills} ${fallbackSegments.contact}`;
   }
-  if (["experience", "background", "career", "work", "role"].some((k) => normalized.includes(k))) {
+  if (matches(question, ["experience", "background", "career", "work", "role"])) {
     return `${fallbackSegments.experience} ${fallbackSegments.contact}`;
   }
-  if (["project", "portfolio", "github", "code"].some((k) => normalized.includes(k))) {
+  if (matches(question, ["project", "projects", "portfolio", "github", "code"])) {
     return `${fallbackSegments.projects} ${fallbackSegments.contact}`;
   }
-  if (["contact", "email", "reach", "connect", "hire", "linked", "touch"].some((k) => normalized.includes(k))) {
+  if (matches(question, ["contact", "email", "reach", "connect", "hire", "linked", "touch"])) {
     return fallbackSegments.contact;
   }
 
