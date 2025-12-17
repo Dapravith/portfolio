@@ -23,6 +23,7 @@ export interface Translations {
     subtitle: string;
     codeButton: string;
     demoButton: string;
+    featured: string;
   };
   experience: {
     title: string;
@@ -76,6 +77,7 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'Here are some of my recent projects that showcase my skills and experience',
       codeButton: 'Code',
       demoButton: 'Demo',
+      featured: 'Featured',
     },
     experience: {
       title: 'Work Experience',
@@ -127,6 +129,7 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'នេះគឺជាគម្រោងថ្មីៗរបស់ខ្ញុំដែលបង្ហាញពីជំនាញ និងបទពិសោធន៍របស់ខ្ញុំ',
       codeButton: 'កូដ',
       demoButton: 'ទស្សនា',
+      featured: 'ពិសេស',
     },
     experience: {
       title: 'បទពិសោធន៍ការងារ',

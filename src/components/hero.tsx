@@ -123,7 +123,7 @@ export default function Hero() {
                 <Linkedin className="h-6 w-6" />
               </a>
               <a
-                href="mailto:dapravithrotha@gmail.com"
+                href="mailto:rothadapravith@gmail.com"
                 className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 transition-all hover:scale-110 duration-300 shadow-lg hover:shadow-xl"
                 aria-label="Email"
               >

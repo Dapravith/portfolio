@@ -80,7 +80,7 @@ export default function Projects() {
                 {project.featured && (
                   <div className="absolute top-3 right-3 z-20">
                     <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 shadow-lg">
-                      Featured
+                      {t.projects.featured}
                     </Badge>
                   </div>
                 )}
