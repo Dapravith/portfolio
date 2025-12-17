@@ -163,3 +163,11 @@
 .animate-pulse-slow {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+.bg-orb-gradient {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.12), transparent 25%),
+    radial-gradient(circle at 80% 10%, rgba(168, 85, 247, 0.12), transparent 20%),
+    radial-gradient(circle at 40% 80%, rgba(14, 165, 233, 0.12), transparent 20%);
+  background-repeat: no-repeat;
+}

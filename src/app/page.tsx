@@ -10,7 +10,8 @@ import Skills from "@/components/skills";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen bg-gradient-to-b from-background via-background to-primary/5 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 bg-orb-gradient" />
       <Navbar />
       <Hero />
       <Availability />

@@ -50,8 +50,9 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="relative py-20 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-blue-500/5 pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             {t.projects.title}
@@ -63,13 +64,16 @@ export default function Projects() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Card key={index} className="flex flex-col overflow-hidden hover:shadow-lg transition-shadow">
+            <Card
+              key={index}
+              className="group flex flex-col overflow-hidden hover:shadow-xl transition-transform duration-300 border-primary/10 bg-card/80 backdrop-blur"
+            >
               <div className="relative h-48 w-full overflow-hidden bg-muted">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                   unoptimized
                 />
               </div>
