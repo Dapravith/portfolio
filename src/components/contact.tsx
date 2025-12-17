@@ -54,15 +54,15 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-20 bg-gradient-to-b from-background via-accent/30 to-background">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
             {t.contact.title}
           </h2>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-8 bg-card/80 backdrop-blur-sm rounded-2xl border border-primary/20 shadow-2xl">
           <div className="space-y-2">
             <Label htmlFor="name">{t.contact.nameLabel}</Label>
             <Input

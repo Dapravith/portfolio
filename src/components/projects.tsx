@@ -51,7 +51,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-blue-500/5 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-500/10 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
@@ -66,32 +66,40 @@ export default function Projects() {
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="group flex flex-col overflow-hidden hover:shadow-xl transition-transform duration-300 border-primary/10 bg-card/80 backdrop-blur"
+              className="group flex flex-col overflow-hidden hover:shadow-2xl transition-all duration-500 border-primary/20 bg-card/90 backdrop-blur-sm hover:scale-105 hover:border-primary/40"
             >
-              <div className="relative h-48 w-full overflow-hidden bg-muted">
+              <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-primary/10 to-purple-500/10">
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-all duration-700 group-hover:scale-125 group-hover:rotate-2"
                   unoptimized
                 />
+                {project.featured && (
+                  <div className="absolute top-3 right-3 z-20">
+                    <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 shadow-lg">
+                      Featured
+                    </Badge>
+                  </div>
+                )}
               </div>
               <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
+                <CardTitle className="group-hover:text-primary transition-colors">{project.title}</CardTitle>
+                <CardDescription className="line-clamp-3">{project.description}</CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, techIndex) => (
-                    <Badge key={techIndex} variant="secondary">
+                    <Badge key={techIndex} variant="secondary" className="hover:bg-primary/20 transition-colors">
                       {tech}
                     </Badge>
                   ))}
                 </div>
               </CardContent>
               <CardFooter className="flex gap-2">
-                <Button variant="outline" size="sm" className="gap-2" asChild>
+                <Button variant="outline" size="sm" className="gap-2 flex-1 hover:bg-primary hover:text-primary-foreground transition-all" asChild>
                   <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                     <Github className="h-4 w-4" />
                     {t.projects.codeButton}
