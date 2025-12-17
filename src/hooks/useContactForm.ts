@@ -13,7 +13,6 @@ export function useContactForm() {
     defaultValues: {
       name: '',
       email: '',
-      subject: '',
       message: '',
     },
   });
