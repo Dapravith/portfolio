@@ -12,43 +12,10 @@ type ChatMessage = {
   content: string;
 };
 
-const knowledgeBase = [
-  {
-    keywords: ["experience", "background", "career", "work", "role"],
-    answer:
-      "Rotha is a senior full-stack developer and DevOps engineer. He leads Java Spring Boot and React delivery at the Digital Government Committee (DGC), hardens CI/CD on Kubernetes, and mentors teams on secure, observable releases.",
-  },
-  {
-    keywords: ["project", "projects", "portfolio", "github", "code"],
-    answer:
-      "Recent highlights include a microservices enterprise system, Spring Boot monitoring with Prometheus and Grafana, a Keycloak SSO implementation, and an end-to-end Kubernetes DevSecOps Tetris pipeline. See more in Projects or on GitHub @Dapravith.",
-  },
-  {
-    keywords: ["skill", "skills", "stack", "tech", "technology", "tools"],
-    answer:
-      "Key skills: Java & Spring Boot, React and Next.js, TypeScript, Docker, Kubernetes, CI/CD with Jenkins, PostgreSQL/Redis, and AWS. He excels at microservices architecture, API design, SSO/security, observability, and performance tuning.",
-  },
-  {
-    keywords: ["contact", "email", "reach", "connect", "hire", "linked", "touch"],
-    answer:
-      "You can reach Rotha via the contact form on this page, email at dapravithrotha@gmail.com, or connect on LinkedIn at https://linkedin.com/in/rotha-dapravith.",
-  },
-  {
-    keywords: ["resume", "cv", "download"],
-    answer:
-      "You can download Rotha's resume directly from the hero section or open /Dapravith_Rotha_flow_cv.pdf for the latest copy.",
-  },
-  {
-    keywords: ["location", "based", "where"],
-    answer:
-      "Rotha is based in Phnom Penh, Cambodia and enjoys collaborating remotely or on-site depending on the project.",
-  },
-];
-
 const quickPrompts = [
-  "Summarize Rotha's senior experience.",
-  "What DevOps stack does Rotha use?",
-  "List Rotha's recent projects.",
+  "Explain Kubernetes in simple terms.",
+  "Create a study plan to grow into a senior full-stack engineer.",
+  "Summarize this portfolio in two bullet points.",
 ];
 
 export default function ChatAssistant() {
@@ -59,7 +26,7 @@ export default function ChatAssistant() {
     {
       role: "assistant",
       content:
-        "Hi there! I'm Rotha's AI assistant, backed by portfolio knowledge and ChatGPT when available. Ask anything about his experience, projects, skills, or availability.",
+        "Hi there! I'm an AI assistant powered by ChatGPT. Ask me anything—from global tech questions and translations to details about this portfolio.",
     },
   ]);
   const endRef = useRef<HTMLDivElement | null>(null);
@@ -69,16 +36,11 @@ export default function ChatAssistant() {
   }, [messages, isThinking]);
 
   const getAnswer = (message: string) => {
-    const normalized = message.toLowerCase();
-    const match = knowledgeBase.find((entry) =>
-      entry.keywords.some((keyword) => normalized.includes(keyword))
-    );
-
-    if (match) {
-      return match.answer;
+    if (!message.trim()) {
+      return "I'm a global AI assistant powered by ChatGPT. Ask me about technology, career moves, writing, translations, or this portfolio.";
     }
 
-    return "Rotha is a senior full-stack developer and DevOps engineer (Java Spring Boot, React/Next.js, Docker, Kubernetes, Jenkins, PostgreSQL, Redis, AWS). He leads microservices delivery, CI/CD automation, SSO/security, observability, and performance tuning. Projects include microservices enterprise platforms, Prometheus/Grafana monitoring, Keycloak SSO, and a Kubernetes DevSecOps pipeline. Contact: dapravithrotha@gmail.com or LinkedIn https://linkedin.com/in/rotha-dapravith.";
+    return "I'm a global AI assistant powered by ChatGPT. Share any topic—code, DevOps, architecture, career advice, or portfolio questions—and I'll craft a concise answer.";
   };
 
   const sendMessage = async () => {
@@ -96,14 +58,18 @@ export default function ChatAssistant() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: nextMessages }),
-      });
+      body: JSON.stringify({ messages: nextMessages }),
+    });
 
-      const data = await response.json();
-      const reply = data?.answer ?? getAnswer(value);
+    if (!response.ok) {
+      throw new Error(`Chat API responded with ${response.status}`);
+    }
 
-      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
-    } catch (error) {
+    const data = await response.json();
+    const reply = data?.answer ?? getAnswer(value);
+
+    setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+  } catch (error) {
       console.error("Chat assistant error", error);
       const reply = getAnswer(value);
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
@@ -130,7 +96,7 @@ export default function ChatAssistant() {
                 AI Assistant
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                Ask anything about Rotha&apos;s experience, projects, or availability.
+                Ask anything—tech, career, translations, or portfolio details.
               </p>
             </div>
             <Button
@@ -224,7 +190,7 @@ export default function ChatAssistant() {
         aria-label="Open AI assistant"
       >
         <MessageCircle className="h-5 w-5" />
-        {isOpen ? "Hide Assistant" : "Ask Rotha AI"}
+        {isOpen ? "Hide Assistant" : "Ask AI"}
       </Button>
     </div>
   );
