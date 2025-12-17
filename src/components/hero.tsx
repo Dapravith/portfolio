@@ -12,8 +12,11 @@ import {
   SiSpring
 } from "react-icons/si";
 import TechParticles from "./tech-particles";
+import { useLanguage } from "@/store/languageStore";
 
 export default function Hero() {
+  const { t } = useLanguage();
+  
   const handleDownloadResume = () => {
     const link = document.createElement('a');
     link.href = '/Dapravith_Rotha_flow_cv.pdf';
@@ -56,29 +59,25 @@ export default function Hero() {
           {/* Content */}
           <div className="flex-1 text-center lg:text-left space-y-6">
             <div className="space-y-3">
-              <p className="text-lg sm:text-xl text-muted-foreground">Hello, I am</p>
+              <p className="text-lg sm:text-xl text-muted-foreground">{t.hero.greeting}</p>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight">
                 <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-                  Rotha Dapravith
+                  {t.hero.name}
                 </span>
               </h1>
               <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-semibold">
-                Full-Stack Developer & DevOps Engineer
+                {t.hero.title}
               </p>
             </div>
 
             <p className="max-w-2xl text-lg text-muted-foreground mx-auto lg:mx-0">
-              Passionate about building scalable applications and implementing modern DevOps practices.
-              Specialized in <span className="text-primary font-semibold">Java Spring Boot</span>, 
-              <span className="text-primary font-semibold"> React, NextJS</span>, 
-              <span className="text-primary font-semibold"> Docker</span>, 
-              <span className="text-primary font-semibold"> Kubernetes</span>, and cloud technologies.
+              {t.hero.description}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center flex-wrap">
               <Button size="lg" className="gap-2 group" asChild>
                 <a href="#projects">
-                  View My Work
+                  {t.hero.viewWork}
                   <ArrowDown className="h-4 w-4 group-hover:translate-y-1 transition-transform" />
                 </a>
               </Button>
@@ -89,12 +88,12 @@ export default function Hero() {
                 onClick={handleDownloadResume}
               >
                 <Download className="h-4 w-4 group-hover:translate-y-1 transition-transform" />
-                Download Resume
+                {t.hero.downloadResume}
               </Button>
               <Button size="lg" variant="outline" className="gap-2" asChild>
                 <a href="#contact">
                   <Mail className="h-4 w-4" />
-                  Get In Touch
+                  {t.hero.getInTouch}
                 </a>
               </Button>
             </div>
@@ -129,7 +128,7 @@ export default function Hero() {
 
             {/* Tech Stack Icons */}
             <div className="pt-8">
-              <p className="text-sm text-muted-foreground mb-4">Technologies I work with:</p>
+              <p className="text-sm text-muted-foreground mb-4">{t.hero.technologiesLabel}</p>
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                 {[
                   { icon: <SiReact className="h-5 w-5" />, name: "React", color: "text-[#61DAFB]" },

@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Github } from "lucide-react";
 import Image from "next/image";
+import { useLanguage } from "@/store/languageStore";
 
 export default function Projects() {
+  const { t } = useLanguage();
+  
   const projects = [
     {
       title: "Microservices Enterprise System",
@@ -51,10 +54,10 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Featured Projects
+            {t.projects.title}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Here are some of my recent projects that showcase my skills and experience
+            {t.projects.subtitle}
           </p>
         </div>
 
@@ -87,13 +90,13 @@ export default function Projects() {
                 <Button variant="outline" size="sm" className="gap-2" asChild>
                   <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                     <Github className="h-4 w-4" />
-                    Code
+                    {t.projects.codeButton}
                   </a>
                 </Button>
                 {/* <Button size="sm" className="gap-2" asChild>
                   <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="h-4 w-4" />
-                    Demo
+                    {t.projects.demoButton}
                   </a>
                 </Button> */}
               </CardFooter>

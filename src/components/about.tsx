@@ -126,14 +126,14 @@ export default function About() {
             <CardContent className="pt-6">
               <h3 className="text-2xl font-bold mb-4">Who I Am</h3>
               <p className="text-muted-foreground mb-4">
-                I'm a full-stack developer and DevOps engineer with a passion for building
+                I&apos;m a full-stack developer and DevOps engineer with a passion for building
                 scalable enterprise applications. With expertise in Java Spring Boot, React,
                 and modern DevOps practices, I specialize in creating robust solutions that
                 bridge development and operations.
               </p>
               <p className="text-muted-foreground">
                 I believe in automation, continuous integration, and delivering high-quality
-                software. When I'm not coding, you can find me exploring new cloud technologies,
+                software. When I&apos;m not coding, you can find me exploring new cloud technologies,
                 contributing to open-source projects, or optimizing CI/CD pipelines.
               </p>
             </CardContent>

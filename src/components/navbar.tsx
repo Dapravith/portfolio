@@ -1,19 +1,22 @@
 "use client";
 
 import ThemeToggle from "@/components/theme-toggle";
+import LanguageSwitcher from "@/components/language-switcher";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useLanguage } from "@/store/languageStore";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-    { name: "Contact", href: "#contact" },
+    { name: t.nav.home, href: "#home" },
+    { name: t.nav.about, href: "#about" },
+    { name: t.nav.projects, href: "#projects" },
+    { name: t.nav.skills, href: "#skills" },
+    { name: t.nav.contact, href: "#contact" },
   ];
 
  /*  const handleDownloadResume = () => {
@@ -56,12 +59,14 @@ export default function Navbar() {
                   {item.name}
                 </a>
               ))}
+              <LanguageSwitcher />
               <ThemeToggle />
             </div>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-2">
+            <LanguageSwitcher />
             <ThemeToggle />
             <Button
               variant="ghost"

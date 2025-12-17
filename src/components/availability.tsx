@@ -37,7 +37,7 @@ export default function Availability() {
                 </h2>
                 
                 <p className="text-lg text-muted-foreground max-w-2xl">
-                  I'm actively seeking exciting opportunities in <span className="font-semibold text-foreground">Full-Stack Development</span> and <span className="font-semibold text-foreground">DevOps Engineering</span>. 
+                  I&apos;m actively seeking exciting opportunities in <span className="font-semibold text-foreground">Full-Stack Development</span> and <span className="font-semibold text-foreground">DevOps Engineering</span>. 
                   Open to remote, hybrid, or on-site positions.
                 </p>
 
@@ -63,7 +63,7 @@ export default function Availability() {
                 <Button size="lg" className="gap-2 group" asChild>
                   <a href="#contact">
                     <Mail className="h-5 w-5" />
-                    Let's Connect
+                    Let&apos;s Connect
                   </a>
                 </Button>
                 <Button 
@@ -87,7 +87,7 @@ export default function Availability() {
 
             {/* Bottom - What I'm Looking For */}
             <div className="mt-8 pt-6 border-t">
-              <h3 className="text-lg font-semibold mb-3">What I'm Looking For:</h3>
+              <h3 className="text-lg font-semibold mb-3">What I&apos;m Looking For:</h3>
               <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary" className="flex items-center gap-1">
                   <SiSpring className="h-3 w-3" />
