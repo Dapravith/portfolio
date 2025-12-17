@@ -12,6 +12,8 @@ type ChatMessage = {
   content: string;
 };
 
+const KNOWLEDGE_LOOKUP_DELAY_MS = 450;
+
 const knowledgeBase = [
   {
     keywords: ["experience", "background", "career", "work", "role"],
@@ -93,7 +95,7 @@ export default function ChatAssistant() {
       const reply = getAnswer(value);
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
       setIsThinking(false);
-    }, 450);
+    }, KNOWLEDGE_LOOKUP_DELAY_MS);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -114,12 +116,13 @@ export default function ChatAssistant() {
                 AI Assistant
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                Ask anything about Rotha&apos;s experience, projects, or availability.
+                Ask anything about Rotha's experience, projects, or availability.
               </p>
             </div>
             <Button
               variant="ghost"
-              size="icon-sm"
+              size="icon"
+              className="size-8"
               aria-label="Close assistant"
               onClick={() => setIsOpen(false)}
             >
