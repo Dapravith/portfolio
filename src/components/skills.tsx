@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FaKey, FaServer } from "react-icons/fa";
+import { useLanguage } from "@/store/languageStore";
 import {
   SiAmazonwebservices,
   SiAngular,
@@ -30,6 +31,8 @@ import {
 } from "react-icons/si";
 
 export default function Skills() {
+  const { t } = useLanguage();
+
   const skillCategories = {
     frontend: [
       { name: "React", level: 90, icon: SiReact, color: "#61DAFB" },
@@ -73,26 +76,30 @@ export default function Skills() {
   ]; */
 
   return (
-    <section id="skills" className="py-20 bg-accent/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Skills & Expertise
+    <section id="skills" className="relative py-20 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-purple-500/5 pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center mb-16 space-y-3">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+            {t.skills.title}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Technologies and tools I work with to build amazing products
+            {t.skills.subtitle}
+          </p>
+          <p className="text-sm text-muted-foreground max-w-3xl mx-auto">
+            {t.skills.description}
           </p>
         </div>
 
         <Tabs defaultValue="frontend" className="w-full">
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-8">
-            <TabsTrigger value="frontend">Frontend</TabsTrigger>
-            <TabsTrigger value="backend">Backend</TabsTrigger>
-            <TabsTrigger value="tools">Tools & DevOps</TabsTrigger>
+            <TabsTrigger value="frontend">{t.skills.categories.frontend}</TabsTrigger>
+            <TabsTrigger value="backend">{t.skills.categories.backend}</TabsTrigger>
+            <TabsTrigger value="tools">{t.skills.categories.tools}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="frontend">
-            <Card>
+            <Card className="bg-card/80 backdrop-blur border-primary/10 shadow-lg">
               <CardContent className="pt-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   {skillCategories.frontend.map((skill, index) => {
@@ -121,7 +128,7 @@ export default function Skills() {
           </TabsContent>
 
           <TabsContent value="backend">
-            <Card>
+            <Card className="bg-card/80 backdrop-blur border-primary/10 shadow-lg">
               <CardContent className="pt-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   {skillCategories.backend.map((skill, index) => {
@@ -150,7 +157,7 @@ export default function Skills() {
           </TabsContent>
 
           <TabsContent value="tools">
-            <Card>
+            <Card className="bg-card/80 backdrop-blur border-primary/10 shadow-lg">
               <CardContent className="pt-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   {skillCategories.tools.map((skill, index) => {

@@ -29,6 +29,13 @@ export interface Translations {
   };
   skills: {
     title: string;
+    subtitle: string;
+    description: string;
+    categories: {
+      frontend: string;
+      backend: string;
+      tools: string;
+    };
   };
   contact: {
     title: string;
@@ -74,7 +81,14 @@ export const translations: Record<Language, Translations> = {
       title: 'Work Experience',
     },
     skills: {
-      title: 'Skills & Technologies',
+      title: 'Skills & Expertise',
+      subtitle: 'Technologies and tools I use to deliver reliable solutions',
+      description: 'Browse my front-end, back-end, and DevOps stacks with confidence levels.',
+      categories: {
+        frontend: 'Frontend',
+        backend: 'Backend',
+        tools: 'Tools & DevOps',
+      },
     },
     contact: {
       title: 'Get In Touch',
@@ -100,7 +114,7 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       greeting: 'សួស្តី ខ្ញុំឈ្មោះ',
-      name: 'រដ្ឋា ដាប្រវិត្ត',
+      name: 'រដ្ឋា ដាប្រាវីត',
       title: 'អ្នកអភិវឌ្ឍន៍ Full-Stack និង វិស្វករ DevOps',
       description: 'ចូលចិត្តបង្កើតកម្មវិធីដែលអាចពង្រីកបាន និងអនុវត្តវិធីសាស្ត្រ DevOps ទំនើប។ ជំនាញពិសេសលើ Java Spring Boot, React, NextJS, Docker, Kubernetes និងបច្ចេកវិទ្យាពពក។',
       viewWork: 'មើលការងាររបស់ខ្ញុំ',
@@ -119,6 +133,13 @@ export const translations: Record<Language, Translations> = {
     },
     skills: {
       title: 'ជំនាញ និងបច្ចេកវិទ្យា',
+      subtitle: 'បច្ចេកវិទ្យា និងឧបករណ៍ដែលខ្ញុំប្រើសម្រាប់បង្កើតដំណោះស្រាយដ៏ទុកចិត្តបាន',
+      description: 'ស្វែងយល់អំពីសមត្ថភាពខាងមុខងារ បន្ទាប់ បទពិសោធន៍ DevOps និងកម្រិតជំនាញរបស់ខ្ញុំ។',
+      categories: {
+        frontend: 'ផ្នែកខាងមុខ',
+        backend: 'ផ្នែកខាងក្រោយ',
+        tools: 'ឧបករណ៍ និង DevOps',
+      },
     },
     contact: {
       title: 'ទាក់ទងខ្ញុំ',
