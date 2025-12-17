@@ -24,7 +24,7 @@ export default function LanguageSwitcher() {
       <div className="relative w-6 h-4 overflow-hidden rounded">
         <Image
           src={language === 'en' ? '/images/flags/en-flag.svg' : '/images/flags/kh-flag.svg'}
-          alt={language === 'en' ? 'English' : 'ខ្មែរ'}
+          alt={language === 'en' ? 'Switch to Khmer' : 'Switch to English'}
           fill
           className="object-cover"
           unoptimized

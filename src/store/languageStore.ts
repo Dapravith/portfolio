@@ -25,6 +25,9 @@ export const useLanguage = create<LanguageStore>()(
       onRehydrateStorage: () => (state) => {
         if (state) {
           state.t = translations[state.language];
+          if (typeof window !== 'undefined') {
+            document.documentElement.lang = state.language;
+          }
         }
       },
     }
