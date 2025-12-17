@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
   const messages = (body?.messages ?? []) as ChatMessage[];
   const latestQuestion = messages.at(-1)?.content ?? "";
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY?.trim();
   if (!apiKey) {
     return NextResponse.json({
       answer: buildLocalAnswer(latestQuestion),
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
       source: "openai",
     });
   } catch (error) {
-    console.error("Chat API error", error);
+    console.error("Chat API error", (error as Error).message);
     return NextResponse.json({
       answer: buildLocalAnswer(latestQuestion),
       source: "local",

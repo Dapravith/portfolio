@@ -248,8 +248,8 @@ export default function About() {
           <Card>
             <CardContent className="pt-6">
               <h3 className="text-2xl font-bold mb-4">{copy.whoIAmTitle}</h3>
-              {copy.whoIAmParagraphs.map((paragraph, index) => (
-                <p key={index} className={`text-muted-foreground ${index === 0 ? "mb-4" : ""}`}>
+              {copy.whoIAmParagraphs.map((paragraph) => (
+                <p key={paragraph.slice(0, 24)} className="text-muted-foreground first:mb-4">
                   {paragraph}
                 </p>
               ))}
@@ -262,7 +262,9 @@ export default function About() {
               <ul className="space-y-3 text-muted-foreground">
                 {copy.whatIDo.map((item) => (
                   <li key={item} className="flex items-start gap-2">
-                    <Badge variant="default" className="mt-1">✓</Badge>
+                    <Badge variant="default" className="mt-1 px-2 py-1">
+                      <CheckCircle2 className="h-4 w-4" />
+                    </Badge>
                     <span>{item}</span>
                   </li>
                 ))}
