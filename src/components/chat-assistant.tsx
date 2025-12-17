@@ -12,23 +12,21 @@ type ChatMessage = {
   content: string;
 };
 
-const KNOWLEDGE_LOOKUP_DELAY_MS = 450;
-
 const knowledgeBase = [
   {
     keywords: ["experience", "background", "career", "work", "role"],
     answer:
-      "Rotha is a full-stack developer and DevOps engineer. He currently works as a Java Developer at the Digital Government Committee (DGC) in Phnom Penh and has hands-on experience with Spring Boot, React, Docker, Kubernetes, Jenkins, and PostgreSQL.",
+      "Rotha is a senior full-stack developer and DevOps engineer. He leads Java Spring Boot and React delivery at the Digital Government Committee (DGC), hardens CI/CD on Kubernetes, and mentors teams on secure, observable releases.",
   },
   {
     keywords: ["project", "projects", "portfolio", "github", "code"],
     answer:
-      "Recent highlights include a microservices enterprise system, Spring Boot monitoring with Prometheus and Grafana, a Keycloak SSO implementation, and an end-to-end Kubernetes DevSecOps Tetris pipeline. You can see more in the Projects section or on GitHub @Dapravith.",
+      "Recent highlights include a microservices enterprise system, Spring Boot monitoring with Prometheus and Grafana, a Keycloak SSO implementation, and an end-to-end Kubernetes DevSecOps Tetris pipeline. See more in Projects or on GitHub @Dapravith.",
   },
   {
     keywords: ["skill", "skills", "stack", "tech", "technology", "tools"],
     answer:
-      "Key skills: Java & Spring Boot, React and Next.js, TypeScript, Docker, Kubernetes, CI/CD with Jenkins, and cloud experience with AWS. He is comfortable with microservices, RESTful APIs, and modern DevOps practices.",
+      "Key skills: Java & Spring Boot, React and Next.js, TypeScript, Docker, Kubernetes, CI/CD with Jenkins, PostgreSQL/Redis, and AWS. He excels at microservices architecture, API design, SSO/security, observability, and performance tuning.",
   },
   {
     keywords: ["contact", "email", "reach", "connect", "hire", "linked", "touch"],
@@ -48,9 +46,9 @@ const knowledgeBase = [
 ];
 
 const quickPrompts = [
-  "What are Rotha's top skills?",
-  "Tell me about his recent projects.",
-  "How can I contact Rotha?",
+  "Summarize Rotha's senior experience.",
+  "What DevOps stack does Rotha use?",
+  "List Rotha's recent projects.",
 ];
 
 export default function ChatAssistant() {
@@ -61,7 +59,7 @@ export default function ChatAssistant() {
     {
       role: "assistant",
       content:
-        "Hi there! I'm Rotha's AI assistant. Ask me about his experience, projects, skills, or how to get in touch.",
+        "Hi there! I'm Rotha's AI assistant, backed by portfolio knowledge and ChatGPT when available. Ask anything about his experience, projects, skills, or availability.",
     },
   ]);
   const endRef = useRef<HTMLDivElement | null>(null);
@@ -80,22 +78,38 @@ export default function ChatAssistant() {
       return match.answer;
     }
 
-    return "I can help with Rotha's skills, projects, and how to contact him. Ask me about what you're looking for, and I'll share the relevant details.";
+    return "Rotha is a senior full-stack developer and DevOps engineer (Java Spring Boot, React/Next.js, Docker, Kubernetes, Jenkins, PostgreSQL, Redis, AWS). He leads microservices delivery, CI/CD automation, SSO/security, observability, and performance tuning. Projects include microservices enterprise platforms, Prometheus/Grafana monitoring, Keycloak SSO, and a Kubernetes DevSecOps pipeline. Contact: dapravithrotha@gmail.com or LinkedIn https://linkedin.com/in/rotha-dapravith.";
   };
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     const value = input.trim();
     if (!value || isThinking) return;
 
-    setMessages((prev) => [...prev, { role: "user", content: value }]);
+    const userMessage: ChatMessage = { role: "user", content: value };
+    const nextMessages = [...messages, userMessage];
+
+    setMessages(nextMessages);
     setInput("");
     setIsThinking(true);
 
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: nextMessages }),
+      });
+
+      const data = await response.json();
+      const reply = data?.answer ?? getAnswer(value);
+
+      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+    } catch (error) {
+      console.error("Chat assistant error", error);
       const reply = getAnswer(value);
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+    } finally {
       setIsThinking(false);
-    }, KNOWLEDGE_LOOKUP_DELAY_MS);
+    }
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -116,7 +130,7 @@ export default function ChatAssistant() {
                 AI Assistant
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                Ask anything about Rotha's experience, projects, or availability.
+                Ask anything about Rotha&apos;s experience, projects, or availability.
               </p>
             </div>
             <Button
