@@ -262,8 +262,8 @@ export default function About() {
               <ul className="space-y-3 text-muted-foreground">
                 {copy.whatIDo.map((item, index) => (
                   <li key={index} className="flex items-start gap-2">
-                    <Badge variant="default" className="mt-1 px-2 py-1">
-                      <CheckCircle2 className="h-4 w-4" />
+                    <Badge variant="default" className="mt-1 px-2 py-1" aria-label="Completed item">
+                      <CheckCircle2 className="h-4 w-4" aria-hidden />
                     </Badge>
                     <span>{item}</span>
                   </li>
