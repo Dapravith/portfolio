@@ -54,7 +54,10 @@ function buildLocalAnswer(question: string) {
 }
 
 export async function POST(req: NextRequest) {
-  const body = await req.json().catch(() => ({}));
+  const body = await req.json().catch((err) => {
+    console.error("Invalid chat request JSON", err);
+    return {};
+  });
   const messages = (body?.messages ?? []) as ChatMessage[];
   const latestQuestion = messages.at(-1)?.content ?? "";
 
@@ -99,7 +102,8 @@ export async function POST(req: NextRequest) {
       source: "openai",
     });
   } catch (error) {
-    console.error("Chat API error", (error as Error).message);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Chat API error", message);
     return NextResponse.json({
       answer: buildLocalAnswer(latestQuestion),
       source: "local",
