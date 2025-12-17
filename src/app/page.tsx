@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar";
 import Projects from "@/components/projects";
 import Skills from "@/components/skills";
 // import FloatingActions from "@/components/floating-actions";
+import ChatAssistant from "@/components/chat-assistant";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <Contact />
       <Footer />
      {/*  <FloatingActions /> */}
+      <ChatAssistant />
     </div>
   );
 }
