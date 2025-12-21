@@ -1,6 +1,6 @@
 # Rotha Dapravith - Portfolio Website
 
-A modern, responsive portfolio website for Full-Stack Developer & DevOps Engineer built with Next.js 15, TypeScript, and ShadCN UI components.
+A modern, responsive portfolio website for Full-Stack Developer & DevOps Engineer built with Next.js 16, TypeScript, and Radix UI components (via shadcn/ui).
 
 ## ✨ Features
 
@@ -9,7 +9,7 @@ A modern, responsive portfolio website for Full-Stack Developer & DevOps Enginee
 - 🌙 **Dark Mode Ready** - Built-in support for dark/light themes
 - ⚡ **Fast Performance** - Optimized with Next.js App Router
 - 🎯 **SEO Friendly** - Metadata and semantic HTML
-- 🧩 **Component-Based** - Reusable UI components from ShadCN
+- 🧩 **Component-Based** - Reusable Radix-based components from shadcn/ui
 - 💼 **Sections Included**:
   - Hero section with professional introduction
   - About section with DevOps & Full-Stack experience
@@ -82,7 +82,7 @@ Edit the following files to customize with your information:
 
 ### Styling
 
-The project uses Tailwind CSS v4 and ShadCN UI. To customize:
+The project uses Tailwind CSS 3.x and Radix-powered shadcn/ui components. To customize:
 
 - **Colors**: Edit `app/globals.css` CSS variables
 - **Components**: Modify files in `components/ui/`
@@ -90,10 +90,10 @@ The project uses Tailwind CSS v4 and ShadCN UI. To customize:
 
 ## 📦 Built With
 
-- [Next.js 15](https://nextjs.org/) - React framework
+- [Next.js 16](https://nextjs.org/) - React framework
 - [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [Tailwind CSS v4](https://tailwindcss.com/) - Styling
-- [ShadCN UI](https://ui.shadcn.com/) - UI components
+- [Tailwind CSS 3.x](https://tailwindcss.com/) - Styling
+- [Radix UI via shadcn/ui](https://ui.shadcn.com/) - UI components
 - [Lucide React](https://lucide.dev/) - Icons
 
 ## 🏗️ Project Structure

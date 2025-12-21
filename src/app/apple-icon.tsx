@@ -10,20 +10,47 @@ export const contentType = 'image/png';
 export default function AppleIcon() {
   return new ImageResponse(
     (
-      <svg width={size.width} height={size.height} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="50%" stopColor="#8b5cf6" />
-            <stop offset="100%" stopColor="#ec4899" />
-          </linearGradient>
-        </defs>
-        <rect width="200" height="200" rx="36" fill="#0b1224" />
-        <circle cx="100" cy="100" r="82" fill="url(#grad1)" />
-        <text x="50" y="135" fontFamily="Arial, sans-serif" fontSize="96" fontWeight="700" fill="white">
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#0b1224',
+          borderRadius: '36px',
+          position: 'relative',
+          overflow: 'hidden',
+          fontFamily: 'Inter, Arial, sans-serif',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            inset: '12px',
+            borderRadius: '28px',
+            background: 'linear-gradient(135deg, #3b82f6, #8b5cf6 50%, #ec4899)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            inset: '24px',
+            borderRadius: '24px',
+            background: 'rgba(255,255,255,0.06)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            fontSize: '72px',
+            fontWeight: 700,
+            letterSpacing: '-2px',
+            textShadow: '0 6px 28px rgba(0,0,0,0.45)',
+          }}
+        >
           RD
-        </text>
-      </svg>
+        </div>
+      </div>
     ),
     {
       ...size,
