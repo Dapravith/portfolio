@@ -29,7 +29,7 @@ export default function Navbar() {
   }; */
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-xl border-b border-primary/10 shadow-sm">
+    <nav className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-2xl border-b border-primary/20 shadow-lg supports-[backdrop-filter]:bg-background/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
@@ -37,7 +37,7 @@ export default function Navbar() {
               href="#home" 
               className="relative group"
             >
-              <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-110 hover:rotate-3 shadow-lg hover:shadow-xl">
+              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-110 hover:rotate-3 shadow-lg hover:shadow-2xl hover:shadow-purple-500/50">
                 <span className="text-white font-bold text-xl">RD</span>
               </div>
               {/* Tooltip */}
@@ -54,9 +54,10 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-foreground/80 hover:text-foreground px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-foreground/70 hover:text-foreground px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-primary/10 relative group"
                 >
                   {item.name}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
                 </a>
               ))}
               <LanguageSwitcher />

@@ -209,7 +209,7 @@ export default function About() {
   const education = educationByLanguage[language];
 
   return (
-    <section id="about" className="py-20 bg-accent/50">
+    <section id="about" className="py-20 bg-gradient-to-b from-accent/30 via-accent/50 to-accent/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
@@ -221,8 +221,8 @@ export default function About() {
         </div>
 
         {/* Tech Stack Highlight */}
-        <div className="mb-12 text-center">
-          <div className="inline-flex flex-wrap gap-3 justify-center p-6 bg-card rounded-lg border shadow-sm">
+        <div className="mb-12 text-center animate-fadeIn">
+          <div className="inline-flex flex-wrap gap-3 justify-center p-6 bg-card/80 backdrop-blur-sm rounded-2xl border border-primary/20 shadow-xl">
             {[
               { icon: <SiReact className="h-6 w-6" />, name: "React", color: "text-[#61DAFB]" },
               { icon: <SiSpring className="h-6 w-6" />, name: "Spring Boot", color: "text-[#6DB33F]" },
@@ -235,7 +235,7 @@ export default function About() {
             ].map((tech) => (
               <div
                 key={tech.name}
-                className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full hover:bg-primary/20 transition-all hover:scale-105 cursor-default"
+                className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full hover:bg-primary/20 transition-all hover:scale-110 cursor-default shadow-md hover:shadow-lg border border-primary/20"
               >
                 <span className={tech.color}>{tech.icon}</span>
                 <span className="font-medium">{tech.name}</span>
@@ -245,7 +245,7 @@ export default function About() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <Card>
+          <Card className="hover:shadow-2xl transition-all duration-300 border-primary/20 bg-card/80 backdrop-blur-sm">
             <CardContent className="pt-6">
               <h3 className="text-2xl font-bold mb-4">{copy.whoIAmTitle}</h3>
               {copy.whoIAmParagraphs.map((paragraph, index) => (
@@ -256,7 +256,7 @@ export default function About() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="hover:shadow-2xl transition-all duration-300 border-primary/20 bg-card/80 backdrop-blur-sm">
             <CardContent className="pt-6">
               <h3 className="text-2xl font-bold mb-4">{copy.whatIDoTitle}</h3>
               <ul className="space-y-3 text-muted-foreground">
@@ -281,16 +281,16 @@ export default function About() {
             </h3>
             <div className="relative space-y-8">
               {/* Timeline line */}
-              <div className="hidden md:block absolute left-[19px] top-0 bottom-0 w-0.5 bg-border"></div>
+              <div className="hidden md:block absolute left-[19px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-purple-500 to-primary"></div>
               
               {experience.map((exp, index) => (
                 <div key={index} className="relative md:pl-16">
                   {/* Timeline dot */}
-                  <div className="hidden md:flex absolute left-0 top-8 w-10 h-10 rounded-full bg-primary items-center justify-center shadow-lg">
-                    <Calendar className="h-5 w-5 text-primary-foreground" />
+                  <div className="hidden md:flex absolute left-0 top-8 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 items-center justify-center shadow-lg ring-4 ring-background">
+                    <Calendar className="h-5 w-5 text-white" />
                   </div>
                   
-                  <Card className="hover:shadow-lg transition-shadow">
+                  <Card className="hover:shadow-2xl transition-all duration-300 border-primary/20 bg-card/80 backdrop-blur-sm hover:scale-[1.02]">
                     <CardContent className="pt-6 pb-6">
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3 gap-2">
                         <div className="flex-1">
@@ -350,7 +350,7 @@ export default function About() {
             </h3>
             <div className="space-y-4">
               {education.map((edu, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
+                <Card key={index} className="hover:shadow-2xl transition-all duration-300 border-primary/20 bg-card/80 backdrop-blur-sm hover:scale-[1.02]">
                   <CardContent className="pt-6 pb-6">
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
                       <div className="flex gap-4">

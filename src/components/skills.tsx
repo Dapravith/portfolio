@@ -77,7 +77,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-purple-500/5 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-500/10 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16 space-y-3">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
@@ -92,30 +92,30 @@ export default function Skills() {
         </div>
 
         <Tabs defaultValue="frontend" className="w-full">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-8">
-            <TabsTrigger value="frontend">{t.skills.categories.frontend}</TabsTrigger>
-            <TabsTrigger value="backend">{t.skills.categories.backend}</TabsTrigger>
-            <TabsTrigger value="tools">{t.skills.categories.tools}</TabsTrigger>
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-8 bg-card/80 backdrop-blur-sm border border-primary/20 shadow-lg p-1">
+            <TabsTrigger value="frontend" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-600 data-[state=active]:text-white">{t.skills.categories.frontend}</TabsTrigger>
+            <TabsTrigger value="backend" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-600 data-[state=active]:text-white">{t.skills.categories.backend}</TabsTrigger>
+            <TabsTrigger value="tools" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-600 data-[state=active]:text-white">{t.skills.categories.tools}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="frontend">
-            <Card className="bg-card/80 backdrop-blur border-primary/10 shadow-lg">
+            <Card className="bg-card/90 backdrop-blur-sm border-primary/20 shadow-2xl hover:shadow-primary/20 transition-all duration-300">
               <CardContent className="pt-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   {skillCategories.frontend.map((skill, index) => {
                     const Icon = skill.icon;
                     return (
-                      <div key={index} className="space-y-2">
+                      <div key={index} className="space-y-2 group">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
-                            <Icon className="w-5 h-5" style={{ color: skill.color }} />
+                            <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: skill.color }} />
                             <span className="font-medium">{skill.name}</span>
                           </div>
-                          <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                          <span className="text-sm text-muted-foreground font-semibold">{skill.level}%</span>
                         </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-primary rounded-full transition-all duration-500"
+                            className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-500 hover:scale-105"
                             style={{ width: `${skill.level}%` }}
                           />
                         </div>
@@ -128,23 +128,23 @@ export default function Skills() {
           </TabsContent>
 
           <TabsContent value="backend">
-            <Card className="bg-card/80 backdrop-blur border-primary/10 shadow-lg">
+            <Card className="bg-card/90 backdrop-blur-sm border-primary/20 shadow-2xl hover:shadow-primary/20 transition-all duration-300">
               <CardContent className="pt-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   {skillCategories.backend.map((skill, index) => {
                     const Icon = skill.icon;
                     return (
-                      <div key={index} className="space-y-2">
+                      <div key={index} className="space-y-2 group">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
-                            <Icon className="w-5 h-5" style={{ color: skill.color }} />
+                            <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: skill.color }} />
                             <span className="font-medium">{skill.name}</span>
                           </div>
-                          <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                          <span className="text-sm text-muted-foreground font-semibold">{skill.level}%</span>
                         </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-primary rounded-full transition-all duration-500"
+                            className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-500 hover:scale-105"
                             style={{ width: `${skill.level}%` }}
                           />
                         </div>
@@ -157,23 +157,23 @@ export default function Skills() {
           </TabsContent>
 
           <TabsContent value="tools">
-            <Card className="bg-card/80 backdrop-blur border-primary/10 shadow-lg">
+            <Card className="bg-card/90 backdrop-blur-sm border-primary/20 shadow-2xl hover:shadow-primary/20 transition-all duration-300">
               <CardContent className="pt-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   {skillCategories.tools.map((skill, index) => {
                     const Icon = skill.icon;
                     return (
-                      <div key={index} className="space-y-2">
+                      <div key={index} className="space-y-2 group">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
-                            <Icon className="w-5 h-5" style={{ color: skill.color }} />
+                            <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: skill.color }} />
                             <span className="font-medium">{skill.name}</span>
                           </div>
-                          <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                          <span className="text-sm text-muted-foreground font-semibold">{skill.level}%</span>
                         </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-primary rounded-full transition-all duration-500"
+                            className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-500 hover:scale-105"
                             style={{ width: `${skill.level}%` }}
                           />
                         </div>
