@@ -9,7 +9,7 @@ import { ChatAssistant } from '@/components/chat-assistant';
 import { PhnomPenhTime } from '@/components/phnom-penh-time';
 import { ViewCounter } from '@/components/ViewCounter';
 import { LanguageSwitch, SiteNav } from '@/components/site-nav';
-import { ThemeToggle, themeScript } from '@/components/theme-toggle';
+import { ThemeScript, ThemeToggle } from '@/components/theme-toggle';
 import { content } from '@/content';
 import { htmlLang, isLocale, localizePath, locales, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -104,7 +104,7 @@ export default async function LocaleLayout({
       className={`${plexSans.variable} ${plexMono.variable} ${sourceSerif.variable} ${kantumruy.variable}`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <ThemeScript />
       </head>
       {/* Browser extensions may add attributes to body before React hydrates. */}
       <body className="flex min-h-dvh flex-col" suppressHydrationWarning>

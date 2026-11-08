@@ -8,8 +8,8 @@ export const profile: Profile = {
   location: { en: 'Phnom Penh, Cambodia', km: 'ភ្នំពេញ ប្រទេសកម្ពុជា' },
   timezone: 'UTC+7',
   lead: {
-    en: 'I build full-stack applications and reliable delivery workflows with Java Spring Boot, React and cloud technologies, currently at the Digital Economy and Business Committee.',
-    km: 'ខ្ញុំបង្កើតកម្មវិធី Full-stack និងដំណើរការដាក់ឱ្យប្រើប្រាស់ដែលអាចទុកចិត្តបានដោយប្រើ Java Spring Boot, React និងបច្ចេកវិទ្យា cloud នៅគណៈកម្មាធិការសេដ្ឋកិច្ច និងធុរកិច្ចឌីជីថល។',
+    en: 'I turn ideas into real, working systems — designing the architecture, building secure backend services with Java Spring Boot, crafting React interfaces and automating delivery to the cloud.',
+    km: 'ខ្ញុំប្រែក្លាយគំនិតឱ្យទៅជាប្រព័ន្ធដែលដំណើរការពិតប្រាកដ — ចាប់ពីការរចនាស្ថាបត្យកម្ម ការបង្កើតសេវាកម្ម backend ដែលមានសុវត្ថិភាពជាមួយ Java Spring Boot ការបង្កើតចំណុចប្រទាក់ React រហូតដល់ការដាក់ឱ្យប្រើប្រាស់ដោយស្វ័យប្រវត្តិលើ cloud។',
   },
   summary: {
     en: 'Full-stack developer focused on secure, scalable applications. I work on system architecture and flows, backend services with Spring Boot and WebFlux, and refactoring application logic for maintainability.',
@@ -33,8 +33,8 @@ export const profile: Profile = {
   },
   photo: {
     src: '/profile.jpg',
-    width: 546,
-    height: 457,
+    width: 480,
+    height: 480,
     alt: { en: 'Portrait of Rotha Dapravith', km: 'រូបថតរបស់ Rotha Dapravith' },
   },
   languages: [
