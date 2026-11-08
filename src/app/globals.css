@@ -3,6 +3,20 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
+ * 3 KB subset of Kantumruy Pro (SIL OFL 1.1), inlined so it costs no request,
+ * containing only the glyphs of
+ * "ខ្មែរ", for the language link on English pages. The full Khmer font
+ * (~40 KB) is then only downloaded on Khmer pages. Regenerate with:
+ *   pyftsubset <kantumruy-khmer.woff2> --text="ខ្មែរ" --layout-features='*' --flavor=woff2 | base64
+ */
+@font-face {
+  font-family: 'Khmer Label';
+  src: url('data:font/woff2;base64,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') format('woff2');
+  font-display: swap;
+  unicode-range: U+1780-17FF;
+}
+
+/*
  * Design tokens. Palette: warm paper and ink with one rust accent.
  * Contrast (checked by tests/unit/contrast.test.ts):
  *   ink/bg ≥ 15:1, muted/bg ≥ 7:1, accent/bg ≥ 5.5:1 in both themes.
@@ -160,6 +174,10 @@
     text-transform: none;
     letter-spacing: 0;
     font-size: var(--text-small);
+  }
+
+  .lang-label {
+    font-family: 'Khmer Label', var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   }
 
   .link {
