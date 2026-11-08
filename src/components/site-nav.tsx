@@ -52,13 +52,17 @@ export function LanguageSwitch({
       lang={target}
       // A prefetch would run before the cookie changes and could cache a redirect.
       prefetch={false}
-      aria-label={`${groupLabel}: ${label}`}
+      title={`${groupLabel}: ${label}`}
       onClick={() => {
         document.cookie = `${LOCALE_COOKIE}=${target}; path=/; max-age=31536000; samesite=lax`;
       }}
-      className="inline-flex min-h-11 items-center px-2 text-small text-muted hover:text-ink"
+      // System font for this one label: on English pages it is the only Khmer
+      // text, and it should not pull a 40 KB web font onto the critical path.
+      className="inline-flex min-h-11 items-center px-2 font-[system-ui,sans-serif] text-small text-muted hover:text-ink"
     >
       {short}
+      {/* Accessible name starts with the visible text (WCAG 2.5.3). */}
+      <span className="sr-only"> ({label})</span>
     </Link>
   );
 }

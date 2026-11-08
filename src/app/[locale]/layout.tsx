@@ -12,31 +12,35 @@ import { htmlLang, isLocale, localizePath, locales, type Locale } from '@/i18n/c
 import { getDictionary } from '@/i18n/dictionaries';
 import { absoluteUrl, contentReviewed, formatDate, pageMetadata, siteUrl } from '@/lib/site';
 
+// display: 'optional' — if a font is not ready within ~100 ms the size-adjusted
+// fallback is kept for that page view instead of swapping late. Measured: home
+// LCP median 2.6 s → 2.2 s and Khmer CLS 0.14 → 0 (Lighthouse mobile, see
+// docs/portfolio/TEST_PLAN.md).
 const plexSans = IBM_Plex_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   variable: '--font-plex-sans',
-  display: 'swap',
+  display: 'optional',
 });
 const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500'],
   variable: '--font-plex-mono',
-  display: 'swap',
+  display: 'optional',
   preload: false,
 });
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
   weight: ['600'],
   variable: '--font-source-serif',
-  display: 'swap',
+  display: 'optional',
 });
 // Only downloaded when Khmer glyphs are on the page.
 const kantumruy = Kantumruy_Pro({
   subsets: ['khmer'],
   weight: ['400', '500', '600'],
   variable: '--font-kantumruy',
-  display: 'swap',
+  display: 'optional',
   preload: false,
 });
 
@@ -109,7 +113,7 @@ export default async function LocaleLayout({
           <div className="page grid grid-cols-[1fr_auto] items-center gap-x-4 py-2 md:grid-cols-[auto_1fr_auto] md:gap-x-10">
             <Link
               href={localizePath('/', locale)}
-              className="font-serif text-[1.1875rem] font-semibold tracking-[-0.01em] whitespace-nowrap"
+              className="inline-flex min-h-11 items-center font-serif text-[1.1875rem] font-semibold tracking-[-0.01em] whitespace-nowrap"
             >
               {profile.name}
             </Link>
