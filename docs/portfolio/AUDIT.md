@@ -79,3 +79,30 @@ percentage skill bars, a pulsing "available" dot, and tech-logo pills repeated i
 places. Typography is the system font with no scale. Content order buries the projects.
 
 See `ROADMAP.md` for the prioritised backlog and `DESIGN_SYSTEM.md` for the chosen direction.
+
+## 7. Status after the 2026-11 rebuild
+
+| Finding | Status |
+|---|---|
+| Inflated titles, wrong stacks/dates, fabricated skill scores, fork presented as own work, wrong footer email | Fixed; guarded by `tests/unit/content.test.ts` |
+| F1 contact form silently dropped messages | Fixed — real delivery, honest states, email fallback |
+| F2 AI chat | Removed (rationale in `ROADMAP.md`) |
+| F3 view counter | Removed |
+| F4 client-only Khmer | Fixed — `/km` server-rendered, correct `lang`, hreflang |
+| F5 blank thumbnails, no detail pages | Replaced by case studies with HTML architecture diagrams |
+| F6 duplicate assets, broken fallback path | Fixed — one résumé file, old URLs redirect |
+| F7 menu a11y, hidden scrollbars | Fixed — no menu needed; axe WCAG 2.2 AA clean |
+| S1 vulnerabilities | Production: 0. Dev-only: 8 moderate in the typescript-eslint chain (no fix available upstream yet) |
+| S2 headers | Fixed — CSP, HSTS, frame-ancestors, nosniff, referrer and permissions policy |
+| S3 endpoint abuse | Contact: validation, honeypot, timing, rate limit, origin and size checks |
+| S4 referee details in public PDF | **Open** — owner decision |
+| Tooling, CI, docs sprawl | Fixed — one Tailwind, working CI, docs consolidated here |
+
+| Check | Before | After |
+|---|---|---|
+| `eslint .` | 5 errors | 0 |
+| Tests | none | 53 unit, 71 e2e |
+| Home HTML | 182 KB | 64 KB |
+| Home JS (transfer) | 233 KB | 151 KB |
+| Lighthouse mobile, home (median) | Perf 96 · A11y 92 · BP 100 · SEO 100 | Perf 98 · A11y 100 · BP 100 · SEO 100 |
+| Home height @375px | 11,927 px | ≈5,600 px |
