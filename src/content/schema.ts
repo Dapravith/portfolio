@@ -25,6 +25,13 @@ export const profileSchema = z.object({
   lead: localized,
   email: z.email(),
   links: z.object({ github: z.url(), linkedin: z.url() }),
+  telegram: z.object({
+    /** Without the @. Telegram usernames are 5–32 characters. */
+    username: z.string().regex(/^[A-Za-z][A-Za-z0-9_]{4,31}$/),
+    /** E.164, used for the tel: link. */
+    phone: z.string().regex(/^\+\d{8,15}$/),
+    phoneDisplay: z.string(),
+  }),
   resume: z.object({ href: z.string().startsWith('/'), sizeKb: z.number().int().positive(), updated: isoDate }),
   availability: z.object({ open: z.boolean(), note: localized, updated: isoDate }),
   photo: z.object({ src: z.string().startsWith('/'), width: z.number(), height: z.number(), alt: localized }),

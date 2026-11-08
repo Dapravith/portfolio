@@ -20,6 +20,8 @@ export const profile: Profile = {
     github: 'https://github.com/Dapravith',
     linkedin: 'https://www.linkedin.com/in/rotha-dapravith/',
   },
+  // Supplied by the owner on 2026-11-08 for publication.
+  telegram: { username: 'dapravith', phone: '+85589937798', phoneDisplay: '+855 89 937 798' },
   resume: { href: '/rotha-dapravith-resume.pdf', sizeKb: 97, updated: '2025-11-05' },
   availability: {
     open: true,

@@ -6,7 +6,7 @@ instead of shipping a broken page.
 
 | File | Contents |
 |---|---|
-| `profile.ts` | Name, role, lead paragraph, summary, email, links, résumé file, availability, photo |
+| `profile.ts` | Name, role, lead paragraph, summary, email, Telegram, links, résumé file, availability, photo |
 | `experience.ts` | Jobs (newest first), education, completed courses |
 | `skills.ts` | Skill groups for the About page; four capability blurbs for the home page |
 | `projects.ts` | Projects and their case studies |

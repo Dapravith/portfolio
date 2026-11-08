@@ -55,6 +55,11 @@ describe('content', () => {
     expect(allText).not.toContain('rothadapravith@');
   });
 
+  it('publishes the Telegram contact the owner supplied', () => {
+    expect(content.profile.telegram).toEqual({ username: 'dapravith', phone: '+85589937798', phoneDisplay: '+855 89 937 798' });
+    expect(content.profile.telegram.phoneDisplay.replace(/\s/g, '')).toBe(content.profile.telegram.phone);
+  });
+
   it('resolves project helpers', () => {
     expect(getProject('retail-microservices-platform')?.year).toBe(2025);
     expect(getProject('missing')).toBeUndefined();

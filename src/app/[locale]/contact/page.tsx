@@ -45,6 +45,17 @@ export default async function ContactPage({ params }: Props) {
                 </dd>
               </div>
               <div>
+                <dt className="label">Telegram</dt>
+                <dd className="mt-1 space-x-3">
+                  <ExternalLink href={`https://t.me/${profile.telegram.username}`} newTabLabel={t.a11y.opensNewTab}>
+                    @{profile.telegram.username}
+                  </ExternalLink>
+                  <a href={`tel:${profile.telegram.phone}`} className="link whitespace-nowrap">
+                    {profile.telegram.phoneDisplay}
+                  </a>
+                </dd>
+              </div>
+              <div>
                 <dt className="label">LinkedIn</dt>
                 <dd className="mt-1">
                   <ExternalLink href={profile.links.linkedin} newTabLabel={t.a11y.opensNewTab}>

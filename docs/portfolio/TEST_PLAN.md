@@ -59,7 +59,7 @@ other pages are single runs.
 |---|---|---|---|---|---|---|---|---|---|---|
 | `/` | before (`main`) | 96 | 92 | 100 | 100 | 2.3 s | 0 | 160 ms | 233 KB | 308 KB |
 | `/` | after | 98 | 100 | 100 | 100 | 2.2 s | 0 | 80 ms | 151 KB | 294 KB |
-| `/km` | after | 95 | 100 | 100 | 100 | 2.9 s | 0 | 50 ms | 151 KB | 348 KB |
+| `/km` | after | 90 | 100 | 100 | 100 | 2.3 s | 0.14 | 60 ms | 151 KB | 338 KB |
 | case study | after | 96 | 100 | 100 | 100 | 2.7 s | 0 | 100 ms | 151 KB | 291 KB |
 | `/projects` | after | 99 | 100 | 100 | 100 | 1.9 s | 0 | 50 ms | 151 KB | 291 KB |
 | `/contact` | after | 97 | 100 | 100 | 100 | 2.6 s | 0 | 50 ms | 183 KB | 306 KB |
@@ -69,6 +69,8 @@ Notes:
 - Simulated LCP is bimodal on this machine (≈2.1 s or ≈2.7 s between identical
   runs); observed, unthrottled LCP is 130–190 ms. Field data from Speed Insights
   would be more reliable than these lab numbers.
-- `/km` is slower because the Khmer font cannot be preloaded per locale from the
-  shared layout (see ROADMAP).
+- `/km` (median of 3) has CLS 0.14 because the Khmer font uses `display: swap`.
+  `optional` scored CLS 0 but left first-time visitors without a system Khmer font
+  (common on Linux) with unshaped, unreadable text, so correctness won. The fix is
+  to preload the Khmer font on `/km` routes only (see ROADMAP).
 - `/contact` ships extra JS for client-side validation (Zod).

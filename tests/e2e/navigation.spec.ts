@@ -51,6 +51,16 @@ test('theme toggle switches and persists', async ({ page }) => {
   await expect(html).toHaveClass(initiallyDark ? /^(?!.*\bdark\b)/ : /\bdark\b/);
 });
 
+test('footer lists email and Telegram on every page', async ({ page }) => {
+  for (const path of ['/', '/about', '/km/projects']) {
+    await page.goto(path);
+    const footer = page.locator('footer');
+    await expect(footer.getByRole('link', { name: 'dapravithrotha@gmail.com' })).toHaveAttribute('href', 'mailto:dapravithrotha@gmail.com');
+    await expect(footer.getByRole('link', { name: /@dapravith/ })).toHaveAttribute('href', 'https://t.me/dapravith');
+    await expect(footer.getByRole('link', { name: '+855 89 937 798' })).toHaveAttribute('href', 'tel:+85589937798');
+  }
+});
+
 test('skip link moves focus to the main content', async ({ page }) => {
   await page.goto('/');
   await page.keyboard.press('Tab');

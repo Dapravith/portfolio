@@ -191,6 +191,7 @@ This is a personal site, but the same rules apply to every change:
 ## Contact
 
 Rotha Dapravith — [dapravithrotha@gmail.com](mailto:dapravithrotha@gmail.com) ·
+Telegram [@dapravith](https://t.me/dapravith) / +855 89 937 798 ·
 [LinkedIn](https://www.linkedin.com/in/rotha-dapravith/) ·
 [GitHub](https://github.com/Dapravith)
 

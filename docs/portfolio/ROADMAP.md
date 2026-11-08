@@ -19,7 +19,7 @@ Ordered by value. Correctness and trust come before visual polish.
 1. **Owner review of content** (blocking for merge). Work through "Things the owner should confirm" in `CONTENT_GUIDE.md`; have a native speaker review Khmer.
 2. **Enable the contact form** in Vercel (`OPERATIONS.md`) and send a real test message.
 3. **Add any role after September 2025**, and a case study for a recent project if one is ready (candidates seen on GitHub: `crowdfunding-platform`, `task-manager-api`). Each must be checked against its repository like the existing four.
-4. **Khmer page LCP (2.9 s lab).** Preload Kantumruy only on `/km` routes — e.g. split into per-locale root layouts, or self-host the Khmer subset and emit a preload link from the Khmer layout.
+4. **Khmer page CLS 0.14 / LCP up to 2.9 s (lab).** Preload Kantumruy only on `/km` routes — e.g. split into per-locale root layouts, or self-host the Khmer subset and emit a preload link from the Khmer layout.
 5. **Field performance data.** Enable Vercel Speed Insights to replace lab estimates with real-user Core Web Vitals.
 6. **Public résumé without referees' personal contact details.**
 7. **Fix issues the case studies document in the project repos** (e.g. Prometheus path case mismatch, committed Keycloak client secret, Trivy `--exit-code`), then update the "Known limitations" lists. This is the most credible way to show engineering growth.

@@ -14,7 +14,7 @@ import { absoluteUrl, contentReviewed, formatDate, pageMetadata, siteUrl } from 
 
 // display: 'optional' — if a font is not ready within ~100 ms the size-adjusted
 // fallback is kept for that page view instead of swapping late. Measured: home
-// LCP median 2.6 s → 2.2 s and Khmer CLS 0.14 → 0 (Lighthouse mobile, see
+// LCP median 2.6 s → 2.2 s (Lighthouse mobile, see
 // docs/portfolio/TEST_PLAN.md).
 const plexSans = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -35,12 +35,14 @@ const sourceSerif = Source_Serif_4({
   variable: '--font-source-serif',
   display: 'optional',
 });
-// Only downloaded when Khmer glyphs are on the page.
+// Only downloaded when Khmer glyphs are on the page. display: 'swap', not
+// 'optional': many systems have no Khmer font, and a missed 'optional' window
+// would leave the page in a fallback that cannot shape Khmer at all.
 const kantumruy = Kantumruy_Pro({
   subsets: ['khmer'],
   weight: ['400', '500', '600'],
   variable: '--font-kantumruy',
-  display: 'optional',
+  display: 'swap',
   preload: false,
 });
 
@@ -141,6 +143,20 @@ export default async function LocaleLayout({
               <p>
                 <a className="link" href={`mailto:${profile.email}`}>
                   {profile.email}
+                </a>
+              </p>
+              <p>
+                Telegram{' '}
+                <ExternalLink
+                  href={`https://t.me/${profile.telegram.username}`}
+                  newTabLabel={t.a11y.opensNewTab}
+                  icon={false}
+                >
+                  @{profile.telegram.username}
+                </ExternalLink>
+                {' · '}
+                <a className="link whitespace-nowrap" href={`tel:${profile.telegram.phone}`}>
+                  {profile.telegram.phoneDisplay}
                 </a>
               </p>
               <p>
