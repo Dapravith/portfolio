@@ -20,7 +20,6 @@ import {
   siNodedotjs,
   siNuxt,
   siOpenid,
-  siOpenjdk,
   siPostgresql,
   siPrometheus,
   siReact,
@@ -33,14 +32,15 @@ import {
 } from 'simple-icons';
 
 
-export type GenericIcon = 'cloud' | 'logs' | 'architecture' | 'flow' | 'shield' | 'refactor' | 'key';
+export type GenericIcon = 'cloud' | 'logs' | 'architecture' | 'flow' | 'shield' | 'refactor' | 'key' | 'java';
 export type TechIcon = { kind: 'brand'; icon: SimpleIcon } | { kind: 'generic'; name: GenericIcon };
 
 const brand = (icon: SimpleIcon): TechIcon => ({ kind: 'brand', icon });
 const generic = (name: GenericIcon): TechIcon => ({ kind: 'generic', name });
 
 export const techIcons: Record<string, TechIcon> = {
-  Java: brand(siOpenjdk),
+  // Simple Icons dropped Oracle's Java cup (trademark); its OpenJDK icon is the Duke mascot.
+  Java: generic('java'),
   TypeScript: brand(siTypescript),
   JavaScript: brand(siJavascript),
   'Spring Boot': brand(siSpringboot),
