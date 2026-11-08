@@ -1,0 +1,35 @@
+import { content, type Project } from '@/content';
+import { localizePath, type Locale } from '@/i18n/config';
+import { absoluteUrl, text } from './site';
+
+export function personJsonLd(locale: Locale) {
+  const { profile, experience } = content;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: profile.name,
+    url: absoluteUrl(localizePath('/', locale)),
+    image: absoluteUrl(profile.photo.src),
+    jobTitle: text(profile.role, locale),
+    email: `mailto:${profile.email}`,
+    address: { '@type': 'PostalAddress', addressLocality: 'Phnom Penh', addressCountry: 'KH' },
+    sameAs: [profile.links.github, profile.links.linkedin],
+    alumniOf: content.education.map((e) => ({ '@type': 'CollegeOrUniversity', name: e.institution.en })),
+    knowsLanguage: ['km', 'en'],
+    worksFor: experience[0]?.end ? undefined : { '@type': 'Organization', name: experience[0]?.org.en },
+  };
+}
+
+export function projectJsonLd(project: Project, locale: Locale) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: text(project.title, locale),
+    description: text(project.summary, locale),
+    url: absoluteUrl(localizePath(`/projects/${project.slug}`, locale)),
+    codeRepository: project.repo,
+    keywords: project.stack.join(', '),
+    dateModified: String(project.year),
+    author: { '@type': 'Person', name: content.profile.name, url: absoluteUrl('/') },
+  };
+}
