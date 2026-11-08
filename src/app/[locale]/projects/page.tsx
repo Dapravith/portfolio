@@ -26,7 +26,8 @@ export default async function ProjectsPage({ params }: Props) {
   const rows = projects.map((p) => ({
     slug: p.slug,
     categories: [...p.categories],
-    node: <ProjectRow project={p} locale={locale} t={t} headingLevel="h2" />,
+    // Keyed here because the Suspense fallback below renders these nodes as a list too.
+    node: <ProjectRow key={p.slug} project={p} locale={locale} t={t} headingLevel="h2" />,
   }));
   const options = projectCategories
     .filter((c) => projects.some((p) => p.categories.includes(c)))

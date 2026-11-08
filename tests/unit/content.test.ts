@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { content, getAdjacentProject, getFeaturedProjects, getProject } from '@/content';
 import { getDictionary } from '@/i18n/dictionaries';
+import { techIcons } from '@/lib/tech-icons';
 
 const allText = JSON.stringify(content);
 
@@ -30,6 +31,11 @@ describe('content', () => {
   it('has no invented proficiency scores', () => {
     const skillText = strings([content.skillGroups, content.capabilities, content.profile]);
     for (const s of skillText) expect(s).not.toMatch(/\d\s?%/);
+  });
+
+  it('has an icon for every skill item', () => {
+    const missing = content.skillGroups.flatMap((group) => group.items).filter((item) => !techIcons[item]);
+    expect(missing).toEqual([]);
   });
 
   it('lists experience newest first with valid ranges', () => {

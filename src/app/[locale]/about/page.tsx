@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Download } from '@/components/icons';
 import { T } from '@/components/localized-text';
 import { PageHeader, Section } from '@/components/section';
-import { SkillTabs } from '@/components/skill-tabs';
+import { Skills } from '@/components/skills';
 import { content } from '@/content';
 import { isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -94,7 +94,7 @@ export default async function AboutPage({ params }: Props) {
       </Section>
 
       <Section id="skills" label={t.about.skills} intro={<p>{t.about.skillsNote}</p>}>
-        <SkillTabs locale={locale} />
+        <Skills locale={locale} />
       </Section>
 
       <Section id="courses" label={t.about.courses} intro={<p>{t.about.coursesNote}</p>}>

@@ -1,12 +1,16 @@
 import type { Capability, SkillGroup } from './schema';
 
-// Skill lists come from the two resumes in the repository history. No
-// proficiency scores: the work history and case studies are the evidence.
+// Skills come from the owner's résumé and subsequent additions. No proficiency scores.
 export const skillGroups: SkillGroup[] = [
   { id: 'languages', title: { en: 'Languages', km: 'ភាសាសរសេរកម្មវិធី' }, items: ['Java', 'TypeScript', 'JavaScript'] },
-  { id: 'backend', title: { en: 'Backend', km: 'Backend' }, items: ['Spring Boot', 'NestJS', 'Node.js', 'Express'] },
-  { id: 'frontend', title: { en: 'Frontend', km: 'Frontend' }, items: ['React', 'Next.js', 'Angular'] },
+  { id: 'backend', title: { en: 'Backend', km: 'Backend' }, items: ['Spring Boot', 'Spring WebFlux', 'NestJS', 'Node.js', 'Express'] },
+  { id: 'frontend', title: { en: 'Frontend', km: 'Frontend' }, items: ['React', 'Next.js', 'Vue.js', 'Nuxt 4', 'Angular'] },
   { id: 'data', title: { en: 'Databases', km: 'មូលដ្ឋានទិន្នន័យ' }, items: ['PostgreSQL', 'MySQL', 'MongoDB'] },
+  {
+    id: 'engineering',
+    title: { en: 'Engineering practices', km: 'ការអនុវត្តការងារវិស្វកម្ម' },
+    items: ['System design & architecture', 'System flows', 'Secure & scalable applications', 'Refactoring & logic improvements'],
+  },
   {
     id: 'identity',
     title: { en: 'Identity & security', km: 'អត្តសញ្ញាណ និងសុវត្ថិភាព' },
@@ -23,6 +27,9 @@ export const skillGroups: SkillGroup[] = [
       'Ansible',
       'Terraform',
       'Kubernetes',
+      'Grafana',
+      'Prometheus',
+      'Loki',
       'nginx',
       'Linux',
       'AWS',
@@ -30,14 +37,22 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
+// Product and technology names stay the same in both languages.
+export const skillItemTranslations: Record<string, string> = {
+  'System design & architecture': 'ការរចនា និងស្ថាបត្យកម្មប្រព័ន្ធ',
+  'System flows': 'លំហូរប្រព័ន្ធ',
+  'Secure & scalable applications': 'កម្មវិធីមានសុវត្ថិភាព និងអាចពង្រីកបាន',
+  'Refactoring & logic improvements': 'ការកែលម្អកូដ និង តក្កវិទ្យា',
+};
+
 export const capabilities: Capability[] = [
   {
     title: { en: 'Backend services', km: 'សេវាកម្ម Backend' },
     body: {
-      en: 'REST APIs in Spring Boot for government systems, an internal NestJS service at the Ministry of Economy and Finance, and Express APIs before that.',
-      km: 'REST API ជាមួយ Spring Boot សម្រាប់ប្រព័ន្ធរដ្ឋាភិបាល សេវាកម្ម NestJS ផ្ទៃក្នុងនៅក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ និង API ជាមួយ Express មុននោះ។',
+      en: 'Design system architecture and flows, build secure and scalable backend applications, and refactor logic for clarity and maintainability.',
+      km: 'រចនាស្ថាបត្យកម្ម និងលំហូរប្រព័ន្ធ បង្កើតកម្មវិធី backend ដែលមានសុវត្ថិភាព និងអាចពង្រីកបាន ព្រមទាំងកែលម្អកូដ និង logic ឱ្យងាយស្រួលថែទាំ។',
     },
-    tools: ['Java', 'Spring Boot', 'NestJS', 'PostgreSQL', 'MongoDB'],
+    tools: ['Java', 'Spring Boot', 'Spring WebFlux', 'NestJS', 'PostgreSQL', 'MongoDB'],
   },
   {
     title: { en: 'Identity and access', km: 'អត្តសញ្ញាណ និងសិទ្ធិចូលប្រើ' },
@@ -53,14 +68,14 @@ export const capabilities: Capability[] = [
       en: 'Jenkins and GitLab pipelines, Docker deployments, Ansible-provisioned Ubuntu servers, nginx and pm2 in production, and security scanning in CI.',
       km: 'pipeline របស់ Jenkins និង GitLab, ការដាក់ឱ្យដំណើរការជាមួយ Docker, ម៉ាស៊ីនមេ Ubuntu រៀបចំដោយ Ansible, nginx និង pm2 លើ production និងការស្កេនសុវត្ថិភាពក្នុង CI។',
     },
-    tools: ['Jenkins', 'GitLab CI', 'Docker', 'Ansible', 'Trivy', 'SonarQube'],
+    tools: ['Jenkins', 'GitLab CI', 'Docker', 'Ansible', 'Grafana', 'Prometheus', 'Loki', 'Trivy', 'SonarQube'],
   },
   {
     title: { en: 'Frontend', km: 'Frontend' },
     body: {
-      en: 'Angular for an internal ministry system, React on MERN projects, and Next.js for this site.',
-      km: 'Angular សម្រាប់ប្រព័ន្ធផ្ទៃក្នុងរបស់ក្រសួង React លើគម្រោង MERN និង Next.js សម្រាប់គេហទំព័រនេះ។',
+      en: 'Frontend development with React, Next.js, Vue.js, Nuxt 4 and Angular.',
+      km: 'អភិវឌ្ឍ frontend ជាមួយ React, Next.js, Vue.js, Nuxt 4 និង Angular។',
     },
-    tools: ['Angular', 'React', 'Next.js', 'TypeScript'],
+    tools: ['Angular', 'React', 'Next.js', 'Vue.js', 'Nuxt 4', 'TypeScript'],
   },
 ];

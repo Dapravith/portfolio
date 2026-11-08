@@ -12,8 +12,8 @@ export const profile: Profile = {
     km: 'ខ្ញុំបង្កើតកម្មវិធី Full-stack និងដំណើរការដាក់ឱ្យប្រើប្រាស់ដែលអាចទុកចិត្តបានដោយប្រើ Java Spring Boot, React និងបច្ចេកវិទ្យា cloud នៅគណៈកម្មាធិការសេដ្ឋកិច្ច និងធុរកិច្ចឌីជីថល។',
   },
   summary: {
-    en: 'Full-stack developer focused on reliable, secure enterprise systems. I work mostly with Java Spring Boot, REST APIs, Keycloak and CI/CD automation, with a working understanding of microservices, containers and Linux operations.',
-    km: 'អ្នកអភិវឌ្ឍ Full-Stack ដែលផ្តោតលើប្រព័ន្ធសហគ្រាសដែលអាចទុកចិត្តបាន និងមានសុវត្ថិភាព។ ខ្ញុំធ្វើការភាគច្រើនជាមួយ Java Spring Boot, REST API, Keycloak និងស្វ័យប្រវត្តិកម្ម CI/CD ព្រមទាំងយល់ដឹងពី microservices, container និងការគ្រប់គ្រងម៉ាស៊ីនមេ Linux។',
+    en: 'Full-stack developer focused on secure, scalable applications. I work on system architecture and flows, backend services with Spring Boot and WebFlux, and refactoring application logic for maintainability.',
+    km: 'អ្នកអភិវឌ្ឍ Full-stack ដែលផ្តោតលើកម្មវិធីមានសុវត្ថិភាព និងអាចពង្រីកបាន។ ខ្ញុំធ្វើការលើស្ថាបត្យកម្ម និងលំហូរប្រព័ន្ធ សេវាកម្ម backend ជាមួយ Spring Boot និង WebFlux ព្រមទាំងកែលម្អ logic ដើម្បីឱ្យងាយស្រួលថែទាំ។',
   },
   email: 'dapravithrotha@gmail.com',
   links: {
