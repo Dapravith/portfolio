@@ -7,8 +7,8 @@ import type { Course, Education, Experience } from './schema';
 export const experience: Experience[] = [
   {
     id: 'debc',
-    role: { en: 'Full-stack Developer', km: 'អ្នកអភិវឌ្ឍ Full-stack' },
-    org: { en: 'Digital Economy and Business Committee', km: 'គណៈកម្មាធិការសេដ្ឋកិច្ច និងធុរកិច្ចឌីជីថល' },
+    role: { en: 'Full-stack Developer', km: 'អ្នកអភិវឌ្ឍកម្មវិធីអ៊ិនធឺណិត' },
+    org: { en: 'Digital Economy and Business Committee', km: 'អគ្គលេខាធិការដ្ឋាន គណៈកម្មាធិការសេដ្ឋកិច្ច និងធុរកិច្ចឌីជីថល' },
     orgShort: 'DEBC',
     start: '2026-01',
     end: null,
@@ -25,7 +25,7 @@ export const experience: Experience[] = [
   },
   {
     id: 'dgc',
-    role: { en: 'Java Developer', km: 'អ្នកអភិវឌ្ឍ Java' },
+    role: { en: 'Java Developer', km: 'អ្នកអភិវឌ្ឍកម្មវិធីផ្នែកខាងក្រោយ Java' },
     org: {
       en: 'General Secretariat of the Digital Government Committee',
       km: 'អគ្គលេខាធិការដ្ឋាន គណៈកម្មាធិការរដ្ឋាភិបាលឌីជីថល',
@@ -64,10 +64,10 @@ export const experience: Experience[] = [
   },
   {
     id: 'mef',
-    role: { en: 'Software Developer and DevOps', km: 'អ្នកអភិវឌ្ឍកម្មវិធី និង DevOps' },
+    role: { en: 'Software Developer and DevOps Engineer Interned', km: 'កម្មសិក្សា អ្នកអភិវឌ្ឍកម្មវិធី និង DevOps Engineer' },
     org: {
       en: 'Secretariat of the Legal Council, Ministry of Economy and Finance',
-      km: 'លេខាធិការដ្ឋាន ក្រុមប្រឹក្សាច្បាប់ ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ',
+      km: 'លេខាធិការដ្ឋាន ក្រុមប្រឹក្សានិតិកម្ម នៃ ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ',
     },
     orgShort: 'MEF',
     start: '2024-02',
@@ -99,7 +99,7 @@ export const experience: Experience[] = [
   },
   {
     id: 'itc',
-    role: { en: 'Full-stack Developer', km: 'អ្នកអភិវឌ្ឍ Full-Stack' },
+    role: { en: 'Full-stack Developer', km: 'អ្នកអភិវឌ្ឍកម្មវិធីអ៊ិនធឺណិត' },
     org: { en: 'Institute of Technology of Cambodia', km: 'វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា' },
     orgShort: 'ITC',
     start: '2023-06',
@@ -131,7 +131,7 @@ export const experience: Experience[] = [
   },
   {
     id: 'vectorasoft',
-    role: { en: 'Web Developer Intern', km: 'កម្មសិក្សាការីអភិវឌ្ឍគេហទំព័រ' },
+    role: { en: 'Web Developer Interned', km: 'កម្មសិក្សាអ្នកអភិវឌ្ឍគេហទំព័រ' },
     org: { en: 'Vectorasoft', km: 'ក្រុមហ៊ុន Vectorasoft' },
     orgShort: 'Vectorasoft',
     start: '2022-07',
