@@ -40,7 +40,7 @@ export default async function HomePage({ params }: Props) {
               height={profile.photo.height}
               sizes="(min-width: 1024px) 13rem, (min-width: 768px) 11rem, 7rem"
               preload
-              className="aspect-[4/5] w-full rounded-sm object-cover object-[50%_20%]"
+              className="aspect-square w-full rounded-full border border-rule object-cover"
             />
           </div>
 

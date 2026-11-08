@@ -40,3 +40,16 @@ export function ThemeToggle({ toLight, toDark }: { toLight: string; toDark: stri
 }
 
 export const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark')}catch(e){}})()`;
+
+// Runs before paint from the server HTML. If React ever mounts <head> on the
+// client (e.g. recovering from an error), it would warn about an inert <script>;
+// a non-JS type there marks it as a data block. Hydration keeps the server type.
+export function ThemeScript() {
+  return (
+    <script
+      type={typeof window === 'undefined' ? undefined : 'text/plain'}
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: themeScript }}
+    />
+  );
+}
