@@ -1,30 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { handleContact } from '@/lib/contact/handler';
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { name, email, message } = body;
+export const runtime = 'nodejs';
 
-    // Validate input
-    if (!name || !email || !message) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
-
-    // TODO: Add email service integration (SendGrid, Resend, etc.)
-    console.log('Contact form submission:', { name, email, message });
-
-    return NextResponse.json(
-      { success: true, message: 'Message sent successfully' },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('Contact API error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
+export function POST(request: Request) {
+  return handleContact(request);
 }

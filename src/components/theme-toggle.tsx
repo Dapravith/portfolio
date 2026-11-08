@@ -1,78 +1,42 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useSyncExternalStore } from 'react';
+import { Moon, Sun } from './icons';
 
-export default function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
+// The initial class is set by an inline script in the layout before paint,
+// so this component only mirrors and flips it.
+function subscribe(callback: () => void) {
+  const observer = new MutationObserver(callback);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  return () => observer.disconnect();
+}
+const isDark = () => document.documentElement.classList.contains('dark');
 
-  useEffect(() => {
-    setMounted(true);
-    // Check for saved theme preference or default to light
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
-    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
-    setTheme(initialTheme);
-    
-    // Apply theme to document
-    if (initialTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+export function ThemeToggle({ toLight, toDark }: { toLight: string; toDark: string }) {
+  const dark = useSyncExternalStore(subscribe, isDark, () => false);
+
+  function toggle() {
+    const next = !isDark();
+    document.documentElement.classList.toggle('dark', next);
+    try {
+      localStorage.setItem('theme', next ? 'dark' : 'light');
+    } catch {
+      // Storage can be unavailable (private mode); the choice still applies to this page.
     }
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    
-    // Update localStorage
-    localStorage.setItem("theme", newTheme);
-    
-    // Update document class
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
-
-  // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
-    return (
-      <Button variant="ghost" size="icon" className="relative w-9 h-9">
-        <span className="sr-only">Toggle theme</span>
-      </Button>
-    );
   }
 
+  const label = dark ? toLight : toDark;
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={toggleTheme}
-      className="relative overflow-hidden"
-      aria-label="Toggle theme"
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={label}
+      title={label}
+      className="inline-flex size-11 items-center justify-center rounded text-muted hover:text-ink"
     >
-      {/* Sun Icon */}
-      <Sun
-        className={`h-5 w-5 transition-all duration-300 ${
-          theme === "light"
-            ? "rotate-0 scale-100"
-            : "rotate-90 scale-0 absolute"
-        }`}
-      />
-      {/* Moon Icon */}
-      <Moon
-        className={`h-5 w-5 transition-all duration-300 ${
-          theme === "dark"
-            ? "rotate-0 scale-100"
-            : "-rotate-90 scale-0 absolute"
-        }`}
-      />
-    </Button>
+      {dark ? <Sun /> : <Moon />}
+    </button>
   );
 }
+
+export const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark')}catch(e){}})()`;
