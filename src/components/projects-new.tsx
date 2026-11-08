@@ -1,10 +1,12 @@
 "use client";
 
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
+import { FaAws } from "react-icons/fa";
 import { 
   SiReact, 
   SiSpring, 
@@ -20,7 +22,6 @@ import {
   SiNextdotjs,
   SiTailwindcss,
   SiMysql,
-  SiAmazonwebservices,
   SiGit,
   SiPrometheus,
   SiGrafana
@@ -43,7 +44,7 @@ const techIcons: { [key: string]: React.ReactElement } = {
   "Next.js": <SiNextdotjs className="h-4 w-4" />,
   "Tailwind": <SiTailwindcss className="h-4 w-4 text-[#06B6D4]" />,
   "MySQL": <SiMysql className="h-4 w-4 text-[#4479A1]" />,
-  "AWS": <SiAmazonwebservices className="h-4 w-4 text-[#FF9900]" />,
+  "AWS": <FaAws className="h-4 w-4 text-[#FF9900]" />,
   "Git": <SiGit className="h-4 w-4 text-[#F05032]" />,
   "Prometheus": <SiPrometheus className="h-4 w-4 text-[#E6522C]" />,
   "Grafana": <SiGrafana className="h-4 w-4 text-[#F46800]" />,

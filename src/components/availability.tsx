@@ -1,11 +1,12 @@
 "use client";
 
+import { FaAws } from "react-icons/fa";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Briefcase, Calendar, Mail, MapPin } from "lucide-react";
 import {
-  SiAmazonwebservices,
   SiDocker,
   SiGitlab,
   SiKubernetes,
@@ -95,7 +96,7 @@ export default function Availability() {
                 </Badge>
                 <Badge variant="secondary">Microservices Architecture</Badge>
                 <Badge variant="secondary" className="flex items-center gap-1">
-                  <SiAmazonwebservices className="h-3 w-3" />
+                  <FaAws className="h-3 w-3" />
                   Cloud Infrastructure
                 </Badge>
                 <Badge variant="secondary" className="flex items-center gap-1">

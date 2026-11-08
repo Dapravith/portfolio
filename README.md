@@ -45,6 +45,18 @@ npm run dev
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
+### Portfolio view counter
+
+The footer displays a unique browser count backed by Upstash Redis. Create a database in [Upstash](https://console.upstash.com/), then set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` as server-side environment variables in `.env.local` and your hosting environment. Restart or redeploy after changing them. The count starts with the new visitor set and excludes the earlier test page views. It uses a random two-year cookie, so repeat visits in the same browser count once; clearing cookies, using other devices, and undetected bots can affect the count. It does not identify individual people. Local and preview traffic are read-only by default. Vercel production records visits when its system environment variables are exposed; on another host, explicitly set `PORTFOLIO_COUNT_VISITORS=true` for production. The counter displays “Unavailable” until storage is configured.
+
+### Portfolio assistant
+
+The assistant uses the experience and education data in `src/config/portfolio-experience.ts` for its answers. Without an API key it provides limited, prewritten portfolio answers; it cannot answer general questions in this mode.
+
+To enable AI answers, set `OPENAI_API_KEY` as a server-side environment variable in `.env.local` for local development and in the hosting environment for production. Optionally set `OPENAI_MODEL` to a model available to that key; the default is `gpt-4o-mini`. Restart the server after changing environment variables. Never put the key in a `NEXT_PUBLIC_` variable or commit it to the repository. Requests to the AI provider may incur usage charges.
+
+The existing request limiter is in-memory and applies per server instance. For a public deployment, configure a shared rate limit or hosting-level protection for `/api/chat` to control usage across instances. Add verified project details to the assistant's context before expecting it to answer questions about specific projects.
+
 ## 🎨 Customization
 
 ### Update Personal Information

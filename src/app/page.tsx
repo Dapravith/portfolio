@@ -1,28 +1,26 @@
 import About from "@/components/about";
-import Availability from "@/components/availability";
+import ChatAssistant from "@/components/chat-assistant";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
-import Projects from "@/components/projects";
 import Skills from "@/components/skills";
 // import FloatingActions from "@/components/floating-actions";
-import ChatAssistant from "@/components/chat-assistant";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-background via-background to-primary/5 overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-orb-gradient" />
+    <div className="min-h-screen bg-background">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:text-foreground">Skip to content</a>
       <Navbar />
+      <main id="main-content">
       <Hero />
-      <Availability />
       <About />
-      <Projects />
       <Skills />
       <Contact />
+      </main>
       <Footer />
-     {/*  <FloatingActions /> */}
       <ChatAssistant />
+     {/*  <FloatingActions /> */}
     </div>
   );
 }

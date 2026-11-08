@@ -1,9 +1,7 @@
 import { apiClient } from './apiClient';
 
 export interface ViewStats {
-  totalViews: number;
-  uniqueVisitors: number;
-  todayViews: number;
+  uniqueBrowsers: number;
 }
 
 export const analyticsService = {

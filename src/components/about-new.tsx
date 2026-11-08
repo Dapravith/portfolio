@@ -1,5 +1,7 @@
 "use client";
 
+import { FaAws } from "react-icons/fa";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -7,7 +9,6 @@ import {
   SiSpring, 
   SiDocker, 
   SiKubernetes, 
-  SiAmazonwebservices, 
   SiJenkins,
   SiTypescript,
   SiNodedotjs
@@ -74,7 +75,7 @@ export default function About() {
               { icon: <SiSpring className="h-6 w-6" />, name: "Spring Boot", color: "text-[#6DB33F]" },
               { icon: <SiDocker className="h-6 w-6" />, name: "Docker", color: "text-[#2496ED]" },
               { icon: <SiKubernetes className="h-6 w-6" />, name: "Kubernetes", color: "text-[#326CE5]" },
-              { icon: <SiAmazonwebservices className="h-6 w-6" />, name: "AWS", color: "text-[#FF9900]" },
+              { icon: <FaAws className="h-6 w-6" />, name: "AWS", color: "text-[#FF9900]" },
               { icon: <SiJenkins className="h-6 w-6" />, name: "Jenkins", color: "text-[#D24939]" },
               { icon: <SiTypescript className="h-6 w-6" />, name: "TypeScript", color: "text-[#3178C6]" },
               { icon: <SiNodedotjs className="h-6 w-6" />, name: "Node.js", color: "text-[#339933]" },

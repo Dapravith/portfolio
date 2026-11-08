@@ -4,6 +4,7 @@ export interface Translations {
   nav: {
     home: string;
     about: string;
+    experience: string;
     projects: string;
     skills: string;
     contact: string;
@@ -11,6 +12,7 @@ export interface Translations {
   hero: {
     greeting: string;
     name: string;
+    hook: string;
     title: string;
     description: string;
     viewWork: string;
@@ -35,6 +37,7 @@ export interface Translations {
       frontend: string;
       backend: string;
       tools: string;
+      ai: string;
     };
   };
   contact: {
@@ -57,6 +60,7 @@ export const translations: Record<Language, Translations> = {
     nav: {
       home: 'Home',
       about: 'About',
+      experience: 'Experience',
       projects: 'Projects',
       skills: 'Skills',
       contact: 'Contact',
@@ -64,9 +68,10 @@ export const translations: Record<Language, Translations> = {
     hero: {
       greeting: 'Hello, I am',
       name: 'Rotha Dapravith',
-      title: 'Senior Full-Stack Developer & DevOps Engineer',
-      description: 'Senior engineer building scalable enterprise platforms and leading modern DevOps practices. Specialized in Java Spring Boot, React, NextJS, Docker, Kubernetes, and cloud technologies.',
-      viewWork: 'View My Work',
+      hook: 'Building software that works, scales, and lasts.',
+      title: 'Full-Stack Developer & DevOps Engineer',
+      description: 'I build full-stack applications and reliable delivery workflows with Java Spring Boot, React, and cloud technologies.',
+      viewWork: 'View Experience',
       downloadResume: 'Download Resume',
       getInTouch: 'Get In Touch',
       technologiesLabel: 'Technologies I work with:',
@@ -83,11 +88,12 @@ export const translations: Record<Language, Translations> = {
     skills: {
       title: 'Skills & Expertise',
       subtitle: 'Technologies and tools I use to deliver reliable solutions',
-      description: 'Browse my front-end, back-end, and DevOps stacks with confidence levels.',
+      description: 'Browse my front-end, back-end, DevOps, and AI-assisted engineering tools.',
       categories: {
         frontend: 'Frontend',
         backend: 'Backend',
         tools: 'Tools & DevOps',
+        ai: 'AI Assisted Tools',
       },
     },
     contact: {
@@ -108,6 +114,7 @@ export const translations: Record<Language, Translations> = {
     nav: {
       home: 'ទំព័រដើម',
       about: 'អំពីខ្ញុំ',
+      experience: 'បទពិសោធន៍',
       projects: 'គម្រោង',
       skills: 'ជំនាញ',
       contact: 'ទំនាក់ទំនង',
@@ -115,9 +122,10 @@ export const translations: Record<Language, Translations> = {
     hero: {
       greeting: 'សួស្តី ខ្ញុំឈ្មោះ',
       name: 'រដ្ឋា ដាប្រាវីត',
-      title: 'វិស្វករ Full-Stack និង DevOps ជាន់ខ្ពស់',
-      description: 'វិស្វករជាន់ខ្ពស់ដែលបង្កើតវេទិកា​សហគ្រាសអាចពង្រីកបាន និងដឹកនាំការអនុវត្ត DevOps ទំនើប។ ជំនាញពិសេសលើ Java Spring Boot, React, NextJS, Docker, Kubernetes និងបច្ចេកវិទ្យាពពក។',
-      viewWork: 'មើលការងាររបស់ខ្ញុំ',
+      hook: 'បង្កើតកម្មវិធីដែលអាចទុកចិត្ត ពង្រីក និងប្រើប្រាស់បានយូរអង្វែង។',
+      title: 'អ្នកអភិវឌ្ឍ Full-Stack និងវិស្វករ DevOps',
+      description: 'ខ្ញុំបង្កើតកម្មវិធី Full-Stack និងដំណើរការដាក់ឱ្យប្រើប្រាស់ដែលអាចទុកចិត្តបាន ដោយប្រើ Java Spring Boot, React និងបច្ចេកវិទ្យាពពក។',
+      viewWork: 'មើលបទពិសោធន៍ការងារ',
       downloadResume: 'ទាញយកប្រវត្តិរូប',
       getInTouch: 'ទាក់ទងខ្ញុំ',
       technologiesLabel: 'បច្ចេកវិទ្យាដែលខ្ញុំប្រើ:',
@@ -134,11 +142,12 @@ export const translations: Record<Language, Translations> = {
     skills: {
       title: 'ជំនាញ និងបច្ចេកវិទ្យា',
       subtitle: 'បច្ចេកវិទ្យា និងឧបករណ៍ដែលខ្ញុំប្រើសម្រាប់បង្កើតដំណោះស្រាយដ៏ទុកចិត្តបាន',
-      description: 'ស្វែងយល់អំពីសមត្ថភាពខាងមុខ ខាងក្រោយ បទពិសោធន៍ DevOps និងកម្រិតជំនាញរបស់ខ្ញុំ។',
+      description: 'ស្វែងយល់អំពីបច្ចេកវិទ្យា Frontend, Backend, DevOps និងឧបករណ៍ AI ដែលខ្ញុំប្រើ។',
       categories: {
         frontend: 'ផ្នែកខាងមុខ',
         backend: 'ផ្នែកខាងក្រោយ',
         tools: 'ឧបករណ៍ និង DevOps',
+        ai: 'ឧបករណ៍ AI',
       },
     },
     contact: {

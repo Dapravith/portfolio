@@ -1,76 +1,65 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { randomUUID } from "node:crypto";
+import { NextRequest, NextResponse } from "next/server";
 
-// In-memory storage (replace with database in production)
-let totalViews = 0;
-const uniqueVisitors = new Set<string>();
+// A separate set starts the visitor count without the earlier test page views.
+const VISITORS_KEY = "portfolio:unique-browsers:v1";
+const COOKIE_NAME = "portfolio_visitor";
+const VISITOR_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const ROBOT_AGENT = /bot|crawler|spider|headless|lighthouse|preview|facebookexternalhit/i;
+const NO_CACHE = { "Cache-Control": "no-store" };
 
-const dailyViews = new Map<string, number>();
+async function redisCommand(command: string[]) {
+  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  if (!url || !token) return null;
 
-// Helper to get visitor identifier
-function getVisitorId(request: NextRequest): string {
-  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
-  const userAgent = request.headers.get('user-agent') || '';
-  return `${ip}-${userAgent}`;
-}
-
-// Helper to get today's date key
-function getTodayKey(): string {
-  return new Date().toISOString().split('T')[0];
-}
-
-// GET - Retrieve visitor statistics
-export async function GET() {
-  const today = getTodayKey();
-  const todayViews = dailyViews.get(today) || 0;
-
-  return NextResponse.json({
-    success: true,
-    data: {
-      totalViews,
-      uniqueVisitors: uniqueVisitors.size,
-      todayViews,
-    },
-  });
-}
-
-// POST - Record a new visit
-export async function POST(request: NextRequest) {
   try {
-    const visitorId = getVisitorId(request);
-    const today = getTodayKey();
-
-    // Increment total views
-    totalViews++;
-
-    // Track unique visitors
-    uniqueVisitors.add(visitorId);
-
-    // Track daily views
-    dailyViews.set(today, (dailyViews.get(today) || 0) + 1);
-
-    // Clean old daily data (keep last 30 days)
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    
-    for (const [date] of dailyViews) {
-      if (new Date(date) < thirtyDaysAgo) {
-        dailyViews.delete(date);
-      }
-    }
-
-    return NextResponse.json({
-      success: true,
-      data: {
-        totalViews,
-        uniqueVisitors: uniqueVisitors.size,
-        todayViews: dailyViews.get(today),
-      },
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify(command),
+      cache: "no-store",
+      signal: AbortSignal.timeout(5000),
     });
-  } catch (error) {
-    console.error('Analytics error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to record visit' },
-      { status: 500 }
-    );
+    if (!response.ok) return null;
+    const data = await response.json();
+    if (data.error || data.result == null) return null;
+    const value = Number(data.result);
+    return Number.isSafeInteger(value) && value >= 0 ? value : null;
+  } catch {
+    return null;
   }
+}
+
+function responseForCount(uniqueBrowsers: number | null) {
+  return uniqueBrowsers === null
+    ? NextResponse.json({ success: false, error: "Visitor count unavailable" }, { status: 503, headers: NO_CACHE })
+    : NextResponse.json({ success: true, data: { uniqueBrowsers } }, { headers: NO_CACHE });
+}
+
+export async function GET() {
+  return responseForCount(await redisCommand(["SCARD", VISITORS_KEY]));
+}
+
+export async function POST(request: NextRequest) {
+  // Local and preview traffic should never become production visitor statistics.
+  const recordingEnabled = process.env.VERCEL_ENV === "production" || process.env.PORTFOLIO_COUNT_VISITORS === "true";
+  if (!recordingEnabled || ROBOT_AGENT.test(request.headers.get("user-agent") ?? "")) return GET();
+
+  const existing = request.cookies.get(COOKIE_NAME)?.value;
+  const visitorId = existing && VISITOR_ID.test(existing) ? existing : randomUUID();
+  const added = await redisCommand(["SADD", VISITORS_KEY, visitorId]);
+  const count = added === null ? null : await redisCommand(["SCARD", VISITORS_KEY]);
+  const response = responseForCount(count);
+  // Keep the same anonymous ID even if storage is temporarily unavailable.
+  if (!existing || !VISITOR_ID.test(existing)) {
+    response.cookies.set(COOKIE_NAME, visitorId, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365 * 2,
+    });
+  }
+  return response;
 }

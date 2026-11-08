@@ -1,143 +1,33 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Mail, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { contactFormSchema, type ContactFormInput } from "@/validations/contactSchema";
-import { useState } from "react";
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { socialLinks } from "@/config/app.config";
 import { useLanguage } from "@/store/languageStore";
 
 export default function Contact() {
-  const { t } = useLanguage();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ContactFormInput>({
-    resolver: zodResolver(contactFormSchema),
-  });
-
-  const onSubmit = async (data: ContactFormInput) => {
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        reset();
-      } else {
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const { language, t } = useLanguage();
+  const introduction = language === "km"
+    ? "សម្រាប់ឱកាសការងារ ការសហការ ឬការពិភាក្សាអំពីវិស្វកម្មកម្មវិធី សូមទាក់ទងខ្ញុំតាមអ៊ីមែល។"
+    : "For opportunities, collaboration, or a conversation about software engineering, send me an email.";
 
   return (
-    <section id="contact" className="py-20">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            {t.contact.title}
-          </h2>
+    <section id="contact" className="scroll-mt-16 border-t border-border bg-background py-20 sm:py-24">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-2 md:gap-16 lg:px-8">
+        <div>
+          <p className="mb-4 font-mono text-xs font-semibold tracking-[0.2em] text-primary" aria-hidden="true">03 /</p>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{t.contact.title}</h2>
+          <p className="mt-4 max-w-lg text-base leading-7 text-muted-foreground">{introduction}</p>
         </div>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="name">{t.contact.nameLabel}</Label>
-            <Input
-              id="name"
-              type="text"
-              placeholder={t.contact.namePlaceholder}
-              {...register('name')}
-              className={errors.name ? 'border-red-500' : ''}
-            />
-            {errors.name && (
-              <p className="text-sm text-red-500">{errors.name.message}</p>
-            )}
+        <div className="space-y-3">
+          <a href={`mailto:${socialLinks.email}`} className="group flex items-center justify-between gap-4 rounded-lg border border-border p-5 hover:bg-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+            <span className="flex min-w-0 items-center gap-3"><Mail className="h-5 w-5 shrink-0" aria-hidden="true" /><span className="break-all font-medium">{socialLinks.email}</span></span>
+            <ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+          </a>
+          <div className="flex flex-wrap gap-3">
+            <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-3 text-sm font-medium hover:bg-accent"><Linkedin className="h-4 w-4" aria-hidden="true" />LinkedIn<ArrowUpRight className="h-3 w-3" aria-hidden="true" /></a>
+            <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-3 text-sm font-medium hover:bg-accent"><Github className="h-4 w-4" aria-hidden="true" />GitHub<ArrowUpRight className="h-3 w-3" aria-hidden="true" /></a>
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="email">{t.contact.emailLabel}</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder={t.contact.emailPlaceholder}
-              {...register('email')}
-              className={errors.email ? 'border-red-500' : ''}
-            />
-            {errors.email && (
-              <p className="text-sm text-red-500">{errors.email.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="message">{t.contact.messageLabel}</Label>
-            <Textarea
-              id="message"
-              placeholder={t.contact.messagePlaceholder}
-              rows={6}
-              {...register('message')}
-              className={errors.message ? 'border-red-500' : ''}
-            />
-            {errors.message && (
-              <p className="text-sm text-red-500">{errors.message.message}</p>
-            )}
-          </div>
-
-          {submitStatus === 'success' && (
-            <Alert variant="success">
-              <CheckCircle2 className="h-4 w-4" />
-              <AlertDescription>{t.contact.successMessage}</AlertDescription>
-            </Alert>
-          )}
-
-          {submitStatus === 'error' && (
-            <Alert variant="destructive">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{t.contact.errorMessage}</AlertDescription>
-            </Alert>
-          )}
-
-          <Button
-            type="submit"
-            size="lg"
-            className="w-full gap-2"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="h-5 w-5 animate-spin" />
-                {t.contact.sending}
-              </>
-            ) : (
-              <>
-                <Mail className="h-5 w-5" />
-                {t.contact.sendButton}
-              </>
-            )}
-          </Button>
-        </form>
+        </div>
       </div>
     </section>
   );

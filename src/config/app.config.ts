@@ -29,6 +29,8 @@ export const features = {
 export const socialLinks = {
   github: 'https://github.com/dapravith',
   linkedin: 'https://www.linkedin.com/in/rotha-dapravith/',
+  facebook: 'https://www.facebook.com/VithRMG',
+  instagram: 'https://www.instagram.com/rotha_dapravith_18/',
   email: 'dapravithrotha@gmail.com',
 } as const;
 

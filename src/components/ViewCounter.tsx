@@ -1,126 +1,49 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { Eye, Users, TrendingUp } from 'lucide-react';
-import { useViewStats, useRecordView } from '@/hooks/useAnalytics';
-import { Card } from '@/components/ui/card';
+import { useEffect, useState } from "react";
+import { Eye } from "lucide-react";
+import { useLanguage } from "@/store/languageStore";
+
+// One request per page load, including React development-mode remounts.
+let viewRequest: Promise<number | null> | null = null;
+
+function recordView() {
+  if (!viewRequest) {
+    viewRequest = fetch("/api/analytics/views", { method: "POST" })
+      .then(async (response) => {
+        if (!response.ok) return null;
+        const result = await response.json();
+        return typeof result.data?.uniqueBrowsers === "number" ? result.data.uniqueBrowsers : null;
+      })
+      .catch(() => null);
+  }
+  return viewRequest;
+}
 
 export function ViewCounter() {
-  const { data: stats, isLoading } = useViewStats();
-  const { mutate: recordView } = useRecordView();
-
-  // Record view on component mount
-  useEffect(() => {
-    recordView();
-  }, [recordView]);
-
-  if (isLoading || !stats) {
-    return (
-      <div className="flex items-center gap-4 text-sm text-muted-foreground animate-pulse">
-        <div className="h-4 w-24 bg-muted rounded"></div>
-        <div className="h-4 w-24 bg-muted rounded"></div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex items-center gap-6 text-sm">
-      <div className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-        <Eye className="h-4 w-4" />
-        <span className="font-medium">{stats.totalViews.toLocaleString()}</span>
-        <span className="hidden sm:inline">total views</span>
-      </div>
-      
-      <div className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-        <Users className="h-4 w-4" />
-        <span className="font-medium">{stats.uniqueVisitors.toLocaleString()}</span>
-        <span className="hidden sm:inline">visitors</span>
-      </div>
-      
-      <div className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-        <TrendingUp className="h-4 w-4" />
-        <span className="font-medium">{stats.todayViews.toLocaleString()}</span>
-        <span className="hidden sm:inline">today</span>
-      </div>
-    </div>
-  );
-}
-
-// Compact version for mobile
-export function ViewCounterCompact() {
-  const { data: stats, isLoading } = useViewStats();
-  const { mutate: recordView } = useRecordView();
+  const { language } = useLanguage();
+  const [views, setViews] = useState<number | null>(null);
+  const [unavailable, setUnavailable] = useState(false);
 
   useEffect(() => {
-    recordView();
-  }, [recordView]);
+    let active = true;
+    void recordView().then((count) => {
+      if (!active) return;
+      if (count === null) setUnavailable(true);
+      else setViews(count);
+    });
+    return () => { active = false; };
+  }, []);
 
-  if (isLoading || !stats) {
-    return (
-      <div className="h-4 w-20 bg-muted rounded animate-pulse"></div>
-    );
-  }
-
-  return (
-    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-      <Eye className="h-3 w-3" />
-      <span>{stats.totalViews.toLocaleString()} views</span>
-    </div>
-  );
-}
-
-// Card version for dashboard
-export function ViewStatsCard() {
-  const { data: stats, isLoading } = useViewStats();
-
-  if (isLoading || !stats) {
-    return (
-      <Card className="p-6">
-        <div className="space-y-4 animate-pulse">
-          <div className="h-4 w-32 bg-muted rounded"></div>
-          <div className="h-8 w-24 bg-muted rounded"></div>
-        </div>
-      </Card>
-    );
-  }
+  const label = language === "km" ? "ចំនួនកម្មវិធីរុករកផ្សេងគ្នា" : "Unique browsers";
+  const value = unavailable
+    ? (language === "km" ? "មិនទាន់មាន" : "Unavailable")
+    : views === null ? "—" : views.toLocaleString(language === "km" ? "km-KH" : "en-US");
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <Card className="p-6">
-        <div className="flex items-center gap-4">
-          <div className="p-3 bg-blue-500/10 rounded-lg">
-            <Eye className="h-6 w-6 text-blue-500" />
-          </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Total Views</p>
-            <p className="text-2xl font-bold">{stats.totalViews.toLocaleString()}</p>
-          </div>
-        </div>
-      </Card>
-
-      <Card className="p-6">
-        <div className="flex items-center gap-4">
-          <div className="p-3 bg-green-500/10 rounded-lg">
-            <Users className="h-6 w-6 text-green-500" />
-          </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Unique Visitors</p>
-            <p className="text-2xl font-bold">{stats.uniqueVisitors.toLocaleString()}</p>
-          </div>
-        </div>
-      </Card>
-
-      <Card className="p-6">
-        <div className="flex items-center gap-4">
-          <div className="p-3 bg-purple-500/10 rounded-lg">
-            <TrendingUp className="h-6 w-6 text-purple-500" />
-          </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Today&apos;s Views</p>
-            <p className="text-2xl font-bold">{stats.todayViews.toLocaleString()}</p>
-          </div>
-        </div>
-      </Card>
-    </div>
+    <span className="inline-flex items-center gap-2 text-sm text-slate-300">
+      <Eye className="h-4 w-4 shrink-0" aria-hidden="true" />
+      <span>{label}: <span className="font-medium text-slate-100">{value}</span></span>
+    </span>
   );
 }

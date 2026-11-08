@@ -5,18 +5,9 @@ import { Providers } from "@/providers";
 export const metadata: Metadata = {
   title: "Rotha Dapravith - Full-Stack Developer & DevOps Engineer",
   description:
-    "Portfolio of Rotha Dapravith, a Full-Stack Developer and DevOps Engineer with expertise in Java Spring Boot, React, and passionate DevOps Engineer.",
-  keywords: ["Full-Stack Developer", "DevOps Engineer", "Java Spring Boot", "React", "Next.js", "Microservices", "Docker", "Kubernetes"],
+    "Portfolio of Rotha Dapravith, a Full-Stack Developer and DevOps Engineer working with Java Spring Boot, React, cloud platforms, and AI-assisted engineering.",
+  keywords: ["Full-Stack Developer", "DevOps Engineer", "Java Spring Boot", "React", "Next.js", "Microservices", "Docker", "Kubernetes", "AI-assisted engineering"],
   authors: [{ name: "Rotha Dapravith" }],
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
-    ],
-    apple: [
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-  },
   openGraph: {
     title: "Rotha Dapravith - Full-Stack Developer & DevOps Engineer",
     description: "Portfolio of Rotha Dapravith showcasing expertise in full-stack development and DevOps engineering.",
