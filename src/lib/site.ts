@@ -23,6 +23,13 @@ export function text(value: Localized, locale: Locale): string {
 
 const intlLocale: Record<Locale, string> = { en: 'en-GB', km: 'km-KH' };
 
+/** Render work history at year precision. */
+export function formatWorkYears(start: string, end: string | null, present: string): string {
+  const first = start.slice(0, 4);
+  const last = end?.slice(0, 4) ?? present;
+  return first === last ? first : `${first} – ${last}`;
+}
+
 /** `2024-10` → `Oct 2024` / `តុលា 2024`. */
 export function formatMonth(yearMonth: string, locale: Locale): string {
   const [y, m] = yearMonth.split('-').map(Number);

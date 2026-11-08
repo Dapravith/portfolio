@@ -3,13 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Download } from '@/components/icons';
 import { T } from '@/components/localized-text';
-import { ProjectRow } from '@/components/project-row';
 import { Section } from '@/components/section';
-import { content, getFeaturedProjects } from '@/content';
+import { SkillTabs } from '@/components/skill-tabs';
+import { content } from '@/content';
 import { isLocale, localizePath, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { personJsonLd } from '@/lib/json-ld';
-import { formatDate, formatMonth, pageMetadata, text } from '@/lib/site';
+import { formatDate, formatWorkYears, pageMetadata, text } from '@/lib/site';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -23,15 +23,14 @@ export default async function HomePage({ params }: Props) {
   const { locale: raw } = await params;
   const locale = raw as Locale;
   const t = getDictionary(locale);
-  const { profile, experience, capabilities } = content;
-  const featured = getFeaturedProjects();
+  const { profile, experience } = content;
   const latest = experience[0];
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }} />
 
-      <section aria-labelledby="intro-title" className="page pt-10 pb-section md:pt-16">
+      <section aria-labelledby="intro-title" className="page hero-panel pt-10 pb-section md:pt-16">
         <div className="grid gap-y-8 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[13rem_minmax(0,1fr)]">
           <div className="w-24 sm:w-28 md:w-full">
             <Image
@@ -64,7 +63,7 @@ export default async function HomePage({ params }: Props) {
                 <dd className="mt-1">
                   <T value={latest.role} locale={locale} />, <T value={latest.org} locale={locale} />{' '}
                   <span className="text-muted">
-                    ({formatMonth(latest.start, locale)} – {latest.end ? formatMonth(latest.end, locale) : t.about.present})
+                    ({formatWorkYears(latest.start, latest.end, t.about.present)})
                   </span>
                 </dd>
               </div>
@@ -88,7 +87,7 @@ export default async function HomePage({ params }: Props) {
             </dl>
 
             <div className="mt-10 flex flex-wrap gap-3">
-              <a href="#work" className="btn btn-primary">
+              <a href="#experience" className="btn btn-primary">
                 {t.home.ctaWork}
                 <ArrowRight />
               </a>
@@ -105,35 +104,12 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      <Section
-        id="work"
-        label={t.home.workLabel}
-        title={t.home.workTitle}
-        intro={<p>{t.home.workIntro}</p>}
-        aside={
-          <Link href={localizePath('/projects', locale)} className="link mt-3 hidden text-small md:inline-block">
-            {t.home.allProjects}
-          </Link>
-        }
-      >
-        <div>
-          {featured.map((project) => (
-            <ProjectRow key={project.slug} project={project} locale={locale} t={t} />
-          ))}
-        </div>
-        <p className="mt-8 border-t border-rule pt-6 md:hidden">
-          <Link href={localizePath('/projects', locale)} className="link text-small">
-            {t.home.allProjects}
-          </Link>
-        </p>
-      </Section>
-
       <Section id="experience" label={t.home.experienceLabel} title={t.home.experienceTitle}>
         <ol className="border-b border-rule">
           {experience.map((job) => (
             <li key={job.id} className="grid gap-1 border-t border-rule py-5 sm:grid-cols-[10.5rem_minmax(0,1fr)] sm:gap-x-8">
               <p className="font-mono text-meta whitespace-nowrap text-muted sm:pt-1">
-                {formatMonth(job.start, locale)} – {job.end ? formatMonth(job.end, locale) : t.about.present}
+                {formatWorkYears(job.start, job.end, t.about.present)}
               </p>
               <div className="min-w-0">
                 <h3 className="font-medium">
@@ -153,22 +129,8 @@ export default async function HomePage({ params }: Props) {
         </p>
       </Section>
 
-      <Section id="capabilities" label={t.home.capabilitiesLabel} title={t.home.capabilitiesTitle}>
-        <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
-          {capabilities.map((c) => (
-            <div key={c.title.en} className="border-t-2 border-ink pt-4">
-              <h3 className="font-semibold">
-                <T value={c.title} locale={locale} />
-              </h3>
-              <T as="p" value={c.body} locale={locale} className="mt-2 text-small text-muted" />
-              <ul className="tags mt-4">
-                {c.tools.map((tool) => (
-                  <li key={tool}>{tool}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+      <Section id="skills" label={t.about.skills} title={locale === 'km' ? 'ជំនាញ និងបច្ចេកវិទ្យា' : 'Skills & Expertise'}>
+        <SkillTabs locale={locale} />
       </Section>
 
       <Section id="contact" label={t.home.contactLabel} title={t.home.contactTitle} intro={<p>{t.home.contactBody}</p>}>

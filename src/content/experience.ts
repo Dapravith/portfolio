@@ -2,8 +2,27 @@ import type { Course, Education, Experience } from './schema';
 
 // Source: resume dated 2025-11-05. The Vectorasoft internship comes from the
 // owner's original site copy (commit 439d5b9); it is not on the current resume.
+// DEBC and the AUPP course were supplied by the owner in November 2026.
 // Newest first.
 export const experience: Experience[] = [
+  {
+    id: 'debc',
+    role: { en: 'Full-stack Developer', km: 'អ្នកអភិវឌ្ឍ Full-stack' },
+    org: { en: 'Digital Economy and Business Committee', km: 'គណៈកម្មាធិការសេដ្ឋកិច្ច និងធុរកិច្ចឌីជីថល' },
+    orgShort: 'DEBC',
+    start: '2026-01',
+    end: null,
+    location: { en: 'Phnom Penh', km: 'ភ្នំពេញ' },
+    summary: {
+      en: 'Full-stack applications for digital economy initiatives, including business registration.',
+      km: 'កម្មវិធី Full-stack សម្រាប់គំនិតផ្តួចផ្តើមសេដ្ឋកិច្ចឌីជីថល រួមទាំងការចុះបញ្ជីអាជីវកម្ម។',
+    },
+    highlights: [
+      { en: 'Build responsive interfaces, APIs and database integrations.', km: 'បង្កើតចំណុចប្រទាក់ responsive, API និងការភ្ជាប់មូលដ្ឋានទិន្នន័យ។' },
+      { en: 'Collaborate on testing and deployment.', km: 'សហការជាមួយក្រុមលើការធ្វើតេស្ត និងការដាក់ឱ្យប្រើប្រាស់។' },
+    ],
+    stack: ['Java Spring Boot', 'React', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'Git'],
+  },
   {
     id: 'dgc',
     role: { en: 'Java Developer', km: 'អ្នកអភិវឌ្ឍ Java' },
@@ -137,6 +156,12 @@ export const experience: Experience[] = [
 ];
 
 export const education: Education[] = [
+  {
+    credential: { en: 'IT Professional Course: Cloud Computing', km: 'វគ្គសិក្សាសម្រាប់អ្នកជំនាញ IT៖ Cloud Computing' },
+    institution: { en: 'American University of Phnom Penh (AUPP)', km: 'សាកលវិទ្យាល័យអាមេរិកាំងភ្នំពេញ (AUPP)' },
+    start: '2026-01', end: '2026-07',
+    note: { en: 'AWS foundations, cloud architecture and operations, microservices, Docker, Kubernetes, serverless APIs and CI/CD.', km: 'មូលដ្ឋាន AWS ស្ថាបត្យកម្ម និងប្រតិបត្តិការ Cloud, microservices, Docker, Kubernetes, serverless APIs និង CI/CD។' },
+  },
   {
     credential: {
       en: 'Engineer’s degree in Computer Science',

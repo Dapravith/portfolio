@@ -8,8 +8,8 @@ export const profile: Profile = {
   location: { en: 'Phnom Penh, Cambodia', km: 'ភ្នំពេញ ប្រទេសកម្ពុជា' },
   timezone: 'UTC+7',
   lead: {
-    en: 'I build backend services and the pipelines that ship them — most recently Spring Boot APIs, Keycloak single sign-on and Jenkins deployments at the secretariat of Cambodia’s Digital Government Committee.',
-    km: 'ខ្ញុំកសាងសេវាកម្ម backend និង pipeline សម្រាប់ដាក់ឱ្យដំណើរការ — ថ្មីៗនេះគឺ API ជាមួយ Spring Boot, ការចូលប្រើតែមួយ (SSO) ជាមួយ Keycloak និងការដាក់ឱ្យដំណើរការតាម Jenkins នៅអគ្គលេខាធិការដ្ឋាន គណៈកម្មាធិការរដ្ឋាភិបាលឌីជីថល។',
+    en: 'I build full-stack applications and reliable delivery workflows with Java Spring Boot, React and cloud technologies, currently at the Digital Economy and Business Committee.',
+    km: 'ខ្ញុំបង្កើតកម្មវិធី Full-stack និងដំណើរការដាក់ឱ្យប្រើប្រាស់ដែលអាចទុកចិត្តបានដោយប្រើ Java Spring Boot, React និងបច្ចេកវិទ្យា cloud នៅគណៈកម្មាធិការសេដ្ឋកិច្ច និងធុរកិច្ចឌីជីថល។',
   },
   summary: {
     en: 'Full-stack developer focused on reliable, secure enterprise systems. I work mostly with Java Spring Boot, REST APIs, Keycloak and CI/CD automation, with a working understanding of microservices, containers and Linux operations.',

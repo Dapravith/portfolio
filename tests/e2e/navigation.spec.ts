@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test('home shows who, what and how to make contact above the fold content', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1, name: 'Rotha Dapravith' })).toBeVisible();
-  await expect(page.getByText('Java Developer, General Secretariat of the Digital Government Committee')).toBeVisible();
+  await expect(page.getByText('Full-stack Developer, Digital Economy and Business Committee')).toBeVisible();
   await expect(page.getByRole('link', { name: /Download résumé/ }).first()).toHaveAttribute('href', '/rotha-dapravith-resume.pdf');
   await expect(page.getByText(/senior/i)).toHaveCount(0);
 });
@@ -81,4 +81,15 @@ test('old résumé URLs redirect to the current file', async ({ request }) => {
   const res = await request.get('/resume.pdf', { maxRedirects: 0 });
   expect(res.status()).toBe(308);
   expect(res.headers()['location']).toBe('/rotha-dapravith-resume.pdf');
+});
+
+test('skill tabs and portfolio assistant work', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('tab', { name: 'AI Assisted Tools' }).click();
+  await expect(page.getByRole('heading', { name: 'Claude Code' })).toBeVisible();
+  await page.getByRole('button', { name: 'Open portfolio assistant' }).click();
+  await page.getByRole('button', { name: 'Work experience' }).click();
+  await expect(page.getByText(/Full-stack Developer — Digital Economy and Business Committee/)).toBeVisible();
+  await page.getByRole('button', { name: 'Close chat' }).first().click();
+  await expect(page.getByRole('button', { name: 'Open portfolio assistant' })).toBeVisible();
 });

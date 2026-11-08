@@ -5,6 +5,9 @@ import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import '../globals.css';
 import { ExternalLink } from '@/components/external-link';
+import { ChatAssistant } from '@/components/chat-assistant';
+import { PhnomPenhTime } from '@/components/phnom-penh-time';
+import { ViewCounter } from '@/components/ViewCounter';
 import { LanguageSwitch, SiteNav } from '@/components/site-nav';
 import { ThemeToggle, themeScript } from '@/components/theme-toggle';
 import { content } from '@/content';
@@ -52,8 +55,8 @@ export function generateStaticParams() {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f6f4ef' },
-    { media: '(prefers-color-scheme: dark)', color: '#141412' },
+    { media: '(prefers-color-scheme: light)', color: '#f4f8fc' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a1221' },
   ],
 };
 
@@ -159,6 +162,7 @@ export default async function LocaleLayout({
                   {profile.telegram.phoneDisplay}
                 </a>
               </p>
+              <p><PhnomPenhTime locale={locale} /> · <ViewCounter locale={locale} /></p>
               <p>
                 {t.footer.built} {formatDate(contentReviewed, locale)}.
               </p>
@@ -174,6 +178,8 @@ export default async function LocaleLayout({
                   LinkedIn
                 </ExternalLink>
               </li>
+              <li><ExternalLink href="https://www.facebook.com/VithRMG" newTabLabel={t.a11y.opensNewTab}>Facebook</ExternalLink></li>
+              <li><ExternalLink href="https://www.instagram.com/rotha_dapravith_18/" newTabLabel={t.a11y.opensNewTab}>Instagram</ExternalLink></li>
               <li>
                 <ExternalLink href="https://github.com/Dapravith/portfolio" newTabLabel={t.a11y.opensNewTab}>
                   {t.footer.source}
@@ -182,6 +188,7 @@ export default async function LocaleLayout({
             </ul>
           </div>
         </footer>
+        <ChatAssistant locale={locale} />
       </body>
     </html>
   );

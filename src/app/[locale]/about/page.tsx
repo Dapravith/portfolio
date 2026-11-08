@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import { Download } from '@/components/icons';
 import { T } from '@/components/localized-text';
 import { PageHeader, Section } from '@/components/section';
+import { SkillTabs } from '@/components/skill-tabs';
 import { content } from '@/content';
 import { isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { personJsonLd } from '@/lib/json-ld';
-import { formatDate, formatMonth, pageMetadata, text } from '@/lib/site';
+import { formatDate, formatMonth, formatWorkYears, pageMetadata, text } from '@/lib/site';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -21,7 +22,7 @@ export default async function AboutPage({ params }: Props) {
   const { locale: raw } = await params;
   const locale = raw as Locale;
   const t = getDictionary(locale);
-  const { profile, experience, education, courses, skillGroups } = content;
+  const { profile, experience, education, courses } = content;
   const range = (start: string, end: string | null) =>
     `${formatMonth(start, locale)} – ${end ? formatMonth(end, locale) : t.about.present}`;
 
@@ -29,6 +30,7 @@ export default async function AboutPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }} />
       <PageHeader title={t.about.title}>
+        <p className="mb-3 font-medium text-accent">{locale === 'km' ? 'បទពិសោធន៍ ៣ ឆ្នាំ' : '3 years of experience'}</p>
         <T as="p" value={profile.summary} locale={locale} />
         <p className="mt-6">
           <a href={profile.resume.href} download className="btn btn-secondary text-ink">
@@ -47,7 +49,7 @@ export default async function AboutPage({ params }: Props) {
             <li key={job.id} className="border-t border-rule py-8 first:border-t-0 first:pt-0">
               <article aria-labelledby={`job-${job.id}`}>
                 <p className="font-mono text-meta text-muted">
-                  {range(job.start, job.end)} · <T value={job.location} locale={locale} />
+                  {formatWorkYears(job.start, job.end, t.about.present)} · <T value={job.location} locale={locale} />
                 </p>
                 <h2 id={`job-${job.id}`} className="mt-2 font-serif text-h3 font-semibold">
                   <T value={job.role} locale={locale} />
@@ -92,22 +94,7 @@ export default async function AboutPage({ params }: Props) {
       </Section>
 
       <Section id="skills" label={t.about.skills} intro={<p>{t.about.skillsNote}</p>}>
-        <dl className="border-b border-rule">
-          {skillGroups.map((g) => (
-            <div key={g.id} className="grid gap-1 border-t border-rule py-4 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-x-6">
-              <dt className="font-medium">
-                <T value={g.title} locale={locale} />
-              </dt>
-              <dd>
-                <ul className="tags !text-small !text-ink">
-                  {g.items.map((s) => (
-                    <li key={s}>{s}</li>
-                  ))}
-                </ul>
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <SkillTabs locale={locale} />
       </Section>
 
       <Section id="courses" label={t.about.courses} intro={<p>{t.about.coursesNote}</p>}>

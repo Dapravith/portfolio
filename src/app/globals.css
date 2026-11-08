@@ -17,18 +17,18 @@
 }
 
 /*
- * Design tokens. Palette: warm paper and ink with one rust accent.
+ * Design tokens. Palette: cool paper and ink with a blue accent.
  * Contrast (checked by tests/unit/contrast.test.ts):
  *   ink/bg ≥ 15:1, muted/bg ≥ 7:1, accent/bg ≥ 5.5:1 in both themes.
  */
 :root {
-  --bg: #f6f4ef;
-  --surface: #fcfbf8;
-  --ink: #1b1a17;
-  --muted: #4f4c45;
-  --rule: #d8d3c6;
-  --rule-strong: #a8a293;
-  --accent: #9c3812;
+  --bg: #f4f8fc;
+  --surface: #ffffff;
+  --ink: #101b2c;
+  --muted: #465769;
+  --rule: #cdd9e4;
+  --rule-strong: #8195a8;
+  --accent: #174b86;
   --accent-ink: #ffffff;
   --ok: #2c6435;
   --danger: #a11d2b;
@@ -36,14 +36,14 @@
 }
 
 .dark {
-  --bg: #141412;
-  --surface: #1b1a18;
-  --ink: #ece9e1;
-  --muted: #b1ac9f;
-  --rule: #34322d;
-  --rule-strong: #5c5850;
-  --accent: #ee9068;
-  --accent-ink: #141412;
+  --bg: #0a1221;
+  --surface: #111f33;
+  --ink: #edf4fa;
+  --muted: #b1c2d2;
+  --rule: #30445d;
+  --rule-strong: #738ba5;
+  --accent: #99cbf6;
+  --accent-ink: #0a1221;
   --ok: #8cc797;
   --danger: #f29a9a;
   color-scheme: dark;
@@ -260,4 +260,14 @@
     height: 0.375rem;
     background: var(--accent);
   }
+}
+
+/* A quiet grid carries the engineering motif without competing with content. */
+.hero-panel {
+  background-image: linear-gradient(to right, rgb(73 120 170 / 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgb(73 120 170 / 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .assistant-mark-satellite { animation: assistant-signal 3s ease-in-out infinite; transform-origin: 50px 13px; }
+  @keyframes assistant-signal { 50% { opacity: .55; transform: scale(.8); } }
 }

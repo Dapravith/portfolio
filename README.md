@@ -197,3 +197,9 @@ Telegram [@dapravith](https://t.me/dapravith) / +855 89 937 798 ·
 
 The repository has no license file. Unless one is added, the code, text and
 photographs are © Rotha Dapravith, all rights reserved.
+
+### Portfolio assistant and visitor counter
+
+The assistant answers from the portfolio content. Set `OPENAI_API_KEY` to enable model answers; `OPENAI_MODEL` is optional. Without the key (or when the provider is unavailable), it provides limited local answers instead. Its in-memory request limit is per server instance, not a shared production-wide limit.
+
+To display actual unique browsers, configure `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` as server-side environment variables. The counter uses a random, two-year browser cookie and an Upstash Redis set. Only production traffic is recorded by default; `PORTFOLIO_COUNT_VISITORS=true` explicitly enables recording elsewhere. Bot requests and preview/local requests are not recorded by default. The count is unavailable when Redis is not configured or cannot be reached; it is never fabricated. Keep all credentials out of source control.
