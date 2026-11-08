@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Download } from '@/components/icons';
 import { T } from '@/components/localized-text';
 import { Section } from '@/components/section';
-import { SkillTabs } from '@/components/skill-tabs';
+import { Skills } from '@/components/skills';
 import { content } from '@/content';
 import { isLocale, localizePath, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -130,7 +130,7 @@ export default async function HomePage({ params }: Props) {
       </Section>
 
       <Section id="skills" label={t.about.skills} title={locale === 'km' ? 'ជំនាញ និងបច្ចេកវិទ្យា' : 'Skills & Expertise'}>
-        <SkillTabs locale={locale} />
+        <Skills locale={locale} />
       </Section>
 
       <Section id="contact" label={t.home.contactLabel} title={t.home.contactTitle} intro={<p>{t.home.contactBody}</p>}>
