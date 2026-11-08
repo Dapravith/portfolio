@@ -92,7 +92,7 @@ See `ROADMAP.md` for the prioritised backlog and `DESIGN_SYSTEM.md` for the chos
 | F5 blank thumbnails, no detail pages | Replaced by case studies with HTML architecture diagrams |
 | F6 duplicate assets, broken fallback path | Fixed — one résumé file, old URLs redirect |
 | F7 menu a11y, hidden scrollbars | Fixed — no menu needed; axe WCAG 2.2 AA clean |
-| S1 vulnerabilities | Production: 0. Dev-only: 8 moderate in the typescript-eslint chain (no fix available upstream yet) |
+| S1 vulnerabilities | Production: 0. Dev-only: 8 moderate in the typescript-eslint chain; npm offers only a breaking `--force` fix, so revisit with the next eslint-config-next release |
 | S2 headers | Fixed — CSP, HSTS, frame-ancestors, nosniff, referrer and permissions policy |
 | S3 endpoint abuse | Contact: validation, honeypot, timing, rate limit, origin and size checks |
 | S4 referee details in public PDF | **Open** — owner decision |
