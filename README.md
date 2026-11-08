@@ -1,182 +1,205 @@
-# Rotha Dapravith - Portfolio Website
+# Rotha Dapravith — portfolio
 
-A modern, responsive portfolio website for Full-Stack Developer & DevOps Engineer built with Next.js 16, TypeScript, and Radix UI components (via shadcn/ui).
+Source for **[dapravith.vercel.app](https://dapravith.vercel.app)**, the portfolio of
+Rotha Dapravith, a full-stack developer in Phnom Penh working on Spring Boot APIs,
+Keycloak single sign-on and CI/CD pipelines.
 
-## ✨ Features
+The site is bilingual (English and Khmer), statically generated, and built so that
+every claim on it can be traced to the résumé or to a public repository.
 
-- 🎨 **Modern Design** - Clean, professional design with smooth animations
-- 📱 **Fully Responsive** - Optimized for all devices (mobile, tablet, desktop)
-- 🌙 **Dark Mode Ready** - Built-in support for dark/light themes
-- ⚡ **Fast Performance** - Optimized with Next.js App Router
-- 🎯 **SEO Friendly** - Metadata and semantic HTML
-- 🧩 **Component-Based** - Reusable Radix-based components from shadcn/ui
-- 💼 **Sections Included**:
-  - Hero section with professional introduction
-  - About section with DevOps & Full-Stack experience
-  - Projects showcase with DevOps and microservices projects
-  - Skills with Frontend, Backend, and DevOps tools
-  - Contact form with location in Cambodia
-  - Footer with social links
+## Features
 
-## 🚀 Getting Started
+- **Project case studies** — `/projects` with a shareable category filter
+  (`?category=security`), and a page per project covering context, architecture
+  (diagram rendered from data), technology choices, security, testing and known limitations.
+- **English and Khmer** — English at `/`, Khmer at `/km`, both rendered on the server
+  with the correct `<html lang>`, `hreflang` alternates and a remembered language choice.
+- **Working contact form** — delivers through [Resend](https://resend.com) and only
+  reports success after the provider accepts the message. Spam controls: honeypot,
+  minimum fill time, per-IP rate limit, same-origin and size checks. Without
+  provider keys the page shows an email link instead.
+- **Accessible and responsive** — WCAG 2.2 AA (checked with axe on every page, both
+  themes and languages), no horizontal scrolling from 320px to 1920px, 44px touch
+  targets, light/dark theme, reduced-motion support.
+- **SEO** — unique titles and descriptions, canonical URLs, sitemap, robots.txt,
+  JSON-LD (`Person`, `SoftwareSourceCode`), social preview image.
+- **Security headers** — Content-Security-Policy, HSTS, `frame-ancestors 'none'`,
+  `nosniff`, referrer and permissions policies.
 
-### Prerequisites
+## Tech stack
 
-- Node.js 18+ 
-- npm or yarn
+| Area | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router, static generation, Turbopack) |
+| UI | React 19, TypeScript (strict), Tailwind CSS 4 |
+| Content | Typed TypeScript modules validated with Zod at build time |
+| Email | Resend HTTP API (no SDK) |
+| Tests | Vitest (unit), Playwright + axe-core (end-to-end, accessibility) |
+| Hosting / CI | Vercel, GitHub Actions |
 
-### Installation
+Runtime dependencies are deliberately few: `next`, `react`, `react-dom`, `zod`.
 
-1. Clone the repository:
+## Getting started
+
+Requires **Node.js 20.9 or later** (CI uses Node 22).
+
 ```bash
-git clone <your-repo-url>
-cd portfolio
+npm ci
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Run the development server:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+Open http://localhost:3000 for English or http://localhost:3000/km for Khmer.
 
-### Portfolio view counter
+The contact form is off until the environment variables below are set; everything
+else works without configuration.
 
-The footer displays a unique browser count backed by Upstash Redis. Create a database in [Upstash](https://console.upstash.com/), then set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` as server-side environment variables in `.env.local` and your hosting environment. Restart or redeploy after changing them. The count starts with the new visitor set and excludes the earlier test page views. It uses a random two-year cookie, so repeat visits in the same browser count once; clearing cookies, using other devices, and undetected bots can affect the count. It does not identify individual people. Local and preview traffic are read-only by default. Vercel production records visits when its system environment variables are exposed; on another host, explicitly set `PORTFOLIO_COUNT_VISITORS=true` for production. The counter displays “Unavailable” until storage is configured.
+## Environment variables
 
-### Portfolio assistant
+Copy them into `.env.local` for local development, or into Vercel → Project →
+Settings → Environment Variables for deployments. Never commit them.
 
-The assistant uses the experience and education data in `src/config/portfolio-experience.ts` for its answers. Without an API key it provides limited, prewritten portfolio answers; it cannot answer general questions in this mode.
+| Variable | Required | Purpose |
+|---|---|---|
+| `RESEND_API_KEY` | for the contact form | Resend API key (server-only) |
+| `CONTACT_TO_EMAIL` | for the contact form | Inbox that receives messages |
+| `CONTACT_FROM_EMAIL` | for the contact form | Sender on a domain verified in Resend, e.g. `Portfolio <contact@your-domain>` |
+| `RESEND_API_URL` | no | Override the email API endpoint (the e2e tests point it at a local mock) |
+| `NEXT_PUBLIC_SITE_URL` | no | Canonical origin; defaults to `https://dapravith.vercel.app` |
 
-To enable AI answers, set `OPENAI_API_KEY` as a server-side environment variable in `.env.local` for local development and in the hosting environment for production. Optionally set `OPENAI_MODEL` to a model available to that key; the default is `gpt-4o-mini`. Restart the server after changing environment variables. Never put the key in a `NEXT_PUBLIC_` variable or commit it to the repository. Requests to the AI provider may incur usage charges.
+The form is enabled **at build time**: after adding the three contact variables,
+rebuild or redeploy. Full steps are in
+[`docs/portfolio/OPERATIONS.md`](docs/portfolio/OPERATIONS.md#enabling-the-contact-form).
 
-The existing request limiter is in-memory and applies per server instance. For a public deployment, configure a shared rate limit or hosting-level protection for `/api/chat` to control usage across instances. Add verified project details to the assistant's context before expecting it to answer questions about specific projects.
+## Scripts
 
-## 🎨 Customization
+| Command | What it does |
+|---|---|
+| `npm run dev` | Development server |
+| `npm run build` | Production build (also validates all content) |
+| `npm run start` | Serve the production build |
+| `npm run lint` | ESLint (Next.js core-web-vitals + TypeScript rules) |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm test` | Unit tests (Vitest) |
+| `npm run check` | Lint + typecheck + unit tests + build — run before every commit |
+| `npm run test:e2e` | Builds against a mock email provider and runs Playwright |
+| `npm run links:external` | Checks every external URL in `src/` |
 
-### Update Personal Information
-
-Edit the following files to customize with your information:
-
-1. **Hero Section** (`components/hero.tsx`):
-   - Update your name
-   - Change the tagline
-   - Update social media links
-
-2. **About Section** (`components/about.tsx`):
-   - Add your experience
-   - Update education details
-   - Customize skills and bio
-
-3. **Projects Section** (`components/projects.tsx`):
-   - Add your projects
-   - Update project images
-   - Add GitHub and demo links
-
-4. **Skills Section** (`components/skills.tsx`):
-   - Update technology skills
-   - Adjust proficiency levels
-   - Add certifications
-
-5. **Contact Section** (`components/contact.tsx`):
-   - Update contact information
-   - Configure email functionality
-   - Update location
-
-6. **Metadata** (`app/layout.tsx`):
-   - Update page title
-   - Modify description for SEO
-
-### Styling
-
-The project uses Tailwind CSS 3.x and Radix-powered shadcn/ui components. To customize:
-
-- **Colors**: Edit `app/globals.css` CSS variables
-- **Components**: Modify files in `components/ui/`
-- **Layout**: Adjust spacing and sizing in component files
-
-## 📦 Built With
-
-- [Next.js 16](https://nextjs.org/) - React framework
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [Tailwind CSS 3.x](https://tailwindcss.com/) - Styling
-- [Radix UI via shadcn/ui](https://ui.shadcn.com/) - UI components
-- [Lucide React](https://lucide.dev/) - Icons
-
-## 🏗️ Project Structure
-
-```
-portfolio/
-├── app/
-│   ├── globals.css       # Global styles
-│   ├── layout.tsx        # Root layout
-│   └── page.tsx          # Home page
-├── components/
-│   ├── ui/               # ShadCN UI components
-│   ├── navbar.tsx        # Navigation bar
-│   ├── hero.tsx          # Hero section
-│   ├── about.tsx         # About section
-│   ├── projects.tsx      # Projects section
-│   ├── skills.tsx        # Skills section
-│   ├── contact.tsx       # Contact section
-│   └── footer.tsx        # Footer
-├── lib/
-│   └── utils.ts          # Utility functions
-└── public/               # Static assets
-```
-
-## 🚀 Deployment
-
-### Deploy to Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Import your repository on [Vercel](https://vercel.com)
-3. Deploy with one click!
-
-### Build for Production
+For end-to-end tests, Playwright needs Chromium once:
 
 ```bash
-npm run build
-npm start
+npx playwright install chromium
 ```
 
-## 📝 Available Scripts
+## Project structure
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint
+```
+src/
+├── app/
+│   ├── [locale]/            # Pages for en and km
+│   │   ├── page.tsx         # Home
+│   │   ├── projects/        # Project index and [slug] case studies
+│   │   ├── about/
+│   │   ├── contact/
+│   │   └── layout.tsx       # <html lang>, fonts, header, footer
+│   ├── api/contact/         # POST /api/contact
+│   ├── api/og/              # Social preview image
+│   ├── sitemap.ts, robots.ts
+│   └── globals.css          # Design tokens and base styles
+├── content/                 # Profile, experience, skills, projects (+ Zod schema)
+├── i18n/                    # Locale config and UI strings (en + km)
+├── lib/                     # Site helpers, JSON-LD, contact handler/delivery/rate limit
+├── components/              # UI components
+└── proxy.ts                 # Maps / → English, /km → Khmer, /en/* → redirect
+tests/
+├── unit/                    # Vitest
+└── e2e/                     # Playwright, axe, mock email provider
+docs/portfolio/              # Audit, roadmap, design system, guides
+```
 
-## 🎯 Future Enhancements
+## Updating content
 
-- [ ] Add blog section
-- [ ] Integrate contact form with email service
-- [ ] Add animations with Framer Motion
-- [ ] Include testimonials section
-- [ ] Add project filters
-- [ ] Implement analytics
+All content lives in `src/content/` — no content is hard-coded in components.
 
-## 📄 License
+| To change | Edit |
+|---|---|
+| Role, summary, availability, links, résumé file | `src/content/profile.ts` |
+| Jobs, education, courses | `src/content/experience.ts` |
+| Skill groups and home-page capabilities | `src/content/skills.ts` |
+| Projects and case studies | `src/content/projects.ts` |
+| Buttons, headings, messages (both languages) | `src/i18n/dictionaries.ts` |
 
-This project is open source and available under the [MIT License](LICENSE).
+A content mistake (missing field, bad date, repository outside
+`github.com/Dapravith`) fails the build. To replace the résumé, overwrite
+`public/rotha-dapravith-resume.pdf` and update `profile.resume` in `profile.ts`.
 
-## 🤝 Contributing
+Step-by-step instructions, including adding a project, are in
+[`docs/portfolio/CONTENT_GUIDE.md`](docs/portfolio/CONTENT_GUIDE.md).
 
-Contributions, issues, and feature requests are welcome!
+## Languages
 
-## 📧 Contact
+- English is served at the root (`/about`); Khmer under `/km` (`/km/about`).
+- Choosing a language sets a `NEXT_LOCALE` cookie; unprefixed URLs then redirect to
+  the Khmer version. Search engines never send the cookie, so they see canonical URLs.
+- Case-study body text is currently English-only; on Khmer pages it is marked
+  `lang="en"` and a note says so.
+- Khmer translations should be reviewed by a native speaker before each release.
 
-Rotha Dapravith - rothadapravith@example.com
+## Testing and CI
 
-Portfolio: [https://dapravith-digital-portfolio.vercel.app](https://dapravith-digital-portfolio.vercel.app)
+Every pull request runs [`.github/workflows/ci.yml`](.github/workflows/ci.yml):
 
-GitHub: [https://github.com/rothadapravith](https://github.com/rothadapravith)
+1. Lint, typecheck, unit tests, production build
+2. `npm audit --omit=dev --audit-level=high`
+3. Playwright end-to-end tests, including axe accessibility checks on every page in
+   both languages and themes, responsive checks at nine widths, SEO tags, security
+   headers, internal links and the full contact flow
 
----
+A weekly workflow ([`.github/workflows/weekly.yml`](.github/workflows/weekly.yml))
+checks external links and dependencies. Details and the performance baseline are in
+[`docs/portfolio/TEST_PLAN.md`](docs/portfolio/TEST_PLAN.md).
 
-⭐ Built with Next.js, TypeScript, and ShadCN UI
+## Deployment
+
+Vercel builds from GitHub: `main` deploys to production and pull requests get
+preview deployments. CI does not deploy. Old résumé URLs (`/resume.pdf`,
+`/Dapravith_Rotha_flow_cv.pdf`) redirect to the current file.
+
+## Documentation
+
+| Document | Contents |
+|---|---|
+| [`AUDIT.md`](docs/portfolio/AUDIT.md) | Findings from the 2026-11 audit and their status |
+| [`ROADMAP.md`](docs/portfolio/ROADMAP.md) | What's done, what's next, and key decisions |
+| [`DESIGN_SYSTEM.md`](docs/portfolio/DESIGN_SYSTEM.md) | Visual direction, tokens, components, review checklist |
+| [`CONTENT_GUIDE.md`](docs/portfolio/CONTENT_GUIDE.md) | How to update content, and what the owner still needs to confirm |
+| [`TEST_PLAN.md`](docs/portfolio/TEST_PLAN.md) | Test layers, coverage, performance baseline |
+| [`OPERATIONS.md`](docs/portfolio/OPERATIONS.md) | Environment, contact form, monitoring, URLs, maintenance cadence |
+| [`CLAUDE.md`](CLAUDE.md) | Rules for AI-assisted changes to this repository |
+
+## Contributing
+
+This is a personal site, but the same rules apply to every change:
+
+- Never add or embellish content that can't be traced to the résumé or a public repository.
+- Keep content in `src/content/` and UI strings in `src/i18n/dictionaries.ts` (both languages).
+- Follow the design system: one accent colour, no gradients or decorative animation.
+- Run `npm run check` and `npm run test:e2e` before opening a pull request.
+
+## Contact
+
+Rotha Dapravith — [dapravithrotha@gmail.com](mailto:dapravithrotha@gmail.com) ·
+Telegram [@dapravith](https://t.me/dapravith) / +855 89 937 798 ·
+[LinkedIn](https://www.linkedin.com/in/rotha-dapravith/) ·
+[GitHub](https://github.com/Dapravith)
+
+The repository has no license file. Unless one is added, the code, text and
+photographs are © Rotha Dapravith, all rights reserved.
+
+### Portfolio assistant and visitor counter
+
+The assistant answers from the portfolio content. Set `OPENAI_API_KEY` to enable model answers; `OPENAI_MODEL` is optional. Without the key (or when the provider is unavailable), it provides limited local answers instead. Its in-memory request limit is per server instance, not a shared production-wide limit.
+
+To display actual unique browsers, configure `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` as server-side environment variables. The counter uses a random, two-year browser cookie and an Upstash Redis set. Only production traffic is recorded by default; `PORTFOLIO_COUNT_VISITORS=true` explicitly enables recording elsewhere. Bot requests and preview/local requests are not recorded by default. The count is unavailable when Redis is not configured or cannot be reached; it is never fabricated. Keep all credentials out of source control.

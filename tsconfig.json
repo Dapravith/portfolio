@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2022",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -23,22 +23,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/utils/*": ["./src/utils/*"],
-      "@/types/*": ["./src/types/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/styles/*": ["./src/styles/*"],
-      "@/store/*": ["./src/store/*"],
-      "@/services/*": ["./src/services/*"],
-      "@/config/*": ["./src/config/*"],
-      "@/validations/*": ["./src/validations/*"],
-      "@/providers/*": ["./src/providers/*"],
-      "@/layouts/*": ["./src/layouts/*"],
-      "@/middleware/*": ["./src/middleware/*"]
-    },
-    "baseUrl": "."
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -46,9 +34,9 @@
     "src/**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts",
-    ".next/dev/dev/types/**/*.ts",
-    "global.d.ts"
+    "tests/**/*.ts",
+    "*.ts",
+    "*.mts"
   ],
   "exclude": [
     "node_modules"

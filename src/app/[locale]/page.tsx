@@ -1,0 +1,157 @@
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, Download } from '@/components/icons';
+import { T } from '@/components/localized-text';
+import { Section } from '@/components/section';
+import { SkillTabs } from '@/components/skill-tabs';
+import { content } from '@/content';
+import { isLocale, localizePath, type Locale } from '@/i18n/config';
+import { getDictionary } from '@/i18n/dictionaries';
+import { personJsonLd } from '@/lib/json-ld';
+import { formatDate, formatWorkYears, pageMetadata, text } from '@/lib/site';
+
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return pageMetadata({ locale, path: '/', description: getDictionary(locale).meta.description });
+}
+
+export default async function HomePage({ params }: Props) {
+  const { locale: raw } = await params;
+  const locale = raw as Locale;
+  const t = getDictionary(locale);
+  const { profile, experience } = content;
+  const latest = experience[0];
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }} />
+
+      <section aria-labelledby="intro-title" className="page hero-panel pt-10 pb-section md:pt-16">
+        <div className="grid gap-y-8 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[13rem_minmax(0,1fr)]">
+          <div className="w-24 sm:w-28 md:w-full">
+            <Image
+              src={profile.photo.src}
+              alt={text(profile.photo.alt, locale)}
+              width={profile.photo.width}
+              height={profile.photo.height}
+              sizes="(min-width: 1024px) 13rem, (min-width: 768px) 11rem, 7rem"
+              preload
+              className="aspect-[4/5] w-full rounded-sm object-cover object-[50%_20%]"
+            />
+          </div>
+
+          <div className="min-w-0">
+            <p className="label">
+              <T value={profile.role} locale={locale} /> · <T value={profile.location} locale={locale} />
+            </p>
+            <h1 id="intro-title" className="mt-3 font-serif text-display font-semibold tracking-[-0.02em]">
+              {profile.name}
+            </h1>
+            <T as="p" value={profile.lead} locale={locale} className="mt-5 max-w-[40rem] text-lead" />
+
+            <dl className="mt-10 grid max-w-[46rem] gap-x-10 gap-y-5 border-t border-rule pt-6 text-small sm:grid-cols-2">
+              <div>
+                <dt className="label">{t.home.focus}</dt>
+                <dd className="mt-1">{t.home.focusValue}</dd>
+              </div>
+              <div>
+                <dt className="label">{t.home.recent}</dt>
+                <dd className="mt-1">
+                  <T value={latest.role} locale={locale} />, <T value={latest.org} locale={locale} />{' '}
+                  <span className="text-muted">
+                    ({formatWorkYears(latest.start, latest.end, t.about.present)})
+                  </span>
+                </dd>
+              </div>
+              <div>
+                <dt className="label">{t.home.based}</dt>
+                <dd className="mt-1">
+                  <T value={profile.location} locale={locale} /> ({profile.timezone})
+                </dd>
+              </div>
+              {profile.availability.open && (
+                <div>
+                  <dt className="label">{t.home.status}</dt>
+                  <dd className="mt-1">
+                    <T value={profile.availability.note} locale={locale} />{' '}
+                    <span className="text-muted">
+                      ({t.home.statusAsOf} {formatDate(profile.availability.updated, locale)})
+                    </span>
+                  </dd>
+                </div>
+              )}
+            </dl>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              <a href="#experience" className="btn btn-primary">
+                {t.home.ctaWork}
+                <ArrowRight />
+              </a>
+              <a href={profile.resume.href} download className="btn btn-secondary">
+                <Download />
+                {t.home.ctaResume}
+                <span className="font-mono text-meta text-muted">PDF · {profile.resume.sizeKb} KB</span>
+              </a>
+              <Link href={localizePath('/contact', locale)} className="link inline-flex min-h-11 items-center px-1 text-small font-medium">
+                {t.home.ctaContact}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Section id="experience" label={t.home.experienceLabel} title={t.home.experienceTitle}>
+        <ol className="border-b border-rule">
+          {experience.map((job) => (
+            <li key={job.id} className="grid gap-1 border-t border-rule py-5 sm:grid-cols-[10.5rem_minmax(0,1fr)] sm:gap-x-8">
+              <p className="font-mono text-meta whitespace-nowrap text-muted sm:pt-1">
+                {formatWorkYears(job.start, job.end, t.about.present)}
+              </p>
+              <div className="min-w-0">
+                <h3 className="font-medium">
+                  <T value={job.role} locale={locale} />
+                  <span className="text-muted"> · </span>
+                  <T value={job.org} locale={locale} />
+                </h3>
+                <T as="p" value={job.summary} locale={locale} className="mt-1 text-small text-muted" />
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-6">
+          <Link href={localizePath('/about', locale)} className="link text-small">
+            {t.home.fullBackground}
+          </Link>
+        </p>
+      </Section>
+
+      <Section id="skills" label={t.about.skills} title={locale === 'km' ? 'ជំនាញ និងបច្ចេកវិទ្យា' : 'Skills & Expertise'}>
+        <SkillTabs locale={locale} />
+      </Section>
+
+      <Section id="contact" label={t.home.contactLabel} title={t.home.contactTitle} intro={<p>{t.home.contactBody}</p>}>
+        <p>
+          <a
+            href={`mailto:${profile.email}`}
+            className="font-serif text-h3 font-semibold break-all decoration-accent decoration-2 underline-offset-[0.2em] hover:underline sm:text-h2"
+          >
+            {profile.email}
+          </a>
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href={localizePath('/contact', locale)} className="btn btn-secondary">
+            {t.home.contactForm}
+          </Link>
+          <a href={profile.resume.href} download className="btn btn-secondary">
+            <Download />
+            {t.home.ctaResume}
+          </a>
+        </div>
+      </Section>
+    </>
+  );
+}

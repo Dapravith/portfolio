@@ -1,8 +1,7 @@
-import { NextResponse } from "next/server";
+import { handleContact } from '@/lib/contact/handler';
 
-export async function POST() {
-  return NextResponse.json(
-    { error: "The contact form is unavailable. Please use the email link on the contact page." },
-    { status: 503 },
-  );
+export const runtime = 'nodejs';
+
+export function POST(request: Request) {
+  return handleContact(request);
 }
