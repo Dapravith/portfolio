@@ -1,0 +1,51 @@
+In December 2025 an automated coding agent opened a change on this site that, among other things, rewrote my job title. “Java Developer” became “Senior Java Developer & DevOps Lead”, with mentoring responsibilities I never had. The change was merged. Nobody noticed for almost a year.
+
+That is a bug, even though no code broke. A portfolio's job is to say true things about a person, and it was saying false ones.
+
+## Context
+
+The site's history has commits from five authors: me, GitHub Copilot's agent, Claude, Codex and Vercel. AI agents are useful for this kind of project, but they are also very willing to “improve” copy. Content that lives inside JSX components is easy for them to rewrite and hard for a reviewer to notice changed.
+
+## The decision
+
+Treat content as data with a schema, and treat accuracy rules as tests.
+
+**1. Content lives in typed files, not components.** Experience, projects and skills are plain TypeScript objects in `src/content/`. Components only render them.
+
+**2. Everything is validated when the module loads.** A Zod schema describes every field. `next build` imports the content, so a malformed date or a missing translation fails the build instead of shipping.
+
+```ts
+const ownRepo = z
+  .url()
+  .refine((u) => u.startsWith('https://github.com/Dapravith/'),
+    'Repository must be under github.com/Dapravith');
+```
+
+**3. Known failure modes become regression tests.** The specific things that went wrong before are now checked on every commit:
+
+```ts
+it('does not claim seniority or leadership titles the résumé does not support', () => {
+  for (const s of strings(content)) expect(s).not.toMatch(/\bsenior\b/i);
+  const claims = [content.profile.role, ...content.experience.flatMap((e) => [e.role, ...e.highlights])];
+  for (const c of claims.map((l) => l.en))
+    expect(c).not.toMatch(/\b(lead|leading|led|head|principal|mentor(ed|ing)?)\b/i);
+});
+```
+
+There are similar tests for invented skill percentages, for one consistent contact email (the footer once pointed at a different inbox), and for linking only to original repositories, not a fork of a tutorial.
+
+## Alternatives considered
+
+- **A headless CMS.** Easier to edit from a browser, but content changes a few times a year, and a CMS adds an account, an API and a failure mode at build time. It would also move content out of code review, which is where the problem needs to be caught.
+- **Review discipline alone.** It already failed once. A test doesn't get tired.
+- **Markdown files for everything.** Fine for articles (this journal uses MDX), but structured data like dates, stacks and repository links benefits from a schema.
+
+## Trade-offs
+
+The tests are blunt. The word “lead” is banned from role descriptions, which would block a real promotion. That's deliberate: the comment on the test says to change it only together with an updated résumé, so the person making the change has to point at evidence.
+
+Not everything can be tested. A test can't tell whether “improving system performance” is true; that still relies on the résumé and on review. The tests catch the patterns that already went wrong, and the schema catches structural mistakes. That's most of the risk, not all of it.
+
+## Result
+
+Every claim on the site is in one of a handful of files, each with a comment naming its source. A change that inflates a title fails CI before it can be merged. The same structure made it cheap to add the case-study sections on this site's project pages, because a new field is one schema change and the type checker lists every place that needs it.

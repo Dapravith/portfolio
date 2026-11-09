@@ -5,6 +5,9 @@ export const pages = [
   '/projects/keycloak-fine-grained-authorization',
   '/projects/spring-microservices-monitoring',
   '/projects/devsecops-jenkins-pipeline',
+  '/journal',
+  '/journal/contact-form-that-always-said-sent',
+  '/journal/making-portfolio-claims-testable',
   '/about',
   '/contact',
 ];

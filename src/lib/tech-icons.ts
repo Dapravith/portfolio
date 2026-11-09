@@ -1,14 +1,18 @@
 import {
   siAngular,
   siAnsible,
+  siApachekafka,
   siDocker,
   siExpress,
+  siFlyway,
   siGithubactions,
   siGitlab,
   siGrafana,
+  siHtml5,
   siJavascript,
   siJenkins,
   siJsonwebtokens,
+  siJunit5,
   siKeycloak,
   siKubernetes,
   siLinux,
@@ -20,19 +24,24 @@ import {
   siNodedotjs,
   siNuxt,
   siOpenid,
+  siPm2,
   siPostgresql,
   siPrometheus,
   siReact,
+  siSonarqubeserver,
   siSpring,
   siSpringboot,
+  siSpringsecurity,
   siTerraform,
+  siTrivy,
   siTypescript,
+  siVitest,
   siVuedotjs,
   type SimpleIcon,
 } from 'simple-icons';
 
 
-export type GenericIcon = 'cloud' | 'logs' | 'architecture' | 'flow' | 'shield' | 'refactor' | 'key' | 'java';
+export type GenericIcon = 'cloud' | 'logs' | 'architecture' | 'flow' | 'shield' | 'refactor' | 'key' | 'java' | 'test' | 'gauge';
 export type TechIcon = { kind: 'brand'; icon: SimpleIcon } | { kind: 'generic'; name: GenericIcon };
 
 const brand = (icon: SimpleIcon): TechIcon => ({ kind: 'brand', icon });
@@ -57,9 +66,6 @@ export const techIcons: Record<string, TechIcon> = {
   MySQL: brand(siMysql),
   MongoDB: brand(siMongodb),
   'System design & architecture': generic('architecture'),
-  'System flows': generic('flow'),
-  'Secure & scalable applications': generic('shield'),
-  'Refactoring & logic improvements': generic('refactor'),
   Keycloak: brand(siKeycloak),
   'OAuth 2.0 / OpenID Connect': brand(siOpenid),
   JWT: brand(siJsonwebtokens),
@@ -77,4 +83,20 @@ export const techIcons: Record<string, TechIcon> = {
   nginx: brand(siNginx),
   Linux: brand(siLinux),
   AWS: generic('cloud'),
+  'HTML & CSS': brand(siHtml5),
+  Flyway: brand(siFlyway),
+  Microservices: generic('flow'),
+  'Spring Cloud Gateway': brand(siSpring),
+  Eureka: brand(siSpring),
+  'Apache Kafka': brand(siApachekafka),
+  Resilience4j: generic('shield'),
+  pm2: brand(siPm2),
+  JUnit: brand(siJunit5),
+  Vitest: brand(siVitest),
+  // Simple Icons has no Playwright mark.
+  Playwright: generic('test'),
+  'Spring Security': brand(siSpringsecurity),
+  SonarQube: brand(siSonarqubeserver),
+  Trivy: brand(siTrivy),
+  Micrometer: generic('gauge'),
 };

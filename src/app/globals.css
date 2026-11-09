@@ -271,3 +271,76 @@
   .assistant-mark-satellite { animation: assistant-signal 3s ease-in-out infinite; transform-origin: 50px 13px; }
   @keyframes assistant-signal { 50% { opacity: .55; transform: scale(.8); } }
 }
+
+/*
+ * Journal article body (MDX). Serif headings and sans body like the rest of
+ * the site; code blocks are bordered figures, the only boxed element here.
+ */
+@layer components {
+  .article > * + * {
+    margin-top: 1.1rem;
+  }
+  .article h2 {
+    margin-top: 2.75rem;
+    font-family: var(--font-serif);
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: 600;
+  }
+  .article h3 {
+    margin-top: 2rem;
+    font-weight: 600;
+  }
+  .article a {
+    text-decoration-line: underline;
+    text-decoration-color: var(--rule-strong);
+    text-underline-offset: 0.2em;
+  }
+  .article a:hover {
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+  }
+  .article ul,
+  .article ol {
+    padding-left: 1.25rem;
+  }
+  .article ul {
+    list-style: disc;
+  }
+  .article ol {
+    list-style: decimal;
+  }
+  .article li + li {
+    margin-top: 0.5rem;
+  }
+  .article li::marker {
+    color: var(--accent);
+  }
+  .article strong {
+    font-weight: 600;
+  }
+  .article :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    overflow-wrap: anywhere;
+  }
+  .article pre {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 1rem 1.125rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    line-height: 1.6;
+  }
+  .article pre:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}

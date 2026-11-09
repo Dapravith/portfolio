@@ -1,7 +1,9 @@
 import type { Project } from './schema';
 
 // Every statement below was checked against the linked repository on
-// 2026-11-08 (build files, configuration and source). Case-study bodies are
+// 2026-11-08 (build files, configuration and source). The 2026-11-09 fields
+// (brief, approach, challenges, tradeoffs, nextSteps) restate those verified
+// facts in problem → solution form; they add no new claims. Case-study bodies are
 // English-only for now; Khmer pages show them with lang="en".
 // Excluded on purpose: End-to-End-Kubernetes-DevSecOps-Tetris-Project is a
 // fork of a third-party tutorial, not original work.
@@ -19,6 +21,20 @@ export const projects: Project[] = [
     repo: 'https://github.com/Dapravith/microservices-enterprise-system',
     status: 'runs-locally',
     featured: true,
+    brief: {
+      problem: {
+        en: 'One authenticated entry point for several services, without one slow service dragging the others down.',
+        km: 'ច្រកចូលតែមួយដែលមានការផ្ទៀងផ្ទាត់សម្រាប់សេវាកម្មច្រើន ដោយមិនឱ្យសេវាកម្មយឺតមួយធ្វើឱ្យសេវាកម្មផ្សេងទៀតយឺតតាម។',
+      },
+      contribution: {
+        en: 'Built the gateway, both services, their migrations and the local Kafka and Keycloak setup.',
+        km: 'បង្កើត gateway សេវាកម្មទាំងពីរ migration របស់វា និងការរៀបចំ Kafka និង Keycloak សម្រាប់ដំណើរការលើម៉ាស៊ីន។',
+      },
+      result: {
+        en: 'Token checks at the edge, a circuit breaker per route, trace IDs returned to clients and an event-driven write path.',
+        km: 'ការពិនិត្យ token នៅ gateway, circuit breaker សម្រាប់ route នីមួយៗ, trace ID ផ្ញើត្រឡប់ទៅ client និងការសរសេរទិន្នន័យតាម event។',
+      },
+    },
     caseStudy: {
       context: {
         en: 'A personal project for practising how a small retail back office splits into services: a product catalogue, invoicing, and one gateway that every client request passes through. It runs locally with Docker; there is no public deployment.',
@@ -28,6 +44,9 @@ export const projects: Project[] = [
       },
       role: {
         en: 'Personal project. I wrote the gateway, the product and invoice services, their database migrations and the local Docker and Kafka setup.',
+      },
+      approach: {
+        en: 'The design puts each concern in one place. Identity is checked once, at the edge. Failure isolation is a gateway rule per route, not code in every caller. Work that can wait goes onto a Kafka topic instead of a synchronous call. Each service owns its schema through its own Flyway migrations, so services can change independently.',
       },
       architecture: {
         summary: {
@@ -100,11 +119,48 @@ export const projects: Project[] = [
       testing: {
         en: 'Each service has a Spring Boot context-load test, which catches wiring and configuration errors but not behaviour. API flows are checked by hand through Swagger UI and Postman.',
       },
+      challenges: [
+        {
+          problem: { en: 'A slow or failing service can hold gateway requests open and spread the failure to every client.' },
+          solution: { en: 'A Resilience4j circuit breaker per route opens at a 50% failure rate over a 10-call window and sends requests to a fallback endpoint instead of waiting.' },
+        },
+        {
+          problem: { en: 'An error a client reports is hard to match to the right lines in several services’ logs.' },
+          solution: { en: 'A global gateway filter puts the Micrometer trace ID into the logging context and returns it in an X-Trace-ID response header.' },
+        },
+        {
+          problem: { en: 'Product creation should not depend on the product service being responsive at the moment of the request.' },
+          solution: { en: 'POST /v1/async/product publishes to the new-products topic and returns 202 Accepted; product-service consumes the event and saves it in a transaction.' },
+        },
+        {
+          problem: { en: 'Clients need a predictable error when a token is missing or invalid.' },
+          solution: { en: 'A custom authentication entry point returns the same JSON error body for every authentication failure.' },
+        },
+      ],
+      tradeoffs: [
+        {
+          choice: { en: 'Asynchronous product creation through Kafka' },
+          cost: { en: 'The client gets 202 before the event is processed and, without a status endpoint, cannot learn whether creation succeeded.' },
+        },
+        {
+          choice: { en: 'A single gateway as the only entry point' },
+          cost: { en: 'Every request takes an extra hop, and the gateway itself becomes a component that has to stay available.' },
+        },
+        {
+          choice: { en: 'A three-broker Kafka cluster for local runs' },
+          cost: { en: 'Closer to a real cluster’s behaviour, but heavier to start on a laptop than a single broker.' },
+        },
+      ],
       limitations: [
         { en: 'The gateway has a route to a user-service that is not part of this repository.' },
         { en: 'There are no behavioural tests yet, and the CI workflow the README describes is not committed.' },
         { en: 'The asynchronous endpoint answers 202 before the event is processed and offers no status endpoint, so a client cannot find out whether creation succeeded.' },
         { en: 'Local configuration files are committed; a real deployment would load credentials from a secret store.' },
+      ],
+      nextSteps: [
+        { en: 'Add a status endpoint for asynchronous writes so a client can confirm the outcome.' },
+        { en: 'Write behavioural tests for routing, fallbacks and the token check, and commit the CI workflow the README describes.' },
+        { en: 'Load credentials from the environment or a secret store instead of committed local configuration.' },
       ],
       outcome: {
         en: 'One runnable repository that shows token validation at the edge, per-route circuit breakers, trace IDs returned to clients and an event-driven write path.',
@@ -124,6 +180,20 @@ export const projects: Project[] = [
     repo: 'https://github.com/Dapravith/springboot-sso-keycloak',
     status: 'runs-locally',
     featured: true,
+    brief: {
+      problem: {
+        en: 'Decide who may do what — per resource and HTTP method — without role checks in every controller.',
+        km: 'កំណត់ថាអ្នកណាអាចធ្វើអ្វីបាន — តាម resource និង HTTP method — ដោយមិនចាំបាច់ពិនិត្យ role នៅក្នុង controller នីមួយៗ។',
+      },
+      contribution: {
+        en: 'Wrote the Spring Boot API and its security configuration, and exported the Keycloak realm so the setup can be recreated.',
+        km: 'សរសេរ API ជាមួយ Spring Boot និងការកំណត់សុវត្ថិភាព ហើយ export realm របស់ Keycloak ដើម្បីអាចបង្កើតឡើងវិញបាន។',
+      },
+      result: {
+        en: 'Default-deny authorization decided by Keycloak policies, including a URI-based ownership check.',
+        km: 'ការផ្តល់សិទ្ធិដែលបដិសេធជាលំនាំដើម សម្រេចដោយគោលការណ៍ Keycloak រួមទាំងការពិនិត្យភាពជាម្ចាស់ផ្អែកលើ URI។',
+      },
+    },
     caseStudy: {
       context: {
         en: 'Single sign-on tells an API who the caller is, not what they may do. This project moves those decisions into Keycloak for a small restaurant domain: public menus, staff-managed restaurants and customer orders.',
@@ -133,6 +203,9 @@ export const projects: Project[] = [
       },
       role: {
         en: 'Personal project. I wrote the Spring Boot API and its security configuration, and exported the Keycloak realm and Docker Compose setup so it can be recreated.',
+      },
+      approach: {
+        en: 'Authorization is treated as configuration, not code. Resources, scopes and policies are defined in the Keycloak realm; the API only enforces the decision. The realm is exported to JSON and started with Docker Compose, so the whole setup can be recreated from the repository.',
       },
       architecture: {
         summary: {
@@ -185,9 +258,37 @@ export const projects: Project[] = [
       testing: {
         en: 'The repository contains a Spring Boot context-load test. The authorization rules themselves have no automated tests yet.',
       },
+      challenges: [
+        {
+          problem: { en: 'Role checks spread across controllers are hard to audit, and changing one needs a redeploy.' },
+          solution: { en: 'Keycloak’s ServletPolicyEnforcerFilter runs after Spring’s bearer-token filter; each path maps to a Keycloak resource and each HTTP method to a scope.' },
+        },
+        {
+          problem: { en: '“Users can only read their own profile” depends on the request, not just on the caller’s role.' },
+          solution: { en: 'A claim information point passes the request URI into policy evaluation, so a Keycloak policy can compare it with the caller.' },
+        },
+        {
+          problem: { en: 'Menus and API docs must stay public while everything else is protected.' },
+          solution: { en: 'The enforcer configuration lists public paths explicitly; any path not listed is checked by Keycloak (default deny).' },
+        },
+      ],
+      tradeoffs: [
+        {
+          choice: { en: 'Authorization decisions in Keycloak' },
+          cost: { en: 'Protected requests depend on Keycloak’s policy evaluation, and the rules live outside the codebase where code review does not see them.' },
+        },
+        {
+          choice: { en: 'Stateless sessions with CSRF protection off' },
+          cost: { en: 'Instances can be added without sticky sessions, but the API must not move to cookie-based authentication without turning CSRF protection back on.' },
+        },
+      ],
       limitations: [
         { en: 'The client secret for the local realm is committed in policy-enforcer.json; it should come from environment configuration.' },
         { en: 'No automated tests cover the policies, so a realm change could silently open or close a path.' },
+      ],
+      nextSteps: [
+        { en: 'Move the client secret out of policy-enforcer.json into environment configuration.' },
+        { en: 'Add integration tests that call each protected path as different users, so a realm change that opens or closes a path fails the build.' },
       ],
       outcome: {
         en: 'A runnable example of keeping authorization decisions in Keycloak rather than in application code, covering public paths, per-method permissions and a URI-based ownership check.',
@@ -207,6 +308,20 @@ export const projects: Project[] = [
     repo: 'https://github.com/Dapravith/Springboot-microservices-monitoring',
     status: 'runs-locally',
     featured: true,
+    brief: {
+      problem: {
+        en: 'With six processes running, tell which one is slow or down.',
+        km: 'ពេលមានដំណើរការប្រាំមួយកំពុងដំណើរការ ត្រូវដឹងថាមួយណាយឺត ឬឈប់ដំណើរការ។',
+      },
+      contribution: {
+        en: 'Wrote the services, the Prometheus scrape configuration and the Grafana dashboard.',
+        km: 'សរសេរសេវាកម្ម ការកំណត់ scrape របស់ Prometheus និង dashboard របស់ Grafana។',
+      },
+      result: {
+        en: 'Request rates, latencies and JVM health for every service in one dashboard.',
+        km: 'អត្រាសំណើ ពេលវេលាឆ្លើយតប និងសុខភាព JVM នៃសេវាកម្មនីមួយៗ នៅក្នុង dashboard តែមួយ។',
+      },
+    },
     caseStudy: {
       context: {
         en: 'A small e-commerce-shaped system used to practise running several Spring services together and seeing what each of them is doing.',
@@ -215,6 +330,9 @@ export const projects: Project[] = [
         en: 'With six processes running, it is hard to tell which one is slow or down. The goal was one place to see request rates, latencies and JVM health for every service.',
       },
       role: { en: 'Personal project. I wrote the services, the Prometheus scrape configuration and the Grafana dashboard.' },
+      approach: {
+        en: 'Every service exposes the same Actuator metrics endpoint, so adding a service to monitoring is one scrape target rather than new code. Discovery and configuration are centralised the same way, through Eureka and the Config Server.',
+      },
       architecture: {
         summary: {
           en: 'Services pull configuration from the Config Server and register with Eureka at startup. Each exposes /actuator/prometheus; Prometheus scrapes them every 15 seconds and Grafana reads from Prometheus.',
@@ -271,11 +389,44 @@ export const projects: Project[] = [
       testing: {
         en: 'Each service includes the generated context-load test. The monitoring configuration has no automated checks.',
       },
+      challenges: [
+        {
+          problem: { en: 'With six processes, it is hard to tell which one is slow or down.' },
+          solution: { en: 'Prometheus scrapes /actuator/prometheus on every service every 15 seconds and labels each series with the application name; one Grafana dashboard reads them all.' },
+        },
+        {
+          problem: { en: 'Hard-coded ports break callers whenever a service moves.' },
+          solution: { en: 'Services register with Eureka at startup and find each other by name.' },
+        },
+        {
+          problem: { en: 'Prometheus and Grafana run in Docker, while the services run on the host.' },
+          solution: { en: 'Scrape targets point at host.docker.internal, so the containers can reach the host processes.' },
+        },
+      ],
+      tradeoffs: [
+        {
+          choice: { en: 'Pull-based scraping every 15 seconds' },
+          cost: { en: 'Values are sampled, so a short-lived change between two scrapes is not recorded, and Prometheus must be able to reach every service.' },
+        },
+        {
+          choice: { en: 'Services on the host, monitoring in Docker' },
+          cost: { en: 'Fast to iterate on a service, but the system is not one reproducible Compose stack.' },
+        },
+        {
+          choice: { en: 'Metrics only' },
+          cost: { en: 'A dashboard shows that something is slow, not which call in a request chain caused it.' },
+        },
+      ],
       limitations: [
         { en: 'The Compose file mounts ./prometheus/prometheus.yml, but the file is committed as Prometheus/Prometheus.yml. On case-sensitive file systems such as Linux the paths must match.' },
         { en: 'Grafana’s runtime database and plugin files are committed alongside the dashboard JSON; only the JSON needs to be versioned.' },
         { en: 'Images use the latest tag, so a fresh pull can change behaviour.' },
         { en: 'Metrics only — no distributed tracing or log aggregation yet.' },
+      ],
+      nextSteps: [
+        { en: 'Fix the case of the Prometheus configuration path so the stack runs on Linux.' },
+        { en: 'Version only the dashboard JSON, and pin image tags.' },
+        { en: 'Add distributed tracing so a slow request can be followed across services.' },
       ],
       outcome: {
         en: 'A compact, reproducible example of service discovery, central configuration and metrics collection across several Spring services.',
@@ -294,7 +445,21 @@ export const projects: Project[] = [
     stack: ['Jenkins', 'SonarQube', 'Trivy', 'Docker', 'Node.js', 'Express', 'AWS EC2'],
     repo: 'https://github.com/Dapravith/Task12-DevSecOps-Jenkins-SonarQube-Docker-Trivy',
     status: 'archived',
-    featured: false,
+    featured: true,
+    brief: {
+      problem: {
+        en: 'Catch quality and security problems before a container runs, not after.',
+        km: 'រកឃើញបញ្ហាគុណភាព និងសុវត្ថិភាព មុនពេល container ដំណើរការ មិនមែនក្រោយ។',
+      },
+      contribution: {
+        en: 'Wrote the Jenkinsfile, the Dockerfile and a setup guide for the Jenkins and SonarQube servers on EC2.',
+        km: 'សរសេរ Jenkinsfile, Dockerfile និងការណែនាំរៀបចំម៉ាស៊ីនមេ Jenkins និង SonarQube លើ EC2។',
+      },
+      result: {
+        en: 'A failed quality gate or health check stops the release; source and image are scanned on every build.',
+        km: 'quality gate ឬ health check ដែលបរាជ័យនឹងបញ្ឈប់ការចេញផ្សាយ ហើយកូដ និង image ត្រូវបានស្កេនរាល់ការ build។',
+      },
+    },
     caseStudy: {
       context: {
         en: 'A structured DevOps exercise: take a small Express API from a commit to a running container, with security checks built into the release path rather than run as a separate report.',
@@ -304,6 +469,9 @@ export const projects: Project[] = [
       },
       role: {
         en: 'The repository holds my Jenkinsfile, Dockerfile and a step-by-step guide to setting up the Jenkins and SonarQube servers on EC2.',
+      },
+      approach: {
+        en: 'The pipeline is the release gate: every check runs in the same declarative pipeline and can stop it, in a fixed order — tool checks, quality gate, file-system scan, image build and scan, then deploy and health check.',
       },
       architecture: {
         summary: {
@@ -354,10 +522,47 @@ export const projects: Project[] = [
       testing: {
         en: 'The health-check stage is the automated verification: the build fails if the deployed container does not answer on /health. The sample API has no unit tests.',
       },
+      challenges: [
+        {
+          problem: { en: 'SonarQube analyses asynchronously, so a pipeline can move on before the quality-gate result exists.' },
+          solution: { en: 'The pipeline waits for SonarQube’s webhook with waitForQualityGate and abortPipeline: true.' },
+        },
+        {
+          problem: { en: 'Trivy downloads its vulnerability database on every run.' },
+          solution: { en: 'Trivy runs as a container with the database cached on the agent.' },
+        },
+        {
+          problem: { en: 'A container can start and still not serve requests.' },
+          solution: { en: 'The Dockerfile declares a HEALTHCHECK, and the pipeline calls /health after deploying and fails the build if it does not pass.' },
+        },
+        {
+          problem: { en: 'SonarQube’s memory needs compete with builds on the same machine.' },
+          solution: { en: 'SonarQube runs on its own EC2 instance and reports back to Jenkins.' },
+        },
+      ],
+      tradeoffs: [
+        {
+          choice: { en: 'A separate SonarQube server' },
+          cost: { en: 'Two instances to provision, secure and pay for instead of one.' },
+        },
+        {
+          choice: { en: 'Deploying with docker run on the Jenkins server' },
+          cost: { en: 'Simple to follow, but there is no separate environment and no rollback step.' },
+        },
+        {
+          choice: { en: 'Scanner images on the latest tag' },
+          cost: { en: 'Always the newest rules, but results can change between runs without a code change.' },
+        },
+      ],
       limitations: [
         { en: 'Trivy reports findings of every severity but is not configured with --exit-code, so vulnerabilities are visible in the log without failing the build.' },
         { en: 'Deployment is a docker run on the Jenkins server itself; there is no separate environment or rollback step.' },
         { en: 'Trivy and SonarQube images use the latest tag, so results can change between runs without a code change.' },
+      ],
+      nextSteps: [
+        { en: 'Make Trivy fail the build on high and critical findings with --exit-code.' },
+        { en: 'Deploy to a separate environment with a rollback step.' },
+        { en: 'Pin scanner image versions so results only change when the pipeline does.' },
       ],
       outcome: {
         en: 'An end-to-end pipeline in which code quality and runtime health gate the deployment and both source and image are scanned on every build.',

@@ -8,8 +8,11 @@ instead of shipping a broken page.
 |---|---|
 | `profile.ts` | Name, role, lead paragraph, summary, email, Telegram, links, résumé file, availability, photo |
 | `experience.ts` | Jobs (newest first), education, completed courses |
-| `skills.ts` | Skill groups for the About page; four capability blurbs for the home page |
-| `projects.ts` | Projects and their case studies |
+| `skills.ts` | Engineering toolkit by area (Frontend … Observability), shown on the About page |
+| `projects.ts` | Projects, their homepage brief and their case studies |
+| `approach.ts` | The eight-step "How I work" loop; each step links to evidence on the site |
+| `ai-tools.ts` | AI tools in the workflow and, per stage, what AI does and what stays with you |
+| `journal.ts` + `journal/*.mdx` | Engineering journal: index metadata, and one MDX file per article |
 | `schema.ts` | The rules every entry must satisfy |
 
 UI text (buttons, headings, error messages) lives in `src/i18n/dictionaries.ts`.
@@ -57,8 +60,28 @@ generated automatically.
    bottom (at least two); `flows` are numbered sentences describing the connections.
 3. Give `title` and `summary` a Khmer translation (required by a test). Case-study
    body text may stay English-only; Khmer pages label it automatically.
-4. Set `featured: true` to show it on the home page (three is a good number).
+   Fill `brief` (one sentence each for problem, contribution, result, in English and
+   Khmer) — this is what the home page shows. `approach`, `challenges`, `tradeoffs`
+   and `nextSteps` must restate what the repository shows; describe the design as
+   it is, not intentions you can't evidence.
+4. Set `featured: true` to show it on the home page (three to five).
 5. Run `npm test` and `npm run build`. The page appears at `/projects/<slug>` and in the sitemap.
+
+### Write a journal article
+
+1. Add an entry at the top of `journal` in `journal.ts` (newest first): `slug`,
+   `title` and `summary` in English and Khmer, `published` (`YYYY-MM-DD`), `kind`
+   (`debugging`, `decision`, `case-study`, `lesson` or `experiment`), `tags` and
+   `readingMinutes`.
+2. Create `src/content/journal/<slug>.mdx` and write in Markdown. Use `##` for
+   sections (the page provides the `h1`), fenced code blocks for code, and links to
+   commits or files that back up each claim.
+3. `npm test` checks that every entry has a file and every file has an entry. The
+   article appears at `/journal/<slug>`, on the home page (latest three) and in the sitemap.
+
+Only write about things that happened and can be checked: a commit, a repository,
+an issue or the résumé. The content test also scans the journal index, so quoting
+an inflated title in a summary fails the build — quote it in the article body instead.
 
 ### Khmer translations
 
@@ -78,3 +101,23 @@ These are flagged because no source in the repository could verify them:
   if any were built with others or from a course.
 - `public/rotha-dapravith-resume.pdf` includes two referees' phone numbers and emails.
   Consider a public version without them.
+
+### Added on 2026-11-09 — please review before merging
+
+- **Journal articles** (`src/content/journal/*.mdx`) are written in your voice about
+  this repository's history. Every fact was checked against the git log, `AUDIT.md`
+  and the tests, but the wording, the "What I took from it" lessons and the
+  "Alternatives considered" section are a draft for you to edit or reject.
+- **Case-study `nextSteps`** ("What I would change next") are derived from each
+  project's documented limitations. Confirm they are changes you would actually make.
+- **`ai-tools.ts` → `aiPractice`** expands your statement "I remain responsible for
+  architecture, engineering decisions, security, testing, and final validation" into
+  one line per stage. Confirm it describes how you work.
+- **`approach.ts`**: each step's wording is a summary of practice; the linked
+  evidence is factual. Edit the wording freely.
+- **Toolkit additions** come from repositories and this site: Flyway, Spring Cloud
+  Gateway, Eureka, Kafka, Resilience4j (case studies); Spring Security, SonarQube,
+  Trivy (case studies); JUnit, Vitest, Playwright (tests in the repositories and this
+  site); pm2 (MEF role). Remove any you would not want to be asked about in an interview.
+- **New Khmer strings** (project briefs, approach, AI section, journal titles) need
+  native-speaker review like the rest.

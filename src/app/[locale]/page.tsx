@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { AiEngineering } from '@/components/ai-engineering';
+import { EngineeringApproach } from '@/components/engineering-approach';
+import { ExternalLink } from '@/components/external-link';
 import { ArrowRight, Download } from '@/components/icons';
+import { JournalList } from '@/components/journal-list';
 import { T } from '@/components/localized-text';
 import { Section } from '@/components/section';
-import { Skills } from '@/components/skills';
-import { content } from '@/content';
+import { WorkItem } from '@/components/work-item';
+import { content, getFeaturedProjects } from '@/content';
 import { isLocale, localizePath, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { personJsonLd } from '@/lib/json-ld';
@@ -23,8 +27,15 @@ export default async function HomePage({ params }: Props) {
   const { locale: raw } = await params;
   const locale = raw as Locale;
   const t = getDictionary(locale);
-  const { profile, experience } = content;
+  const { profile, experience, journal } = content;
+  const featured = getFeaturedProjects();
   const latest = experience[0];
+
+  const allProjects = (
+    <Link href={localizePath('/projects', locale)} className="link text-small">
+      {t.home.allProjects}
+    </Link>
+  );
 
   return (
     <>
@@ -62,9 +73,7 @@ export default async function HomePage({ params }: Props) {
                 <dt className="label">{t.home.recent}</dt>
                 <dd className="mt-1">
                   <T value={latest.role} locale={locale} />, <T value={latest.org} locale={locale} />{' '}
-                  <span className="text-muted">
-                    ({formatWorkYears(latest.start, latest.end, t.about.present)})
-                  </span>
+                  <span className="text-muted">({formatWorkYears(latest.start, latest.end, t.about.present)})</span>
                 </dd>
               </div>
               <div>
@@ -86,8 +95,8 @@ export default async function HomePage({ params }: Props) {
               )}
             </dl>
 
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a href="#experience" className="btn btn-primary">
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <a href="#work" className="btn btn-primary">
                 {t.home.ctaWork}
                 <ArrowRight />
               </a>
@@ -96,13 +105,44 @@ export default async function HomePage({ params }: Props) {
                 {t.home.ctaResume}
                 <span className="font-mono text-meta text-muted">PDF · {profile.resume.sizeKb} KB</span>
               </a>
-              <Link href={localizePath('/contact', locale)} className="link inline-flex min-h-11 items-center px-1 text-small font-medium">
+              <Link href={localizePath('/contact', locale)} className="btn btn-secondary">
                 {t.home.ctaContact}
               </Link>
             </div>
+            <ul aria-label={t.home.profiles} className="mt-4 flex flex-wrap gap-x-6 text-small">
+              <li>
+                <ExternalLink href={profile.links.github} newTabLabel={t.a11y.opensNewTab} className="link inline-flex min-h-11 items-center gap-0.5">
+                  GitHub
+                </ExternalLink>
+              </li>
+              <li>
+                <ExternalLink href={profile.links.linkedin} newTabLabel={t.a11y.opensNewTab} className="link inline-flex min-h-11 items-center gap-0.5">
+                  LinkedIn
+                </ExternalLink>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
+
+      <Section
+        id="work"
+        label={t.home.workLabel}
+        title={t.home.workTitle}
+        intro={<p>{t.home.workIntro}</p>}
+        aside={<p className="mt-3 hidden md:block">{allProjects}</p>}
+      >
+        <div>
+          {featured.map((project, i) => (
+            <WorkItem key={project.slug} project={project} index={i} locale={locale} t={t} />
+          ))}
+        </div>
+        <p className="mt-2 border-t border-rule pt-6 md:hidden">{allProjects}</p>
+      </Section>
+
+      <Section id="approach" label={t.home.approachLabel} title={t.home.approachTitle} intro={<p>{t.home.approachIntro}</p>}>
+        <EngineeringApproach locale={locale} t={t} />
+      </Section>
 
       <Section id="experience" label={t.home.experienceLabel} title={t.home.experienceTitle}>
         <ol className="border-b border-rule">
@@ -129,9 +169,20 @@ export default async function HomePage({ params }: Props) {
         </p>
       </Section>
 
-      <Section id="skills" label={t.about.skills} title={locale === 'km' ? 'ជំនាញ និងបច្ចេកវិទ្យា' : 'Skills & Expertise'}>
-        <Skills locale={locale} />
+      <Section id="ai" label={t.home.aiLabel} title={t.home.aiTitle} intro={<p>{t.home.aiIntro}</p>}>
+        <AiEngineering locale={locale} t={t} />
       </Section>
+
+      {journal.length > 0 && (
+        <Section id="journal" label={t.home.journalLabel} title={t.home.journalTitle}>
+          <JournalList entries={journal.slice(0, 3)} locale={locale} t={t} />
+          <p className="mt-6">
+            <Link href={localizePath('/journal', locale)} className="link text-small">
+              {t.home.journalAll}
+            </Link>
+          </p>
+        </Section>
+      )}
 
       <Section id="contact" label={t.home.contactLabel} title={t.home.contactTitle} intro={<p>{t.home.contactBody}</p>}>
         <p>

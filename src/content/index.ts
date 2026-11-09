@@ -1,18 +1,25 @@
 import { z } from 'zod';
+import { aiPractice, aiTools } from './ai-tools';
+import { approach } from './approach';
 import { courses, education, experience } from './experience';
+import { journal } from './journal';
 import { profile } from './profile';
 import { projects } from './projects';
 import {
-  capabilitySchema,
+  aiPracticeSchema,
+  aiToolSchema,
+  approachStepSchema,
   courseSchema,
   educationSchema,
   experienceSchema,
+  journalEntrySchema,
   profileSchema,
   projectSchema,
   skillGroupSchema,
+  type JournalEntry,
   type Project,
 } from './schema';
-import { capabilities, skillGroups } from './skills';
+import { skillGroups } from './skills';
 
 /**
  * Parses all content at module load. A typo in content fails `next build`
@@ -25,12 +32,21 @@ function validate() {
     education: z.array(educationSchema).parse(education),
     courses: z.array(courseSchema).parse(courses),
     skillGroups: z.array(skillGroupSchema).parse(skillGroups),
-    capabilities: z.array(capabilitySchema).parse(capabilities),
+    approach: z.array(approachStepSchema).parse(approach),
+    aiTools: z.array(aiToolSchema).parse(aiTools),
+    aiPractice: z.array(aiPracticeSchema).parse(aiPractice),
     projects: z.array(projectSchema).parse(projects),
+    journal: z.array(journalEntrySchema).parse(journal),
   };
-  const slugs = data.projects.map((p) => p.slug);
-  const duplicate = slugs.find((s, i) => slugs.indexOf(s) !== i);
-  if (duplicate) throw new Error(`Duplicate project slug: ${duplicate}`);
+  for (const [kind, slugs] of [
+    ['project', data.projects.map((p) => p.slug)],
+    ['journal', data.journal.map((j) => j.slug)],
+  ] as const) {
+    const duplicate = slugs.find((s, i) => slugs.indexOf(s) !== i);
+    if (duplicate) throw new Error(`Duplicate ${kind} slug: ${duplicate}`);
+  }
+  const dates = data.journal.map((j) => j.published);
+  if (dates.some((d, i) => i > 0 && d > dates[i - 1])) throw new Error('Journal entries must be newest first');
   return data;
 }
 
@@ -50,5 +66,9 @@ export function getAdjacentProject(slug: string): Project | undefined {
   return content.projects[(i + 1) % content.projects.length];
 }
 
-export type { Localized, Project, ProjectCategory } from './schema';
-export { projectCategories } from './schema';
+export function getJournalEntry(slug: string): JournalEntry | undefined {
+  return content.journal.find((j) => j.slug === slug);
+}
+
+export type { AiUse, ApproachStep, JournalEntry, Localized, Project, ProjectCategory } from './schema';
+export { aiUses, projectCategories } from './schema';

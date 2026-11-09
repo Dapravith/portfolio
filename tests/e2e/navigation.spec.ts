@@ -83,10 +83,11 @@ test('old résumé URLs redirect to the current file', async ({ request }) => {
   expect(res.headers()['location']).toBe('/rotha-dapravith-resume.pdf');
 });
 
-test('skill tabs and portfolio assistant work', async ({ page }) => {
+test('AI-assisted engineering section and portfolio assistant work', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('tab', { name: 'AI Assisted Tools' }).click();
-  await expect(page.getByRole('heading', { name: 'Claude Code' })).toBeVisible();
+  const ai = page.locator('#ai');
+  await expect(ai.getByRole('rowheader', { name: 'Debugging' })).toBeVisible();
+  await expect(ai.getByText('Claude Code', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Open portfolio assistant' }).click();
   await page.getByRole('button', { name: 'Work experience' }).click();
   await expect(page.getByText(/Full-stack Developer — Digital Economy and Business Committee/)).toBeVisible();

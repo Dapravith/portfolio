@@ -1,0 +1,66 @@
+The contact form on this site used to work perfectly — from the visitor's side. You filled it in, pressed send, and got a friendly “Message sent successfully”. Nothing was ever sent.
+
+## The symptom
+
+There was no error to chase. No messages arrived, but a portfolio's inbox is quiet anyway, so silence looked normal. The bug only surfaced during an audit of the site in November 2026, when the endpoint was called directly with a deliberately invalid address:
+
+```bash
+curl -X POST /api/contact \
+  -H 'content-type: application/json' \
+  -d '{"name":"x","email":"not-an-email","message":"hi"}'
+# → 200 {"success":true,"message":"Message sent successfully"}
+```
+
+An address that cannot receive mail was accepted and “sent”.
+
+## The root cause
+
+The route handler was a placeholder that had shipped to production:
+
+```ts
+// TODO: Add email service integration (SendGrid, Resend, etc.)
+console.log('Contact form submission:', { name, email, message });
+
+return NextResponse.json(
+  { success: true, message: 'Message sent successfully' },
+  { status: 200 },
+);
+```
+
+Three problems in five lines:
+
+1. **Success was reported for work that never happened.** The response described an intention, not an outcome.
+2. **Visitors' messages went into server logs.** Names, email addresses and message bodies were written to a log stream that isn't meant to hold personal data.
+3. **Validation only checked that fields existed**, so malformed input was indistinguishable from real input.
+
+Why it went unnoticed is the more useful lesson. The UI was tested by looking at it, and it looked right. Nothing checked what happened *after* the response.
+
+## The fix
+
+The replacement follows one rule: **only report success after the email provider has accepted the message.** Everything else follows from that.
+
+- The request body is validated with a shared Zod schema (lengths, a real email format), with per-field errors returned as `422`.
+- Bots are filtered before delivery: a hidden honeypot field, a minimum time to fill in the form, a per-client rate limit, a same-origin check and a body size cap.
+- If no provider is configured, the API returns `503 unavailable` and the page shows the email address instead. It never pretends.
+- Delivery goes through the provider's HTTP API with an 8-second timeout. Only a `2xx` from the provider produces `{ ok: true }`. A failure logs the provider's status code — never the message.
+
+```ts
+const result = await deliverContactMessage({ name, email, message }, config);
+if (!result.ok) {
+  console.error(`[contact] delivery failed (provider status ${result.status})`);
+  return json({ ok: false, error: 'delivery_failed' }, 502);
+}
+return json({ ok: true }, 200);
+```
+
+## How it stays fixed
+
+The behaviour is pinned by tests rather than by memory. Unit tests call the handler with a fake provider and assert that a provider failure produces `502`, that a missing configuration produces `503`, and that message text never appears in logged output. The end-to-end suite runs the real built app against a mock email server and checks the full round trip from the form.
+
+## What I took from it
+
+- **A success message is a claim.** It should be produced by the thing that actually succeeded, not written next to a `TODO`.
+- **Test the side effect, not the screen.** The UI was fine; the missing piece was a test that asked “did an email leave?”.
+- **Placeholders need a failure mode.** If the integration isn't there yet, the honest default is an error that says so.
+
+The audit and the fix were done with Claude Code. I reviewed the changes and merged them, which is how I use AI tools in general: they speed up the work, and I stay responsible for what ships. The full audit is in [`docs/portfolio/AUDIT.md`](https://github.com/Dapravith/portfolio/blob/main/docs/portfolio/AUDIT.md).

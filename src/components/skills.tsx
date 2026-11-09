@@ -1,24 +1,14 @@
-import { AiEngineering } from '@/components/ai-engineering';
-import { SkillTabs } from '@/components/skill-tabs';
 import { TechIcon } from '@/components/tech-icon';
-import { skillGroups, skillItemTranslations } from '@/content/skills';
+import { content } from '@/content';
+import { skillItemTranslations } from '@/content/skills';
 import type { Locale } from '@/i18n/config';
 
-// Which skill groups each tab shows, in display order.
-const tabs = [
-  { id: 'frontend', en: 'Frontend', km: 'ផ្នែកខាងមុខ', groups: ['frontend', 'languages'] },
-  { id: 'backend', en: 'Backend', km: 'ផ្នែកខាងក្រោយ', groups: ['backend', 'engineering', 'data', 'identity'] },
-  { id: 'delivery', en: 'Tools & DevOps', km: 'ឧបករណ៍ និង DevOps', groups: ['delivery'] },
-  { id: 'ai', en: 'AI Assisted Tools', km: 'ឧបករណ៍ AI', groups: [] },
-] as const;
-
-const groupsById = new Map(skillGroups.map((group) => [group.id, group]));
-
-function SkillList({ groupIds, locale }: { groupIds: readonly string[]; locale: Locale }) {
+/** Engineering toolkit: one row per area, names next to icons, no scores. */
+export function Skills({ locale }: { locale: Locale }) {
   return (
     <dl className="border-b border-rule">
-      {groupIds.flatMap((id) => groupsById.get(id) ?? []).map((group) => (
-        <div key={group.id} className="grid gap-2 border-t border-rule py-4 sm:grid-cols-[13rem_minmax(0,1fr)]">
+      {content.skillGroups.map((group) => (
+        <div key={group.id} className="grid gap-2 border-t border-rule py-4 sm:grid-cols-[10rem_minmax(0,1fr)]">
           <dt className="font-medium">{group.title[locale] ?? group.title.en}</dt>
           <dd>
             <ul className="tags !gap-x-5 !gap-y-2 !text-small !text-ink">
@@ -33,18 +23,5 @@ function SkillList({ groupIds, locale }: { groupIds: readonly string[]; locale: 
         </div>
       ))}
     </dl>
-  );
-}
-
-// Server-rendered panels (icons add no client JavaScript); SkillTabs only switches between them.
-export function Skills({ locale }: { locale: Locale }) {
-  return (
-    <SkillTabs
-      label={locale === 'km' ? 'ប្រភេទជំនាញ' : 'Skill categories'}
-      tabs={tabs.map((tab) => ({ id: tab.id, label: tab[locale] }))}
-      panels={tabs.map((tab) =>
-        tab.id === 'ai' ? <AiEngineering key={tab.id} locale={locale} /> : <SkillList key={tab.id} groupIds={tab.groups} locale={locale} />,
-      )}
-    />
   );
 }

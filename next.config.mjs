@@ -1,3 +1,5 @@
+import createMDX from '@next/mdx';
+
 /** @type {import('next').NextConfig} */
 
 // Static pages need inline scripts for hydration and the theme bootstrap, so
@@ -27,6 +29,8 @@ const securityHeaders = [
 
 const nextConfig = {
   poweredByHeader: false,
+  // Journal articles are .mdx files compiled at build time (src/content/journal).
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
@@ -39,4 +43,6 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Download } from '@/components/icons';
 import { T } from '@/components/localized-text';
 import { PageHeader, Section } from '@/components/section';
 import { Skills } from '@/components/skills';
 import { content } from '@/content';
-import { isLocale, type Locale } from '@/i18n/config';
+import { isLocale, localizePath, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { personJsonLd } from '@/lib/json-ld';
 import { formatDate, formatMonth, formatWorkYears, pageMetadata, text } from '@/lib/site';
@@ -30,8 +31,13 @@ export default async function AboutPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }} />
       <PageHeader title={t.about.title}>
-        <p className="mb-3 font-medium text-accent">{locale === 'km' ? 'បទពិសោធន៍ ៣ ឆ្នាំ' : '3 years of experience'}</p>
+        <p className="mb-3 font-medium text-accent">{t.about.years}</p>
         <T as="p" value={profile.summary} locale={locale} />
+        <p className="mt-4 text-small">
+          <Link href={`${localizePath('/', locale)}#approach`} className="link">
+            {t.about.approachLink}
+          </Link>
+        </p>
         <p className="mt-6">
           <a href={profile.resume.href} download className="btn btn-secondary text-ink">
             <Download />
