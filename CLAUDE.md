@@ -20,7 +20,10 @@ Tailwind CSS 4, Zod. English at `/`, Khmer at `/km` (via `src/proxy.ts` → `src
 - Content goes in `src/content/*.ts`; UI strings in `src/i18n/dictionaries.ts` (both
   locales, same keys). Do not put content arrays in components.
 - Server Components by default. Current client components: `site-nav`, `theme-toggle`,
-  `project-filter`, `contact-form`. Keep it that way unless interaction requires more.
+  `project-filter`, `contact-form`, `chat-assistant`, `ViewCounter`, `phnom-penh-time`
+  and the `[locale]/error.tsx` boundary. Keep it that way unless interaction requires more.
+- Journal articles are MDX in `src/content/journal/` with metadata in `journal.ts`
+  (see `docs/portfolio/CONTENT_GUIDE.md`).
 - Follow `docs/portfolio/DESIGN_SYSTEM.md`: tokens in `src/app/globals.css`, one accent
   colour, no gradients/glow/particles/cards-with-shadows, nothing animating on scroll.
 - New UI must pass the e2e suite: axe WCAG 2.2 AA in both themes and languages, no

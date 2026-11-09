@@ -6,7 +6,7 @@ import { ArchitectureDiagram } from '@/components/architecture-diagram';
 import { ExternalLink } from '@/components/external-link';
 import { ArrowRight } from '@/components/icons';
 import { T } from '@/components/localized-text';
-import { content, getAdjacentProject, getProject } from '@/content';
+import { content, getAdjacentProject, getProject, type Localized } from '@/content';
 import { isLocale, localizePath, locales, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { projectJsonLd } from '@/lib/json-ld';
@@ -31,17 +31,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
+// Problem → role → approach → architecture → decisions → build → challenges →
+// security → testing → trade-offs → results → lessons.
 const sectionOrder = [
-  'context',
-  'challenge',
+  'problem',
   'role',
+  'approach',
   'architecture',
-  'choices',
+  'decisions',
   'implementation',
+  'challenges',
   'security',
   'testing',
-  'limitations',
-  'outcome',
+  'tradeoffs',
+  'results',
+  'lessons',
 ] as const;
 
 export default async function CaseStudyPage({ params }: Props) {
@@ -54,10 +58,39 @@ export default async function CaseStudyPage({ params }: Props) {
   const next = getAdjacentProject(slug);
   const englishOnly = locale !== 'en' && t.caseStudy.englishOnly;
 
+  const pairs = (rows: { a: Localized; b: Localized }[], aLabel: string, bLabel: string) => (
+    <ol className="border-b border-rule">
+      {rows.map((row) => (
+        <li key={row.a.en} className="grid gap-x-6 gap-y-2 border-t border-rule py-4 sm:grid-cols-2">
+          <div>
+            <p className="label">{aLabel}</p>
+            <T as="p" value={row.a} locale={locale} className="mt-1 text-small" />
+          </div>
+          <div>
+            <p className="label">{bLabel}</p>
+            <T as="p" value={row.b} locale={locale} className="mt-1 text-small text-muted" />
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+  const list = (items: Localized[]) => (
+    <ul className="bullets">
+      {items.map((s) => (
+        <T key={s.en} as="li" value={s} locale={locale} />
+      ))}
+    </ul>
+  );
+
   const body: Record<(typeof sectionOrder)[number], ReactNode> = {
-    context: <T as="p" value={cs.context} locale={locale} />,
-    challenge: <T as="p" value={cs.challenge} locale={locale} />,
+    problem: (
+      <div className="prose-block">
+        <T as="p" value={cs.context} locale={locale} />
+        <T as="p" value={cs.challenge} locale={locale} />
+      </div>
+    ),
     role: <T as="p" value={cs.role} locale={locale} />,
+    approach: <T as="p" value={cs.approach} locale={locale} />,
     architecture: (
       <>
         <T as="p" value={cs.architecture.summary} locale={locale} />
@@ -70,7 +103,7 @@ export default async function CaseStudyPage({ params }: Props) {
         </div>
       </>
     ),
-    choices: (
+    decisions: (
       <dl className="border-b border-rule">
         {cs.choices.map((c) => (
           <div key={c.tech} className="grid gap-1 border-t border-rule py-4 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-6">
@@ -87,22 +120,31 @@ export default async function CaseStudyPage({ params }: Props) {
         ))}
       </div>
     ),
-    security: (
-      <ul className="bullets">
-        {cs.security.map((s) => (
-          <T key={s.en} as="li" value={s} locale={locale} />
-        ))}
-      </ul>
+    challenges: pairs(
+      cs.challenges.map((c) => ({ a: c.problem, b: c.solution })),
+      t.caseStudy.challenge,
+      t.caseStudy.solution,
     ),
+    security: list(cs.security),
     testing: <T as="p" value={cs.testing} locale={locale} />,
-    limitations: (
-      <ul className="bullets">
-        {cs.limitations.map((s) => (
-          <T key={s.en} as="li" value={s} locale={locale} />
-        ))}
-      </ul>
+    tradeoffs: pairs(
+      cs.tradeoffs.map((c) => ({ a: c.choice, b: c.cost })),
+      t.caseStudy.choice,
+      t.caseStudy.cost,
     ),
-    outcome: <T as="p" value={cs.outcome} locale={locale} />,
+    results: <T as="p" value={cs.outcome} locale={locale} />,
+    lessons: (
+      <div className="grid gap-8 md:grid-cols-2">
+        <div>
+          <h3 className="font-semibold">{t.caseStudy.limitations}</h3>
+          <div className="mt-3">{list(cs.limitations)}</div>
+        </div>
+        <div>
+          <h3 className="font-semibold">{t.caseStudy.nextSteps}</h3>
+          <div className="mt-3">{list(cs.nextSteps)}</div>
+        </div>
+      </div>
+    ),
   };
 
   return (

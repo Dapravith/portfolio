@@ -88,7 +88,6 @@ test('internal links resolve (no broken links)', async ({ page, request }) => {
 
 test('assistant and AI tools are accessible when opened', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('tab', { name: 'AI Assisted Tools' }).click();
   await page.getByRole('button', { name: 'Open portfolio assistant' }).click();
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
   expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);

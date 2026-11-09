@@ -74,3 +74,22 @@ Notes:
   (common on Linux) with unshaped, unreadable text, so correctness won. The fix is
   to preload the Khmer font on `/km` routes only (see ROADMAP).
 - `/contact` ships extra JS for client-side validation (Zod).
+
+## Measurements after the 2026-11-09 renovation
+
+Local production build (`next start`), Lighthouse 12.8.2 mobile defaults, headless
+Chrome for Testing on an Apple-silicon Mac. Lab numbers, not field data.
+
+| Page | Perf / A11y / BP / SEO | LCP | CLS | TBT |
+|---|---|---|---|---|
+| `/` (3 runs) | 95–97 / 100 / 100 / 100 | 2.38–2.83 s | 0 | 58–72 ms |
+| `/projects/retail-microservices-platform` | 94 / 100 / 100 / 100 | 2.99 s | 0 | 75 ms |
+| `/journal/contact-form-that-always-said-sent` | 99 / 100 / 100 / 100 | 1.82 s | 0 | 84 ms |
+| `/km` | 91 / 100 / 100 / 100 | 3.20 s | 0 | 130 ms |
+
+Home performance went from 98 to 95–97 as the page grew from three sections to
+seven. LCP above 2.5 s on most pages is the main open item; see ROADMAP item 4
+(Khmer font) and consider enabling Vercel Speed Insights for field data.
+
+Automated: 67 unit tests, 90 e2e tests (axe WCAG 2.2 AA on 26 pages × 2 themes,
+no overflow at 9 widths from 320 to 1920 px, SEO, links, contact, journal).

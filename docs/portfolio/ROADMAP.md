@@ -14,6 +14,15 @@ Ordered by value. Correctness and trust come before visual polish.
 - [x] Sitemap, robots, canonical URLs, JSON-LD, OG image, security headers.
 - [x] 53 unit + 71 e2e tests; CI on every PR; weekly link and dependency check.
 
+## Done (2026-11-09, branch `feat/renovation-site`)
+
+- [x] Selected Work back on the homepage, as Problem → My contribution → Result for four projects.
+- [x] Case studies restructured: problem, role, approach, architecture, decisions, implementation, challenges → solutions, security, testing, trade-offs, results, lessons and next steps. New fields restate verified repository facts.
+- [x] "How I work": eight-step loop, each step linked to a role or case study as evidence.
+- [x] Engineering toolkit in nine areas (no tabs); AI-assisted engineering as its own section with per-stage responsibilities.
+- [x] Engineering journal (`@next/mdx`) with two articles from this repository's history; `/journal`, sitemap, `TechArticle` JSON-LD.
+- [x] Error boundary for localized pages; monospace fallback fixed for first visits.
+
 ## Next
 
 1. **Owner review of content** (blocking for merge). Work through "Things the owner should confirm" in `CONTENT_GUIDE.md`; have a native speaker review Khmer.
@@ -26,7 +35,6 @@ Ordered by value. Correctness and trust come before visual polish.
 
 ## Later / only with a reason
 
-- **Engineering notes (MDX).** Infrastructure is easy to add (`@next/mdx`), but there is no real writing yet. Add it when the first article exists — an empty blog section signals the opposite of what it intends.
 - **Case-study translations into Khmer.** Worth doing for the two featured projects once the English text is reviewed.
 - **Shared rate-limit store** (Upstash) — only if spam gets through the current controls.
 

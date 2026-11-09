@@ -18,7 +18,7 @@ alignment and scanability matter.
 ## Principles in practice
 
 - **Content first.** Projects start in the first scroll on desktop and the second on mobile. No hero animation, no decorative backgrounds.
-- **One accent.** Rust (`--accent`) marks links on hover, the active nav item, list bullets and focus rings. Nothing else is coloured.
+- **One accent.** Blue (`--accent`) marks links on hover, the active nav item, list bullets and focus rings. Nothing else is coloured.
 - **Hierarchy from type, not boxes.** Sections are separated by hairline rules and whitespace; there are no cards with shadows. The only bordered surface is the architecture diagram, because it is a figure.
 - **Different content, different layout.** Projects are full-width rows, experience is a dated list, capabilities a 2×2 grid with heavy top rules, technology choices a definition list. They share the margin-label column so the page still reads as one document.
 - **No unverifiable decoration.** No counters, proficiency bars, stock illustrations or logo walls.
@@ -27,13 +27,17 @@ alignment and scanability matter.
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--bg` | `#f6f4ef` | `#141412` | Page background (warm paper / warm black) |
-| `--surface` | `#fcfbf8` | `#1b1a18` | Form fields, diagram figure |
-| `--ink` | `#1b1a17` | `#ece9e1` | Body text, primary button |
-| `--muted` | `#4f4c45` | `#b1ac9f` | Secondary text, labels |
-| `--rule` / `--rule-strong` | `#d8d3c6` / `#a8a293` | `#34322d` / `#5c5850` | Dividers / control borders |
-| `--accent` | `#9c3812` | `#ee9068` | Links on hover, active state, focus |
+| `--bg` | `#f4f8fc` | `#0a1221` | Page background (cool paper / deep navy) |
+| `--surface` | `#ffffff` | `#111f33` | Form fields, diagram figure, code blocks |
+| `--ink` | `#101b2c` | `#edf4fa` | Body text, primary button, heavy rules |
+| `--muted` | `#465769` | `#b1c2d2` | Secondary text, labels |
+| `--rule` / `--rule-strong` | `#cdd9e4` / `#8195a8` | `#30445d` / `#738ba5` | Dividers / control borders |
+| `--accent` | `#174b86` | `#99cbf6` | Links on hover, active state, focus, quote rules |
 | `--ok` / `--danger` | `#2c6435` / `#a11d2b` | `#8cc797` / `#f29a9a` | Form feedback |
+
+The owner switched from the original warm/rust palette to this cool/blue one in
+November 2026. The hero carries a faint 72px grid (`.hero-panel`) — the only
+background texture on the site.
 
 Contrast is enforced by `tests/unit/contrast.test.ts` (text ≥ 4.5:1, body ≥ 7:1).
 
@@ -55,13 +59,22 @@ Radii are 2px and 4px only.
 | Component | Purpose |
 |---|---|
 | `Section`, `PageHeader` | Margin-label + content grid used by every page |
-| `ProjectRow` | Project summary row with case-study and source links |
+| `ProjectRow` | Project summary row with case-study and source links (projects index) |
+| `WorkItem` | Homepage project entry: Problem / My contribution / Result, stack, links |
+| `EngineeringApproach` | Eight-step loop, 4×2 grid with heavy top rules; each step links to evidence |
+| `AiEngineering` | Stage table (AI helps with / I stay responsible for) and tool list; table rows stack on mobile |
+| `Skills` | Engineering toolkit as a definition list, one row per area, icons beside names |
+| `JournalList` | Dated rows (date + kind in the margin column) for journal entries |
 | `ProjectFilter` (client) | `?category=` filter with `aria-current` and a live count |
 | `ArchitectureDiagram` | Tiered system diagram rendered from content data as HTML lists |
 | `ContactForm` (client) | Validated form with field errors, focus management, honest status |
 | `SiteNav`, `LanguageSwitch`, `ThemeToggle` (client) | Header controls, 44px targets |
 | `T` | Renders localized content; marks English fallbacks with `lang="en"` |
 | `ExternalLink` | New-tab links with `rel` and a screen-reader hint |
+
+Journal article bodies use `.article` (MDX elements styled in `globals.css`;
+`src/mdx-components.tsx` makes code blocks keyboard-scrollable and external links
+open in a new tab). Code blocks are the only boxed element in prose.
 
 Utility classes in `globals.css`: `.page`, `.label`, `.link`, `.btn`, `.btn-primary`,
 `.btn-secondary`, `.tags`, `.bullets`, `.prose-block`, `.lang-label`.

@@ -31,6 +31,10 @@ const plexMono = IBM_Plex_Mono({
   variable: '--font-plex-mono',
   display: 'optional',
   preload: false,
+  // The generated metric-adjusted fallback is a proportional face; without it
+  // the stack falls through to ui-monospace, so labels and code blocks stay
+  // monospaced on a first visit when Plex Mono is not used.
+  adjustFontFallback: false,
 });
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
@@ -93,6 +97,7 @@ export default async function LocaleLayout({
 
   const nav = [
     { href: '/projects', label: t.nav.work },
+    { href: '/journal', label: t.nav.journal },
     { href: '/about', label: t.nav.about },
     { href: '/contact', label: t.nav.contact },
   ];
@@ -100,6 +105,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={htmlLang[locale]}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${plexSans.variable} ${plexMono.variable} ${sourceSerif.variable} ${kantumruy.variable}`}
     >

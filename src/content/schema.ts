@@ -72,12 +72,41 @@ export const skillGroupSchema = z.object({
 });
 export type SkillGroup = z.infer<typeof skillGroupSchema>;
 
-export const capabilitySchema = z.object({
+/** One step of the engineering loop, with a verifiable pointer to where it was done. */
+export const approachStepSchema = z.object({
+  id: z.string().regex(/^[a-z]+$/),
   title: localized,
   body: localized,
-  tools: z.array(z.string()).min(1),
+  evidence: z.object({ text: localized, href: z.string().startsWith('/') }),
 });
-export type Capability = z.infer<typeof capabilitySchema>;
+export type ApproachStep = z.infer<typeof approachStepSchema>;
+
+export const aiUses = ['coding', 'research', 'debugging', 'review', 'automation'] as const;
+export type AiUse = (typeof aiUses)[number];
+
+export const aiToolSchema = z.object({
+  name: z.string(),
+  icon: z.string().startsWith('/ai-tools/'),
+  description: localized,
+  uses: z.array(z.enum(aiUses)).min(1),
+});
+export type AiTool = z.infer<typeof aiToolSchema>;
+
+/** How AI is used at one stage, and what stays with the engineer. */
+export const aiPracticeSchema = z.object({ use: z.enum(aiUses), ai: localized, me: localized });
+export type AiPractice = z.infer<typeof aiPracticeSchema>;
+
+export const journalEntrySchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/),
+  title: localized,
+  summary: localized,
+  published: isoDate,
+  kind: z.enum(['case-study', 'decision', 'debugging', 'lesson', 'experiment']),
+  tags: z.array(z.string()).min(1),
+  /** Minutes, rounded up; shown next to the date. */
+  readingMinutes: z.number().int().positive(),
+});
+export type JournalEntry = z.infer<typeof journalEntrySchema>;
 
 export const projectCategories = ['backend', 'security', 'observability', 'delivery'] as const;
 export type ProjectCategory = (typeof projectCategories)[number];
@@ -109,16 +138,26 @@ export const projectSchema = z.object({
   demo: z.url().optional(),
   status: z.enum(projectStatuses),
   featured: z.boolean(),
+  /** One line each for the homepage: what needed solving, what I did, what exists now. */
+  brief: z.object({ problem: localized, contribution: localized, result: localized }),
   caseStudy: z.object({
     context: localized,
     challenge: localized,
     role: localized,
+    /** How the design is organised — described from the code, not reconstructed intent. */
+    approach: localized,
     architecture: z.object({ summary: localized, diagram: diagramSchema }),
     choices: z.array(z.object({ tech: z.string(), reason: localized })).min(1),
     implementation: z.array(localized).min(1),
     security: z.array(localized).min(1),
     testing: localized,
+    /** Concrete problems in the build and how the code resolves them. */
+    challenges: z.array(z.object({ problem: localized, solution: localized })).min(1),
+    /** What a design choice costs. */
+    tradeoffs: z.array(z.object({ choice: localized, cost: localized })).min(1),
     limitations: z.array(localized).min(1),
+    /** Next changes, derived from the known limitations. */
+    nextSteps: z.array(localized).min(1),
     outcome: localized,
   }),
 });

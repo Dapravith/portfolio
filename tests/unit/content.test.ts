@@ -29,7 +29,7 @@ describe('content', () => {
   });
 
   it('has no invented proficiency scores', () => {
-    const skillText = strings([content.skillGroups, content.capabilities, content.profile]);
+    const skillText = strings([content.skillGroups, content.approach, content.aiTools, content.aiPractice, content.profile]);
     for (const s of skillText) expect(s).not.toMatch(/\d\s?%/);
   });
 

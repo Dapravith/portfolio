@@ -35,16 +35,18 @@ test('case study has every section, a diagram and a working repository link', as
   await page.goto('/projects/retail-microservices-platform');
   await expect(page.getByRole('heading', { level: 1, name: 'Retail microservices platform' })).toBeVisible();
   for (const name of [
-    'Context',
-    'Challenge',
-    'My part',
+    'The problem',
+    'My role',
+    'Approach',
     'Architecture',
-    'Technology choices',
+    'Technical decisions',
     'Implementation',
+    'Challenges and solutions',
     'Security and reliability',
     'Testing',
-    'Known limitations',
-    'Outcome',
+    'Trade-offs',
+    'Results',
+    'Lessons and next steps',
   ]) {
     await expect(page.getByRole('heading', { level: 2, name, exact: true })).toBeVisible();
   }
@@ -58,5 +60,26 @@ test('Khmer case study marks English-only text with lang="en"', async ({ page })
   await page.goto('/km/projects/retail-microservices-platform');
   await expect(page.locator('html')).toHaveAttribute('lang', 'km');
   await expect(page.getByText('ការសិក្សាករណីលម្អិតនេះមានជាភាសាអង់គ្លេសនៅឡើយ។')).toBeVisible();
-  await expect(page.locator('#context p[lang="en"]')).toHaveCount(1);
+  await expect(page.locator('#problem p[lang="en"]')).toHaveCount(2);
+});
+
+test('homepage shows selected work as problem, contribution and result', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'View selected work' }).click();
+  await expect(page).toHaveURL(/#work$/);
+  const work = page.locator('#work');
+  await expect(work.locator('article')).toHaveCount(4);
+  for (const term of ['Problem', 'My contribution', 'Result']) await expect(work.locator('dt', { hasText: term })).toHaveCount(4);
+  await work.getByRole('link', { name: /Read the case study\s*:\s*Retail microservices platform/ }).click();
+  await expect(page.getByRole('heading', { level: 2, name: 'Trade-offs' })).toBeVisible();
+});
+
+test('journal lists articles and renders MDX with keyboard-scrollable code', async ({ page }) => {
+  await page.goto('/journal');
+  await page.getByRole('link', { name: 'The contact form that always said “sent”' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('always said');
+  await expect(page.getByRole('heading', { level: 2, name: 'The root cause' })).toBeVisible();
+  const code = page.locator('.article pre').first();
+  await expect(code).toHaveAttribute('tabindex', '0');
+  expect(await page.locator('script[type="application/ld+json"]').textContent()).toContain('"TechArticle"');
 });
