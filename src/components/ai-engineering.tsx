@@ -46,7 +46,7 @@ export function AiEngineering({ locale, t }: { locale: Locale; t: Dictionary }) 
         <ul className="mt-4 grid gap-x-8 sm:grid-cols-2">
           {aiTools.map((tool) => (
             <li key={tool.name} className="flex items-start gap-3 border-t border-rule py-4">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-rule bg-white p-1.5">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-rule bg-white p-1">
                 <Image src={tool.icon} width={28} height={28} alt="" className="h-7 w-7 object-contain" />
               </span>
               <div className="min-w-0">
