@@ -33,7 +33,7 @@ export const profileSchema = z.object({
     phoneDisplay: z.string(),
   }),
   resume: z.object({ href: z.string().startsWith('/'), sizeKb: z.number().int().positive(), updated: isoDate }),
-  availability: z.object({ open: z.boolean(), note: localized, updated: isoDate }),
+  availability: z.object({ open: z.boolean(), confirmed: z.boolean(), note: localized, updated: isoDate }),
   photo: z.object({ src: z.string().startsWith('/'), width: z.number(), height: z.number(), alt: localized }),
   languages: z.array(localized),
 });

@@ -66,6 +66,12 @@ describe('content', () => {
     expect(content.profile.telegram.phoneDisplay.replace(/\s/g, '')).toBe(content.profile.telegram.phone);
   });
 
+  it('only presents availability claims after explicit owner confirmation', () => {
+    const { availability } = content.profile;
+    expect(availability.updated).toBe('2025-11-05');
+    expect(availability.confirmed).toBe(false);
+  });
+
   it('resolves project helpers', () => {
     expect(getProject('retail-microservices-platform')?.year).toBe(2025);
     expect(getProject('missing')).toBeUndefined();

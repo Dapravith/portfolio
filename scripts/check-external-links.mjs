@@ -14,7 +14,7 @@ const files = [];
   }
 })(root);
 
-const ignore = [/^https:\/\/dapravith\.vercel\.app/, /example\.com/, /api\.resend\.com/, /schema\.org/, /resend\.com\/docs/];
+// Ignore internal/self links and authenticated service endpoints, not public visitor links.\nconst ignore = [/^https:\/\/dapravith\.vercel\.app/, /example\.com/, /api\.resend\.com/, /^https:\/\/api\.openai\.com\/v1\/chat\/completions(?:[?#]|$)/, /schema\.org/, /resend\.com\/docs/];
 const urls = new Set();
 for (const file of files) {
   for (const m of readFileSync(file, 'utf8').matchAll(/https:\/\/[^\s'"`)<>]+/g)) {

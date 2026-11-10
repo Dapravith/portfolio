@@ -25,6 +25,9 @@ export const profile: Profile = {
   resume: { href: '/rotha-dapravith-resume.pdf', sizeKb: 97, updated: '2025-11-05' },
   availability: {
     open: true,
+    // Manually verify the status with the owner before setting to true.
+    // The 2025-11-05 note is historical and must not be presented as current.
+    confirmed: false,
     note: {
       en: 'Open to full-time and contract roles in backend, full-stack or DevOps work — remote, hybrid or on-site.',
       km: 'កំពុងស្វែងរកការងារពេញម៉ោង ឬកិច្ចសន្យា ផ្នែក backend, full-stack ឬ DevOps — ពីចម្ងាយ ចម្រុះ ឬនៅការិយាល័យ។',

@@ -86,7 +86,7 @@ export default async function HomePage({ params }: Props) {
                 <div>
                   <dt className="label">{t.home.status}</dt>
                   <dd className="mt-1">
-                    {Date.now() - new Date(profile.availability.updated + 'T00:00:00Z').getTime() <= 90 * 86_400_000 ? (
+                    {profile.availability.confirmed ? (
                       <>
                         <T value={profile.availability.note} locale={locale} />{' '}
                         <span className="text-muted">
