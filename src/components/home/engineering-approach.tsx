@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { content } from '@/content';
 import { localizePath, type Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
-import { T } from './localized-text';
+import { T } from '@/components/ui/localized-text';
 
 /** The eight-step engineering loop; each step links to where it can be checked. */
 export function EngineeringApproach({ locale, t }: { locale: Locale; t: Dictionary }) {

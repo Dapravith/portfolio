@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { ProjectFilter } from '@/components/project-filter';
-import { ProjectRow } from '@/components/project-row';
-import { PageHeader } from '@/components/section';
+import { ProjectFilter } from '@/components/projects/project-filter';
+import { ProjectRow } from '@/components/projects/project-row';
+import { PageHeader } from '@/components/ui/section';
 import { content, projectCategories } from '@/content';
 import { isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';

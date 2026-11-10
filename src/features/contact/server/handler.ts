@@ -1,6 +1,8 @@
+import 'server-only';
+import { clientKey, jsonNoStore } from '@/server/http';
 import { deliverContactMessage, getContactConfig, type ContactConfig } from './deliver';
-import { createRateLimiter } from './rate-limit';
-import { contactEnvelopeSchema, MIN_FILL_MS, type ContactField, type ContactResponse } from './schema';
+import { createRateLimiter } from '@/server/rate-limit';
+import { contactEnvelopeSchema, MIN_FILL_MS, type ContactField, type ContactResponse } from '@/features/contact/schema';
 
 const MAX_BODY_BYTES = 10_000;
 const defaultLimiter = createRateLimiter({ limit: 5, windowMs: 10 * 60 * 1000 });
@@ -12,7 +14,7 @@ type Deps = {
 };
 
 function json(body: ContactResponse, status: number, headers: Record<string, string> = {}) {
-  return Response.json(body, { status, headers: { 'Cache-Control': 'no-store', ...headers } });
+  return jsonNoStore(body, status, headers);
 }
 
 function sameHost(origin: string, requestUrl: string): boolean {
@@ -21,11 +23,6 @@ function sameHost(origin: string, requestUrl: string): boolean {
   } catch {
     return false; // includes the opaque "null" origin
   }
-}
-
-function clientKey(request: Request): string {
-  const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-  return forwarded || request.headers.get('x-real-ip') || 'unknown';
 }
 
 /**

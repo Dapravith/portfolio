@@ -1,4 +1,6 @@
-import type { ContactInput } from './schema';
+import 'server-only';
+import type { ContactInput } from '@/features/contact/schema';
+import { serverEnv } from '@/server/env';
 
 /**
  * Delivery through Resend's HTTP API (https://resend.com/docs/api-reference/emails/send-email).
@@ -9,12 +11,11 @@ import type { ContactInput } from './schema';
  */
 export type ContactConfig = { apiKey: string; to: string; from: string; endpoint: string };
 
-export function getContactConfig(env: NodeJS.ProcessEnv = process.env): ContactConfig | null {
-  const apiKey = env.RESEND_API_KEY?.trim();
-  const to = env.CONTACT_TO_EMAIL?.trim();
-  const from = env.CONTACT_FROM_EMAIL?.trim();
+export function getContactConfig(source: NodeJS.ProcessEnv = process.env): ContactConfig | null {
+  const env = serverEnv(source);
+  const { RESEND_API_KEY: apiKey, CONTACT_TO_EMAIL: to, CONTACT_FROM_EMAIL: from } = env;
   if (!apiKey || !to || !from) return null;
-  return { apiKey, to, from, endpoint: env.RESEND_API_URL?.trim() || 'https://api.resend.com/emails' };
+  return { apiKey, to, from, endpoint: env.RESEND_API_URL ?? 'https://api.resend.com/emails' };
 }
 
 export function isContactConfigured(): boolean {

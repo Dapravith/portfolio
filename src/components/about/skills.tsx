@@ -1,4 +1,4 @@
-import { TechIcon } from '@/components/tech-icon';
+import { TechIcon } from '@/components/ui/tech-icon';
 import { content } from '@/content';
 import { skillItemTranslations } from '@/content/skills';
 import type { Locale } from '@/i18n/config';

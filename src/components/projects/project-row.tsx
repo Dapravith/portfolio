@@ -2,9 +2,9 @@ import Link from 'next/link';
 import type { Project } from '@/content';
 import { localizePath, type Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
-import { ExternalLink } from './external-link';
-import { ArrowRight } from './icons';
-import { T } from './localized-text';
+import { ExternalLink } from '@/components/ui/external-link';
+import { ArrowRight } from '@/components/ui/icons';
+import { T } from '@/components/ui/localized-text';
 
 /** One project as a full-width row: what it is, what it uses, where to read more. */
 export function ProjectRow({
