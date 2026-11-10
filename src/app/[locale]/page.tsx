@@ -86,10 +86,16 @@ export default async function HomePage({ params }: Props) {
                 <div>
                   <dt className="label">{t.home.status}</dt>
                   <dd className="mt-1">
-                    <T value={profile.availability.note} locale={locale} />{' '}
-                    <span className="text-muted">
-                      ({t.home.statusAsOf} {formatDate(profile.availability.updated, locale)})
-                    </span>
+                    {Date.now() - new Date(profile.availability.updated + 'T00:00:00Z').getTime() <= 90 * 86_400_000 ? (
+                      <>
+                        <T value={profile.availability.note} locale={locale} />{' '}
+                        <span className="text-muted">
+                          ({t.home.statusAsOf} {formatDate(profile.availability.updated, locale)})
+                        </span>
+                      </>
+                    ) : (
+                      t.home.statusUnconfirmed
+                    )}
                   </dd>
                 </div>
               )}
