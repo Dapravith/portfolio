@@ -64,7 +64,7 @@ export const experience: Experience[] = [
   },
   {
     id: 'mef',
-    role: { en: 'Software Developer and DevOps Engineer Interned', km: 'កម្មសិក្សា អ្នកអភិវឌ្ឍកម្មវិធី និង DevOps Engineer' },
+    role: { en: 'Software Development & DevOps Intern', km: 'កម្មសិក្សា អ្នកអភិវឌ្ឍកម្មវិធី និង DevOps Engineer' },
     org: {
       en: 'Secretariat of the Legal Council, Ministry of Economy and Finance',
       km: 'លេខាធិការដ្ឋាន ក្រុមប្រឹក្សានិតិកម្ម នៃ ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ',
@@ -131,7 +131,7 @@ export const experience: Experience[] = [
   },
   {
     id: 'vectorasoft',
-    role: { en: 'Web Developer Interned', km: 'កម្មសិក្សាអ្នកអភិវឌ្ឍគេហទំព័រ' },
+    role: { en: 'Web Developer Intern', km: 'កម្មសិក្សាអ្នកអភិវឌ្ឍគេហទំព័រ' },
     org: { en: 'Vectorasoft', km: 'ក្រុមហ៊ុន Vectorasoft' },
     orgShort: 'Vectorasoft',
     start: '2022-07',
