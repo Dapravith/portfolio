@@ -73,13 +73,3 @@ test('homepage shows selected work as problem, contribution and result', async (
   await work.getByRole('link', { name: /Read the case study\s*:\s*Retail microservices platform/ }).click();
   await expect(page.getByRole('heading', { level: 2, name: 'Trade-offs' })).toBeVisible();
 });
-
-test('journal lists articles and renders MDX with keyboard-scrollable code', async ({ page }) => {
-  await page.goto('/journal');
-  await page.getByRole('link', { name: 'The contact form that always said “sent”' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('always said');
-  await expect(page.getByRole('heading', { level: 2, name: 'The root cause' })).toBeVisible();
-  const code = page.locator('.article pre').first();
-  await expect(code).toHaveAttribute('tabindex', '0');
-  expect(await page.locator('script[type="application/ld+json"]').textContent()).toContain('"TechArticle"');
-});

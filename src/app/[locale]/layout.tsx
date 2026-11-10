@@ -97,7 +97,6 @@ export default async function LocaleLayout({
 
   const nav = [
     { href: '/projects', label: t.nav.work },
-    { href: '/journal', label: t.nav.journal },
     { href: '/about', label: t.nav.about },
     { href: '/contact', label: t.nav.contact },
   ];
