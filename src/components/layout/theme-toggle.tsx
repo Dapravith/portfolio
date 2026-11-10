@@ -1,7 +1,7 @@
 'use client';
 
 import { useSyncExternalStore } from 'react';
-import { Moon, Sun } from './icons';
+import { Moon, Sun } from '@/components/ui/icons';
 
 // The initial class is set by an inline script in the layout before paint,
 // so this component only mirrors and flips it.

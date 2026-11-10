@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { ArrowUpRight } from './icons';
+import { ArrowUpRight } from '@/components/ui/icons';
 
 /** Link to another site: new tab, safe rel, and an announced hint for screen readers. */
 export function ExternalLink({

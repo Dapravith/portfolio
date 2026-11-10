@@ -10,6 +10,7 @@ Build: `npm run build` (Next.js 16, Turbopack). Node 22 in CI; Next.js requires 
 ## Environment variables
 
 Set in Vercel → Project → Settings → Environment Variables. Never commit them.
+Server variables are parsed in `src/server/env.ts`; blank values count as unset.
 
 | Variable | Required | Purpose |
 |---|---|---|
@@ -17,6 +18,11 @@ Set in Vercel → Project → Settings → Environment Variables. Never commit t
 | `CONTACT_TO_EMAIL` | for the contact form | Inbox that receives messages |
 | `CONTACT_FROM_EMAIL` | for the contact form | Sender on a domain verified in Resend, e.g. `Portfolio <contact@your-domain>` |
 | `RESEND_API_URL` | no | Override the API endpoint (tests use a local mock) |
+| `OPENAI_API_KEY` | for AI chat answers | Without it the assistant answers from `src/content` only |
+| `OPENAI_MODEL` | no | Chat model; defaults to `gpt-4o-mini` |
+| `UPSTASH_REDIS_REST_URL` | for the visitor counter | Upstash Redis REST endpoint |
+| `UPSTASH_REDIS_REST_TOKEN` | for the visitor counter | Upstash Redis REST token (server-only) |
+| `PORTFOLIO_COUNT_VISITORS` | no | `true` records visits outside Vercel production (for testing) |
 | `NEXT_PUBLIC_SITE_URL` | no | Canonical origin; defaults to `https://dapravith.vercel.app` |
 
 **The contact form is switched on at build time.** If the three contact variables

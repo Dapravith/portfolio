@@ -56,6 +56,10 @@ Radii are 2px and 4px only.
 
 ## Components (`src/components`)
 
+Shared primitives are in `ui/`; page sections are in `home/`, `about/`, `projects/`;
+the app shell is in `layout/`. Interactive feature UI (contact form, chat, visitor counter)
+lives in `src/features/<name>/components/`.
+
 | Component | Purpose |
 |---|---|
 | `Section`, `PageHeader` | Margin-label + content grid used by every page |

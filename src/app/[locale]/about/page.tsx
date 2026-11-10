@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Download } from '@/components/icons';
-import { T } from '@/components/localized-text';
-import { PageHeader, Section } from '@/components/section';
-import { Skills } from '@/components/skills';
+import { Download } from '@/components/ui/icons';
+import { T } from '@/components/ui/localized-text';
+import { PageHeader, Section } from '@/components/ui/section';
+import { Skills } from '@/components/about/skills';
 import { content } from '@/content';
 import { isLocale, localizePath, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';

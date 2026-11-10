@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { ContactForm } from '@/components/contact-form';
-import { ExternalLink } from '@/components/external-link';
-import { Download } from '@/components/icons';
-import { PageHeader } from '@/components/section';
+import { ContactForm } from '@/features/contact/components/contact-form';
+import { ExternalLink } from '@/components/ui/external-link';
+import { Download } from '@/components/ui/icons';
+import { PageHeader } from '@/components/ui/section';
 import { content } from '@/content';
 import { isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
-import { isContactConfigured } from '@/lib/contact/deliver';
+import { isContactConfigured } from '@/features/contact/server/deliver';
 import { pageMetadata } from '@/lib/site';
 
 type Props = { params: Promise<{ locale: string }> };

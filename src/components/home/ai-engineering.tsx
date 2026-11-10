@@ -2,8 +2,8 @@ import Image from 'next/image';
 import { content } from '@/content';
 import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
-import { ExternalLink } from './external-link';
-import { T } from './localized-text';
+import { ExternalLink } from '@/components/ui/external-link';
+import { T } from '@/components/ui/localized-text';
 
 /**
  * AI in the workflow: what it helps with at each stage, what stays with me,

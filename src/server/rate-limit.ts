@@ -1,3 +1,5 @@
+import 'server-only';
+
 /**
  * Fixed-window rate limiter kept in process memory.
  *

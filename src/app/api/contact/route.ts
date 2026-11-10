@@ -1,4 +1,4 @@
-import { handleContact } from '@/lib/contact/handler';
+import { handleContact } from '@/features/contact/server/handler';
 
 export const runtime = 'nodejs';
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { Dictionary } from '@/i18n/dictionaries';
-import { contactSchema, type ContactField, type ContactResponse } from '@/lib/contact/schema';
+import { contactSchema, type ContactField, type ContactResponse } from '@/features/contact/schema';
 
 type Copy = Dictionary['contact'];
 type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent' } | { kind: 'error'; message: string };

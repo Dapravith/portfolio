@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { ContactConfig } from '@/lib/contact/deliver';
-import { handleContact } from '@/lib/contact/handler';
-import { createRateLimiter } from '@/lib/contact/rate-limit';
+import type { ContactConfig } from '@/features/contact/server/deliver';
+import { handleContact } from '@/features/contact/server/handler';
+import { createRateLimiter } from '@/server/rate-limit';
 
 const config: ContactConfig = { apiKey: 'test-key', to: 'inbox@example.com', from: 'Site <site@example.com>', endpoint: 'https://mail.test/emails' };
 const valid = { name: 'Sok Dara', email: 'dara@example.com', message: 'Hello, I would like to talk about a role.', website: '', elapsedMs: 8000 };

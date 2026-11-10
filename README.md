@@ -108,10 +108,12 @@ src/
 │   ├── api/og/              # Social preview image
 │   ├── sitemap.ts, robots.ts
 │   └── globals.css          # Design tokens and base styles
+├── features/                # contact, chat, analytics: schema.ts + components/ + server/
+├── components/              # Presentational UI: layout/, home/, about/, projects/, ui/
+├── server/                  # Server-only: env (Zod), http helpers, rate limit
+├── lib/                     # Pure helpers: site/SEO, JSON-LD, tech icons
 ├── content/                 # Profile, experience, skills, projects (+ Zod schema)
 ├── i18n/                    # Locale config and UI strings (en + km)
-├── lib/                     # Site helpers, JSON-LD, contact handler/delivery/rate limit
-├── components/              # UI components
 └── proxy.ts                 # Maps / → English, /km → Khmer, /en/* → redirect
 tests/
 ├── unit/                    # Vitest
@@ -171,6 +173,7 @@ preview deployments. CI does not deploy. Old résumé URLs (`/resume.pdf`,
 
 | Document | Contents |
 |---|---|
+| [`ARCHITECTURE.md`](docs/portfolio/ARCHITECTURE.md) | Folder layout, layer rules, where new code goes |
 | [`AUDIT.md`](docs/portfolio/AUDIT.md) | Findings from the 2026-11 audit and their status |
 | [`ROADMAP.md`](docs/portfolio/ROADMAP.md) | What's done, what's next, and key decisions |
 | [`DESIGN_SYSTEM.md`](docs/portfolio/DESIGN_SYSTEM.md) | Visual direction, tokens, components, review checklist |

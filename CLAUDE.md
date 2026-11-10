@@ -19,8 +19,17 @@ Tailwind CSS 4, Zod. English at `/`, Khmer at `/km` (via `src/proxy.ts` → `src
 - Do not describe confidential employer systems beyond what the résumé says.
 - Content goes in `src/content/*.ts`; UI strings in `src/i18n/dictionaries.ts` (both
   locales, same keys). Do not put content arrays in components.
-- Server Components by default. Current client components: `site-nav`, `theme-toggle`,
-  `project-filter`, `contact-form`, `chat-assistant`, `ViewCounter`, `phnom-penh-time`
+- Follow `docs/portfolio/ARCHITECTURE.md`. In short: `app/` routes only (API routes are
+  one-line adapters); anything with an API, provider or client state is a
+  `features/<name>/` slice (`schema.ts`, `components/`, `server/handler.ts` with injectable
+  deps); presentational UI in `components/<area>/`, shared primitives in `components/ui/`;
+  server-only infra in `src/server/`; `process.env` is read only via `serverEnv()`.
+  Imports use `@/`, point downwards, and never pull server code into client code —
+  `npm run lint` enforces this. Kebab-case file names, no barrel files.
+- Server Components by default. Current client components: `components/layout/site-nav`,
+  `components/layout/theme-toggle`, `components/layout/phnom-penh-time`,
+  `components/projects/project-filter`, `features/contact/components/contact-form`,
+  `features/chat/components/chat-assistant`, `features/analytics/components/view-counter`
   and the `[locale]/error.tsx` boundary. Keep it that way unless interaction requires more.
 - Follow `docs/portfolio/DESIGN_SYSTEM.md`: tokens in `src/app/globals.css`, one accent
   colour, no gradients/glow/particles/cards-with-shadows, nothing animating on scroll.
