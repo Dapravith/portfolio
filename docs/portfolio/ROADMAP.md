@@ -20,7 +20,7 @@ Ordered by value. Correctness and trust come before visual polish.
 - [x] Case studies restructured: problem, role, approach, architecture, decisions, implementation, challenges → solutions, security, testing, trade-offs, results, lessons and next steps. New fields restate verified repository facts.
 - [x] "How I work": eight-step loop, each step linked to a role or case study as evidence.
 - [x] Engineering toolkit in nine areas (no tabs); AI-assisted engineering as its own section with per-stage responsibilities.
-- [x] Engineering journal (`@next/mdx`) with two articles from this repository's history; `/journal`, sitemap, `TechArticle` JSON-LD.
+- [x] ~~Engineering journal~~ — removed 2026-11-10 to keep the site focused on case studies; `/journal/*` redirects to `/projects`.
 - [x] Error boundary for localized pages; monospace fallback fixed for first visits.
 
 ## Next

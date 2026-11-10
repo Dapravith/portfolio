@@ -5,7 +5,6 @@ import { AiEngineering } from '@/components/ai-engineering';
 import { EngineeringApproach } from '@/components/engineering-approach';
 import { ExternalLink } from '@/components/external-link';
 import { ArrowRight, Download } from '@/components/icons';
-import { JournalList } from '@/components/journal-list';
 import { T } from '@/components/localized-text';
 import { Section } from '@/components/section';
 import { WorkItem } from '@/components/work-item';
@@ -27,7 +26,7 @@ export default async function HomePage({ params }: Props) {
   const { locale: raw } = await params;
   const locale = raw as Locale;
   const t = getDictionary(locale);
-  const { profile, experience, journal } = content;
+  const { profile, experience } = content;
   const featured = getFeaturedProjects();
   const latest = experience[0];
 
@@ -64,7 +63,7 @@ export default async function HomePage({ params }: Props) {
             </h1>
             <T as="p" value={profile.lead} locale={locale} className="mt-5 max-w-[40rem] text-lead" />
 
-            <dl className="mt-10 grid max-w-[46rem] gap-x-10 gap-y-5 border-t border-rule pt-6 text-small sm:grid-cols-2">
+            <dl className="mt-8 grid max-w-[46rem] gap-x-10 gap-y-5 border-t border-rule pt-6 text-small sm:grid-cols-2">
               <div>
                 <dt className="label">{t.home.focus}</dt>
                 <dd className="mt-1">{t.home.focusValue}</dd>
@@ -74,12 +73,6 @@ export default async function HomePage({ params }: Props) {
                 <dd className="mt-1">
                   <T value={latest.role} locale={locale} />, <T value={latest.org} locale={locale} />{' '}
                   <span className="text-muted">({formatWorkYears(latest.start, latest.end, t.about.present)})</span>
-                </dd>
-              </div>
-              <div>
-                <dt className="label">{t.home.based}</dt>
-                <dd className="mt-1">
-                  <T value={profile.location} locale={locale} /> ({profile.timezone})
                 </dd>
               </div>
               {profile.availability.open && (
@@ -101,7 +94,7 @@ export default async function HomePage({ params }: Props) {
               )}
             </dl>
 
-            <div className="mt-10 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a href="#work" className="btn btn-primary">
                 {t.home.ctaWork}
                 <ArrowRight />
@@ -179,17 +172,6 @@ export default async function HomePage({ params }: Props) {
         <AiEngineering locale={locale} t={t} />
       </Section>
 
-      {journal.length > 0 && (
-        <Section id="journal" label={t.home.journalLabel} title={t.home.journalTitle}>
-          <JournalList entries={journal.slice(0, 3)} locale={locale} t={t} />
-          <p className="mt-6">
-            <Link href={localizePath('/journal', locale)} className="link text-small">
-              {t.home.journalAll}
-            </Link>
-          </p>
-        </Section>
-      )}
-
       <Section id="contact" label={t.home.contactLabel} title={t.home.contactTitle} intro={<p>{t.home.contactBody}</p>}>
         <p>
           <a
@@ -203,10 +185,6 @@ export default async function HomePage({ params }: Props) {
           <Link href={localizePath('/contact', locale)} className="btn btn-secondary">
             {t.home.contactForm}
           </Link>
-          <a href={profile.resume.href} download className="btn btn-secondary">
-            <Download />
-            {t.home.ctaResume}
-          </a>
         </div>
       </Section>
     </>

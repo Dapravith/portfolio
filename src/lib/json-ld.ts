@@ -1,4 +1,4 @@
-import { content, type JournalEntry, type Project } from '@/content';
+import { content, type Project } from '@/content';
 import { localizePath, type Locale } from '@/i18n/config';
 import { absoluteUrl, text } from './site';
 
@@ -31,20 +31,6 @@ export function projectJsonLd(project: Project, locale: Locale) {
     codeRepository: project.repo,
     keywords: project.stack.join(', '),
     dateModified: String(project.year),
-    author: { '@type': 'Person', name: content.profile.name, url: absoluteUrl('/') },
-  };
-}
-
-export function articleJsonLd(entry: JournalEntry, locale: Locale) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    headline: text(entry.title, locale),
-    description: text(entry.summary, locale),
-    url: absoluteUrl(localizePath(`/journal/${entry.slug}`, locale)),
-    datePublished: entry.published,
-    inLanguage: 'en',
-    keywords: entry.tags.join(', '),
     author: { '@type': 'Person', name: content.profile.name, url: absoluteUrl('/') },
   };
 }

@@ -64,17 +64,12 @@ Radii are 2px and 4px only.
 | `EngineeringApproach` | Eight-step loop, 4×2 grid with heavy top rules; each step links to evidence |
 | `AiEngineering` | Stage table (AI helps with / I stay responsible for) and tool list; table rows stack on mobile |
 | `Skills` | Engineering toolkit as a definition list, one row per area, icons beside names |
-| `JournalList` | Dated rows (date + kind in the margin column) for journal entries |
 | `ProjectFilter` (client) | `?category=` filter with `aria-current` and a live count |
 | `ArchitectureDiagram` | Tiered system diagram rendered from content data as HTML lists |
 | `ContactForm` (client) | Validated form with field errors, focus management, honest status |
 | `SiteNav`, `LanguageSwitch`, `ThemeToggle` (client) | Header controls, 44px targets |
 | `T` | Renders localized content; marks English fallbacks with `lang="en"` |
 | `ExternalLink` | New-tab links with `rel` and a screen-reader hint |
-
-Journal article bodies use `.article` (MDX elements styled in `globals.css`;
-`src/mdx-components.tsx` makes code blocks keyboard-scrollable and external links
-open in a new tab). Code blocks are the only boxed element in prose.
 
 Utility classes in `globals.css`: `.page`, `.label`, `.link`, `.btn`, `.btn-primary`,
 `.btn-secondary`, `.tags`, `.bullets`, `.prose-block`, `.lang-label`.

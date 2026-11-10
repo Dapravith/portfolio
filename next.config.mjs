@@ -1,5 +1,3 @@
-import createMDX from '@next/mdx';
-
 /** @type {import('next').NextConfig} */
 
 // Static pages need inline scripts for hydration and the theme bootstrap, so
@@ -29,8 +27,6 @@ const securityHeaders = [
 
 const nextConfig = {
   poweredByHeader: false,
-  // Journal articles are .mdx files compiled at build time (src/content/journal).
-  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
@@ -39,10 +35,11 @@ const nextConfig = {
     return [
       { source: '/resume.pdf', destination: '/rotha-dapravith-resume.pdf', permanent: true },
       { source: '/Dapravith_Rotha_flow_cv.pdf', destination: '/rotha-dapravith-resume.pdf', permanent: true },
+      // The journal was removed; send shared article links to the project list.
+      { source: '/journal/:path*', destination: '/projects', permanent: true },
+      { source: '/km/journal/:path*', destination: '/km/projects', permanent: true },
     ];
   },
 };
 
-const withMDX = createMDX({});
-
-export default withMDX(nextConfig);
+export default nextConfig;

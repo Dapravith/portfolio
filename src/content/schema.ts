@@ -96,18 +96,6 @@ export type AiTool = z.infer<typeof aiToolSchema>;
 export const aiPracticeSchema = z.object({ use: z.enum(aiUses), ai: localized, me: localized });
 export type AiPractice = z.infer<typeof aiPracticeSchema>;
 
-export const journalEntrySchema = z.object({
-  slug: z.string().regex(/^[a-z0-9-]+$/),
-  title: localized,
-  summary: localized,
-  published: isoDate,
-  kind: z.enum(['case-study', 'decision', 'debugging', 'lesson', 'experiment']),
-  tags: z.array(z.string()).min(1),
-  /** Minutes, rounded up; shown next to the date. */
-  readingMinutes: z.number().int().positive(),
-});
-export type JournalEntry = z.infer<typeof journalEntrySchema>;
-
 export const projectCategories = ['backend', 'security', 'observability', 'delivery'] as const;
 export type ProjectCategory = (typeof projectCategories)[number];
 

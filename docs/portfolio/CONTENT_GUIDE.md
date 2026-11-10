@@ -12,7 +12,6 @@ instead of shipping a broken page.
 | `projects.ts` | Projects, their homepage brief and their case studies |
 | `approach.ts` | The eight-step "How I work" loop; each step links to evidence on the site |
 | `ai-tools.ts` | AI tools in the workflow and, per stage, what AI does and what stays with you |
-| `journal.ts` + `journal/*.mdx` | Engineering journal: index metadata, and one MDX file per article |
 | `schema.ts` | The rules every entry must satisfy |
 
 UI text (buttons, headings, error messages) lives in `src/i18n/dictionaries.ts`.
@@ -67,22 +66,6 @@ generated automatically.
 4. Set `featured: true` to show it on the home page (three to five).
 5. Run `npm test` and `npm run build`. The page appears at `/projects/<slug>` and in the sitemap.
 
-### Write a journal article
-
-1. Add an entry at the top of `journal` in `journal.ts` (newest first): `slug`,
-   `title` and `summary` in English and Khmer, `published` (`YYYY-MM-DD`), `kind`
-   (`debugging`, `decision`, `case-study`, `lesson` or `experiment`), `tags` and
-   `readingMinutes`.
-2. Create `src/content/journal/<slug>.mdx` and write in Markdown. Use `##` for
-   sections (the page provides the `h1`), fenced code blocks for code, and links to
-   commits or files that back up each claim.
-3. `npm test` checks that every entry has a file and every file has an entry. The
-   article appears at `/journal/<slug>`, on the home page (latest three) and in the sitemap.
-
-Only write about things that happened and can be checked: a commit, a repository,
-an issue or the résumé. The content test also scans the journal index, so quoting
-an inflated title in a summary fails the build — quote it in the article body instead.
-
 ### Khmer translations
 
 Khmer strings were written during the 2026-11 rebuild and **need review by a native
@@ -104,10 +87,6 @@ These are flagged because no source in the repository could verify them:
 
 ### Added on 2026-11-09 — please review before merging
 
-- **Journal articles** (`src/content/journal/*.mdx`) are written in your voice about
-  this repository's history. Every fact was checked against the git log, `AUDIT.md`
-  and the tests, but the wording, the "What I took from it" lessons and the
-  "Alternatives considered" section are a draft for you to edit or reject.
 - **Case-study `nextSteps`** ("What I would change next") are derived from each
   project's documented limitations. Confirm they are changes you would actually make.
 - **`ai-tools.ts` → `aiPractice`** expands your statement "I remain responsible for
@@ -119,5 +98,5 @@ These are flagged because no source in the repository could verify them:
   Gateway, Eureka, Kafka, Resilience4j (case studies); Spring Security, SonarQube,
   Trivy (case studies); JUnit, Vitest, Playwright (tests in the repositories and this
   site); pm2 (MEF role). Remove any you would not want to be asked about in an interview.
-- **New Khmer strings** (project briefs, approach, AI section, journal titles) need
+- **New Khmer strings** (project briefs, approach, AI section) need
   native-speaker review like the rest.
