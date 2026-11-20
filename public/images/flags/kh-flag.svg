@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" width="1000" height="640">
+  <!-- Blue stripe (top) -->
+  <rect width="1000" height="213" fill="#032ea1"/>
+  
+  <!-- Red stripe (middle) -->
+  <rect y="213" width="1000" height="214" fill="#e00025"/>
+  
+  <!-- Blue stripe (bottom) -->
+  <rect y="427" width="1000" height="213" fill="#032ea1"/>
+  
+  <!-- Angkor Wat (simplified white temple silhouette in center) -->
+  <g transform="translate(500, 320)">
+    <g fill="#ffffff">
+      <!-- Central tower (main spire) -->
+      <rect x="-15" y="-80" width="30" height="80"/>
+      <polygon points="-15,-80 0,-95 15,-80"/>
+      
+      <!-- Left tower -->
+      <rect x="-55" y="-60" width="25" height="60"/>
+      <polygon points="-55,-60 -42.5,-72 -30,-60"/>
+      
+      <!-- Right tower -->
+      <rect x="30" y="-60" width="25" height="60"/>
+      <polygon points="30,-60 42.5,-72 55,-60"/>
+      
+      <!-- Far left tower -->
+      <rect x="-85" y="-45" width="20" height="45"/>
+      <polygon points="-85,-45 -75,-55 -65,-45"/>
+      
+      <!-- Far right tower -->
+      <rect x="65" y="-45" width="20" height="45"/>
+      <polygon points="65,-45 75,-55 85,-45"/>
+      
+      <!-- Base structure -->
+      <rect x="-90" y="0" width="180" height="15"/>
+      <rect x="-85" y="15" width="170" height="8"/>
+    </g>
+  </g>
+</svg>
