@@ -53,6 +53,15 @@ export const experienceSchema = z.object({
 });
 export type Experience = z.infer<typeof experienceSchema>;
 
+/** One layer of the stack: what was used in paid work, and what only in public projects. */
+export const stackLayerSchema = z.object({
+  id: z.string(),
+  title: localized,
+  atWork: z.array(z.string()).min(1),
+  inProjects: z.array(z.string()),
+});
+export type StackLayer = z.infer<typeof stackLayerSchema>;
+
 export const educationSchema = z.object({
   credential: localized,
   institution: localized,

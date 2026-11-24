@@ -14,9 +14,11 @@ import {
   profileSchema,
   projectSchema,
   skillGroupSchema,
+  stackLayerSchema,
   type Project,
 } from './schema';
 import { skillGroups } from './skills';
+import { stackLayers } from './stack-layers';
 
 /**
  * Parses all content at module load. A typo in content fails `next build`
@@ -29,6 +31,7 @@ function validate() {
     education: z.array(educationSchema).parse(education),
     courses: z.array(courseSchema).parse(courses),
     skillGroups: z.array(skillGroupSchema).parse(skillGroups),
+    stackLayers: z.array(stackLayerSchema).parse(stackLayers),
     approach: z.array(approachStepSchema).parse(approach),
     aiTools: z.array(aiToolSchema).parse(aiTools),
     aiPractice: z.array(aiPracticeSchema).parse(aiPractice),
