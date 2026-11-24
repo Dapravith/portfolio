@@ -4,7 +4,7 @@ test('home shows who, what and how to make contact above the fold content', asyn
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1, name: 'Rotha Dapravith' })).toBeVisible();
   await expect(page.getByText('Full-stack Developer, Digital Economy and Business Committee')).toBeVisible();
-  await expect(page.getByRole('link', { name: /Download résumé/ }).first()).toHaveAttribute('href', '/rotha-dapravith-resume.pdf');
+  await expect(page.getByRole('link', { name: /Download résumé/ }).first()).toHaveAttribute('href', '/rotha-dapravith-cv.pdf');
   await expect(page.getByText(/senior/i)).toHaveCount(0);
 });
 
@@ -80,7 +80,7 @@ test('unknown URLs return a 404 page in both languages', async ({ page }) => {
 test('old résumé URLs redirect to the current file', async ({ request }) => {
   const res = await request.get('/resume.pdf', { maxRedirects: 0 });
   expect(res.status()).toBe(308);
-  expect(res.headers()['location']).toBe('/rotha-dapravith-resume.pdf');
+  expect(res.headers()['location']).toBe('/rotha-dapravith-cv.pdf');
 });
 
 test('AI-assisted engineering section and portfolio assistant work', async ({ page }) => {

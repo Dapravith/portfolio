@@ -33,8 +33,8 @@ const nextConfig = {
   async redirects() {
     // Old resume URLs that may already be shared or indexed.
     return [
-      { source: '/resume.pdf', destination: '/rotha-dapravith-resume.pdf', permanent: true },
-      { source: '/Dapravith_Rotha_flow_cv.pdf', destination: '/rotha-dapravith-resume.pdf', permanent: true },
+      { source: '/resume.pdf', destination: '/rotha-dapravith-cv.pdf', permanent: true },
+      { source: '/Dapravith_Rotha_flow_cv.pdf', destination: '/rotha-dapravith-cv.pdf', permanent: true },
       // The journal was removed; send shared article links to the project list.
       { source: '/journal/:path*', destination: '/projects', permanent: true },
       { source: '/km/journal/:path*', destination: '/km/projects', permanent: true },
