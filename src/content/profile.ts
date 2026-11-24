@@ -22,7 +22,7 @@ export const profile: Profile = {
   },
   // Supplied by the owner on 2026-11-08 for publication.
   telegram: { username: 'dapravith', phone: '+85589937798', phoneDisplay: '+855 89 937 798' },
-  resume: { href: '/rotha-dapravith-resume.pdf', sizeKb: 8, updated: '2026-11-24' },
+  resume: { href: '/rotha-dapravith-cv.pdf', sizeKb: 124, updated: '2026-11-24' },
   availability: {
     open: true,
     // Manually verify the status with the owner before setting to true.
