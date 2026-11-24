@@ -14,7 +14,7 @@
     "links:external": "node scripts/check-external-links.mjs"
   },
   "dependencies": {
-    "next": "^16.4.5",
+    "next": "^16.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "server-only": "^0.0.1",
@@ -29,7 +29,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "eslint": "^9",
-    "eslint-config-next": "^16.4.5",
+    "eslint-config-next": "^16.4.6",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.3.5",
     "typescript": "5.9.3",
