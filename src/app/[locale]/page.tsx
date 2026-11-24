@@ -139,9 +139,9 @@ export default async function HomePage({ params }: Props) {
             </ol>
             <p className="mt-2 text-small text-muted">
               {t.home.pipelineNote}{' '}
-              <Link href={localizePath('/projects/devsecops-jenkins-pipeline', locale)} className="link">
+              <ExternalLink href="https://github.com/Dapravith/GitOps-Multi-Deployment" newTabLabel={t.a11y.opensNewTab} className="link">
                 {t.home.pipelineLink}
-              </Link>
+              </ExternalLink>
             </p>
           </div>
         </div>
