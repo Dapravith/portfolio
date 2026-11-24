@@ -1,6 +1,6 @@
 import type { Profile } from './schema';
 
-// Source: public/rotha-dapravith-resume.pdf (resume dated 2025-11-05).
+// Source: public/rotha-dapravith-resume.pdf (resume dated 2026-11-24; earlier content from the 2025-11-05 version).
 // Khmer copy should be reviewed by a native speaker before each release.
 export const profile: Profile = {
   name: 'Rotha Dapravith',
@@ -22,7 +22,7 @@ export const profile: Profile = {
   },
   // Supplied by the owner on 2026-11-08 for publication.
   telegram: { username: 'dapravith', phone: '+85589937798', phoneDisplay: '+855 89 937 798' },
-  resume: { href: '/rotha-dapravith-resume.pdf', sizeKb: 97, updated: '2025-11-05' },
+  resume: { href: '/rotha-dapravith-resume.pdf', sizeKb: 8, updated: '2026-11-24' },
   availability: {
     open: true,
     // Manually verify the status with the owner before setting to true.
