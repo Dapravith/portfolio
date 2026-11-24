@@ -4,12 +4,12 @@ import type { Profile } from './schema';
 // Khmer copy should be reviewed by a native speaker before each release.
 export const profile: Profile = {
   name: 'Rotha Dapravith',
-  role: { en: 'Full-stack developer', km: 'អ្នកអភិវឌ្ឍកម្មវិធី Full-Stack' },
+  role: { en: 'Full-stack developer & DevOps engineer', km: 'អ្នកអភិវឌ្ឍកម្មវិធី Full-Stack និងវិស្វករ DevOps' },
   location: { en: 'Phnom Penh, Cambodia', km: 'ភ្នំពេញ ប្រទេសកម្ពុជា' },
   timezone: 'UTC+7',
   lead: {
-    en: 'I turn ideas into real, working systems — designing the architecture, building secure backend services with Java Spring Boot, crafting React interfaces and automating delivery to the cloud.',
-    km: 'ខ្ញុំប្រែក្លាយគំនិតឱ្យទៅជាប្រព័ន្ធដែលដំណើរការពិតប្រាកដ — ចាប់ពីការរចនាស្ថាបត្យកម្ម ការបង្កើតសេវាកម្ម backend ដែលមានសុវត្ថិភាពជាមួយ Java Spring Boot ការបង្កើតចំណុចប្រទាក់ React រហូតដល់ការដាក់ឱ្យប្រើប្រាស់ដោយស្វ័យប្រវត្តិលើ cloud។',
+    en: "I build Cambodia's public digital services end to end: Spring Boot and NestJS APIs, React and Next.js frontends, and the CI/CD, containers and monitoring that keep them running.",
+    km: 'ខ្ញុំកសាងសេវាកម្មឌីជីថលសាធារណៈរបស់កម្ពុជាពីដើមដល់ចប់៖ API ជាមួយ Spring Boot និង NestJS, frontend ជាមួយ React និង Next.js ព្រមទាំង CI/CD, container និងការតាមដានប្រព័ន្ធ ដែលធ្វើឱ្យវាដំណើរការជាប់លាប់។',
   },
   summary: {
     en: 'Full-stack developer focused on secure, scalable applications. I work on system architecture and flows, backend services with Spring Boot and WebFlux, and refactoring application logic for maintainability.',
@@ -22,7 +22,7 @@ export const profile: Profile = {
   },
   // Supplied by the owner on 2026-11-08 for publication.
   telegram: { username: 'dapravith', phone: '+85589937798', phoneDisplay: '+855 89 937 798' },
-  resume: { href: '/rotha-dapravith-cv.pdf', sizeKb: 124, updated: '2026-11-24' },
+  resume: { href: '/rotha-dapravith-cv.pdf', sizeKb: 126, updated: '2026-11-24' },
   availability: {
     open: true,
     // Manually verify the status with the owner before setting to true.

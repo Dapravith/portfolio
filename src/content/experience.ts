@@ -2,7 +2,8 @@ import type { Course, Education, Experience } from './schema';
 
 // Source: resume dated 2025-11-05. The Vectorasoft internship comes from the
 // owner's original site copy (commit 439d5b9); it is not on the current resume.
-// DEBC and the AUPP course were supplied by the owner in November 2026.
+// DEBC and the AUPP course were supplied by the owner in November 2026. The DEBC
+// entry stays generic on purpose: the owner asked not to name internal systems.
 // Newest first.
 export const experience: Experience[] = [
   {
@@ -14,14 +15,17 @@ export const experience: Experience[] = [
     end: null,
     location: { en: 'Phnom Penh', km: 'ភ្នំពេញ' },
     summary: {
-      en: 'Full-stack applications for digital economy initiatives, including business registration.',
-      km: 'កម្មវិធី Full-stack សម្រាប់គំនិតផ្តួចផ្តើមសេដ្ឋកិច្ចឌីជីថល រួមទាំងការចុះបញ្ជីអាជីវកម្ម។',
+      en: 'Full-stack work on public digital-economy services: backend APIs, web interfaces and system integrations.',
+      km: 'ការងារ Full-stack លើសេវាកម្មសេដ្ឋកិច្ចឌីជីថលសាធារណៈ៖ API ផ្នែក backend, ចំណុចប្រទាក់គេហទំព័រ និងការភ្ជាប់ប្រព័ន្ធ។',
     },
     highlights: [
-      { en: 'Build responsive interfaces, APIs and database integrations.', km: 'បង្កើតចំណុចប្រទាក់ responsive, API និងការភ្ជាប់មូលដ្ឋានទិន្នន័យ។' },
-      { en: 'Collaborate on testing and deployment.', km: 'សហការជាមួយក្រុមលើការធ្វើតេស្ត និងការដាក់ឱ្យប្រើប្រាស់។' },
+      { en: 'Develop and maintain backend APIs and services with NestJS and TypeScript.', km: 'អភិវឌ្ឍ និងថែទាំ API និងសេវាកម្ម backend ជាមួយ NestJS និង TypeScript។' },
+      { en: 'Build responsive web interfaces with Next.js and React, in Khmer and English.', km: 'បង្កើតចំណុចប្រទាក់គេហទំព័រ responsive ជាមួយ Next.js និង React ជាភាសាខ្មែរ និងអង់គ្លេស។' },
+      { en: 'Integrate internal systems with external government and banking services.', km: 'ភ្ជាប់ប្រព័ន្ធផ្ទៃក្នុងជាមួយសេវាកម្មរដ្ឋាភិបាល និងធនាគារខាងក្រៅ។' },
+      { en: 'Implement authentication and role-based access control.', km: 'អនុវត្តការផ្ទៀងផ្ទាត់អត្តសញ្ញាណ និងការគ្រប់គ្រងសិទ្ធិតាមតួនាទី។' },
+      { en: 'Monitor services, investigate production issues and support testing and deployments.', km: 'តាមដានសេវាកម្ម ស៊ើបអង្កេតបញ្ហាក្នុង production និងគាំទ្រការធ្វើតេស្ត និងការដាក់ឱ្យប្រើប្រាស់។' },
     ],
-    stack: ['Java Spring Boot', 'React', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'Git'],
+    stack: ['NestJS', 'Java Spring Boot', 'Next.js', 'React', 'TypeScript', 'MongoDB', 'PostgreSQL', 'Redis', 'Docker'],
   },
   {
     id: 'dgc',

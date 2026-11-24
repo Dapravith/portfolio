@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { AiEngineering } from '@/components/home/ai-engineering';
 import { EngineeringApproach } from '@/components/home/engineering-approach';
+import { StackLayers } from '@/components/home/stack-layers';
 import { ExternalLink } from '@/components/ui/external-link';
 import { ArrowRight, Download } from '@/components/ui/icons';
 import { T } from '@/components/ui/localized-text';
@@ -12,7 +13,7 @@ import { content, getFeaturedProjects } from '@/content';
 import { isLocale, localizePath, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { personJsonLd } from '@/lib/json-ld';
-import { formatDate, formatWorkYears, pageMetadata, text } from '@/lib/site';
+import { formatWorkYears, pageMetadata, text } from '@/lib/site';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -29,6 +30,13 @@ export default async function HomePage({ params }: Props) {
   const { profile, experience } = content;
   const featured = getFeaturedProjects();
   const latest = experience[0];
+  const firstYear = experience.map((job) => job.start.slice(0, 4)).sort()[0];
+  // Counts come straight from the content files, so they cannot drift from the pages they summarise.
+  const facts = [
+    { value: String(experience.length), label: `${t.home.factRoles} ${firstYear}` },
+    { value: String(content.projects.length), label: t.home.factProjects },
+    { value: 'KM/EN', label: t.home.factLanguages },
+  ];
 
   const allProjects = (
     <Link href={localizePath('/projects', locale)} className="link text-small">
@@ -63,35 +71,24 @@ export default async function HomePage({ params }: Props) {
             </h1>
             <T as="p" value={profile.lead} locale={locale} className="mt-5 max-w-[40rem] text-lead" />
 
-            <dl className="mt-8 grid max-w-[46rem] gap-x-10 gap-y-5 border-t border-rule pt-6 text-small sm:grid-cols-2">
-              <div>
-                <dt className="label">{t.home.focus}</dt>
-                <dd className="mt-1">{t.home.focusValue}</dd>
-              </div>
-              <div>
-                <dt className="label">{t.home.recent}</dt>
-                <dd className="mt-1">
-                  <T value={latest.role} locale={locale} />, <T value={latest.org} locale={locale} />{' '}
-                  <span className="text-muted">({formatWorkYears(latest.start, latest.end, t.about.present)})</span>
-                </dd>
-              </div>
-              {profile.availability.open && (
-                <div>
-                  <dt className="label">{t.home.status}</dt>
-                  <dd className="mt-1">
-                    {profile.availability.confirmed ? (
-                      <>
-                        <T value={profile.availability.note} locale={locale} />{' '}
-                        <span className="text-muted">
-                          ({t.home.statusAsOf} {formatDate(profile.availability.updated, locale)})
-                        </span>
-                      </>
-                    ) : (
-                      t.home.statusUnconfirmed
-                    )}
+            <p className="mt-6 text-small">
+              <span className="label mr-2">{t.home.now}</span>
+              <T value={latest.role} locale={locale} />, <T value={latest.org} locale={locale} />{' '}
+              <span className="text-muted">({formatWorkYears(latest.start, latest.end, t.about.present)})</span>
+            </p>
+
+            <dl aria-label={t.home.factsLabel} className="mt-6 grid max-w-[46rem] grid-cols-3 border-t border-b border-rule">
+              {facts.map((fact, i) => (
+                <div key={fact.label} className={`py-4 pr-3 ${i > 0 ? 'border-l border-rule pl-4' : ''}`}>
+                  <dt className="sr-only">{fact.label}</dt>
+                  <dd>
+                    <span className="block font-serif text-h3 font-semibold leading-none whitespace-nowrap sm:text-h2">{fact.value}</span>
+                    <span aria-hidden="true" className="mt-2 block text-meta text-muted">
+                      {fact.label}
+                    </span>
                   </dd>
                 </div>
-              )}
+              ))}
             </dl>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -124,6 +121,32 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      <section aria-label={t.home.pipelineLabel} className="border-t border-rule">
+        <div className="page grid gap-y-3 py-6 md:grid-cols-[11rem_minmax(0,1fr)] md:items-baseline md:gap-x-10 lg:grid-cols-[13rem_minmax(0,1fr)]">
+          <p className="label">{t.home.pipelineLabel}</p>
+          <div className="min-w-0">
+            <ol className="flex flex-wrap items-baseline gap-x-2 gap-y-1 font-mono text-small">
+              {t.home.pipeline.map((step, i) => (
+                <li key={step} className="flex items-baseline gap-x-2">
+                  {i > 0 && (
+                    <span aria-hidden="true" className="text-accent">
+                      →
+                    </span>
+                  )}
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-2 text-small text-muted">
+              {t.home.pipelineNote}{' '}
+              <ExternalLink href="https://github.com/Dapravith/GitOps-Multi-Deployment" newTabLabel={t.a11y.opensNewTab} className="link">
+                {t.home.pipelineLink}
+              </ExternalLink>
+            </p>
+          </div>
+        </div>
+      </section>
+
       <Section
         id="work"
         label={t.home.workLabel}
@@ -137,6 +160,10 @@ export default async function HomePage({ params }: Props) {
           ))}
         </div>
         <p className="mt-2 border-t border-rule pt-6 md:hidden">{allProjects}</p>
+      </Section>
+
+      <Section id="stack" label={t.home.stackLabel} title={t.home.stackTitle} intro={<p>{t.home.stackIntro}</p>}>
+        <StackLayers locale={locale} t={t} />
       </Section>
 
       <Section id="approach" label={t.home.approachLabel} title={t.home.approachTitle} intro={<p>{t.home.approachIntro}</p>}>
